@@ -1,0 +1,2128 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1B5E20">
+<title>Neno Safari - Mchezo wa Lugha ya Kiswahili</title>
+<link rel="manifest" href="manifest.json">
+<style>
+  :root {
+    --green-dark: #1B5E20;
+    --green: #2E7D32;
+    --green-light: #4CAF50;
+    --yellow: #F9A825;
+    --yellow-light: #FDD835;
+    --blue: #1565C0;
+    --blue-light: #42A5F5;
+    --black: #212121;
+    --red: #C62828;
+    --white: #FAFAFA;
+    --bg: #F1F8E9;
+    --card: #FFFFFF;
+    --shadow: rgba(0,0,0,0.15);
+    --found-color: #A5D6A7;
+    --select-color: #FFF176;
+    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --radius: 12px;
+    --cell-size: min(9.5vw, 38px);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--black);
+    min-height: 100vh;
+    overflow-x: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* ===== SCREENS ===== */
+  .screen { display: none; flex-direction: column; min-height: 100vh; }
+  .screen.active { display: flex; }
+
+  /* ===== SPLASH / HOME ===== */
+  #home-screen {
+    background: linear-gradient(160deg, var(--green-dark) 0%, var(--green) 40%, var(--blue) 100%);
+    align-items: center;
+    justify-content: flex-start;
+    padding: 24px 20px;
+    position: relative;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+  #home-screen::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 220px; height: 220px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  #home-screen::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -40px;
+    width: 280px; height: 280px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+  .home-logo {
+    font-size: 72px;
+    margin-bottom: 8px;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+  }
+  .home-title {
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: var(--yellow-light);
+    letter-spacing: 2px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    text-align: center;
+  }
+  .home-subtitle {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.85);
+    text-align: center;
+    margin-top: 6px;
+    margin-bottom: 32px;
+  }
+  .flag-stripe {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 28px;
+    align-items: center;
+  }
+  .stripe { height: 6px; border-radius: 3px; }
+  .stripe-g { width: 40px; background: #00a650; }
+  .stripe-y { width: 8px; background: #ffd700; }
+  .stripe-b { width: 40px; background: #1a47b8; }
+  .stripe-k { width: 8px; background: #000; }
+
+  .menu-btn {
+    width: 100%;
+    max-width: 320px;
+    padding: 16px 24px;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    position: relative;
+    z-index: 1;
+  }
+  .menu-btn:active { transform: scale(0.97); }
+  .menu-btn .btn-icon { font-size: 1.5rem; }
+  .menu-btn.primary { background: var(--yellow); color: var(--green-dark); box-shadow: 0 4px 20px rgba(249,168,37,0.4); }
+  .menu-btn.secondary { background: rgba(255,255,255,0.15); color: #fff; border: 2px solid rgba(255,255,255,0.3); backdrop-filter: blur(4px); }
+  .menu-btn.secondary:hover { background: rgba(255,255,255,0.25); }
+
+  .home-stats {
+    display: flex;
+    gap: 20px;
+    margin-top: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .stat-badge {
+    text-align: center;
+    background: rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 10px 16px;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .stat-badge .num { font-size: 1.4rem; font-weight: 900; color: var(--yellow-light); display: block; }
+  .stat-badge .lbl { font-size: 0.7rem; color: rgba(255,255,255,0.7); }
+
+  .word-of-day {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    max-width: 320px;
+    width: 100%;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+  .wod-label { font-size: 0.7rem; color: var(--yellow-light); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+  .wod-word { font-size: 1.5rem; font-weight: 900; color: #fff; }
+  .wod-meaning { font-size: 0.85rem; color: rgba(255,255,255,0.8); margin-top: 2px; }
+  .home-controls,
+  .updates-card {
+    width: 100%;
+    max-width: 320px;
+    position: relative;
+    z-index: 1;
+  }
+  .language-card,
+  .updates-card {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: var(--radius);
+    padding: 12px;
+    color: #fff;
+    backdrop-filter: blur(4px);
+  }
+  .language-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .control-label { font-size: 0.78rem; font-weight: 800; color: rgba(255,255,255,0.86); }
+  .segmented {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: rgba(0,0,0,0.18);
+    border-radius: 8px;
+    padding: 3px;
+  }
+  .segmented button {
+    border: 0;
+    border-radius: 6px;
+    padding: 8px 10px;
+    background: transparent;
+    color: rgba(255,255,255,0.82);
+    font-size: 0.74rem;
+    font-weight: 800;
+    cursor: pointer;
+  }
+  .segmented button.active { background: var(--yellow); color: var(--green-dark); }
+  .updates-card { margin: 18px 0 4px; }
+  .updates-card h3 {
+    font-size: 0.9rem;
+    color: var(--yellow-light);
+    margin-bottom: 8px;
+  }
+  .updates-card ul { padding-left: 18px; display: grid; gap: 5px; }
+  .updates-card li { font-size: 0.78rem; color: rgba(255,255,255,0.86); line-height: 1.25; }
+
+  /* ===== CATEGORY SELECT ===== */
+  #category-screen {
+    background: var(--bg);
+    padding-bottom: 24px;
+  }
+  .top-bar {
+    background: var(--green-dark);
+    color: #fff;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+  .back-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 8px;
+    transition: background 0.15s;
+  }
+  .back-btn:active { background: rgba(255,255,255,0.2); }
+  .top-bar h2 { font-size: 1.1rem; font-weight: 700; flex: 1; }
+
+  .difficulty-row {
+    display: flex;
+    gap: 8px;
+    padding: 16px 20px 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .difficulty-row::-webkit-scrollbar { display: none; }
+  .diff-btn {
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: 2px solid var(--green-light);
+    background: #fff;
+    color: var(--green);
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+  .diff-btn.active { background: var(--green); color: #fff; border-color: var(--green); }
+
+  .categories-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    padding: 12px 20px;
+  }
+  .cat-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 16px 14px;
+    cursor: pointer;
+    box-shadow: 0 2px 10px var(--shadow);
+    transition: transform 0.15s, box-shadow 0.15s;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+  .cat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .cat-card:active { transform: scale(0.96); box-shadow: 0 1px 4px var(--shadow); }
+  .cat-icon { font-size: 2.2rem; display: block; margin-bottom: 8px; }
+  .cat-name { font-size: 0.9rem; font-weight: 800; color: var(--black); line-height: 1.2; }
+  .cat-sub { font-size: 0.72rem; color: #666; margin-top: 3px; }
+  .cat-progress {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .prog-bar { flex: 1; height: 4px; background: #E0E0E0; border-radius: 2px; overflow: hidden; }
+  .prog-fill { height: 100%; background: var(--green-light); border-radius: 2px; transition: width 0.3s; }
+  .prog-label { font-size: 0.65rem; color: #888; font-weight: 600; }
+
+  /* Category color accents */
+  .cat-0::before { background: #FF7043; } .cat-0 .cat-icon::after { color: #FF7043; }
+  .cat-1::before { background: #42A5F5; }
+  .cat-2::before { background: #66BB6A; }
+  .cat-3::before { background: #AB47BC; }
+  .cat-4::before { background: #FFA726; }
+  .cat-5::before { background: #26C6DA; }
+  .cat-6::before { background: #EC407A; }
+  .cat-7::before { background: #8D6E63; }
+  .cat-8::before { background: #7E57C2; }
+  .cat-9::before { background: #EF5350; }
+
+  /* ===== GAME SCREEN ===== */
+  #game-screen {
+    background: var(--bg);
+    flex-direction: column;
+  }
+  .game-top {
+    background: var(--green-dark);
+    color: #fff;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .game-title-area { flex: 1; }
+  .game-cat-name { font-size: 0.75rem; color: rgba(255,255,255,0.7); letter-spacing: 0.5px; }
+  .game-title { font-size: 1rem; font-weight: 800; }
+
+  .score-area {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .score-pill {
+    background: rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .timer-bar {
+    height: 3px;
+    background: rgba(255,255,255,0.2);
+    position: relative;
+  }
+  .timer-fill {
+    height: 100%;
+    background: var(--yellow-light);
+    transition: width 1s linear;
+  }
+
+  .game-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding-bottom: 20px;
+  }
+
+  /* Grid */
+  .grid-container {
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+  }
+  .grid-wrap {
+    position: relative;
+    display: inline-block;
+  }
+  #word-grid {
+    display: grid;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px var(--shadow);
+    touch-action: none;
+    background: var(--card);
+  }
+  .cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(var(--cell-size) * 0.42);
+    font-weight: 800;
+    cursor: pointer;
+    transition: background 0.1s;
+    border: 0.5px solid rgba(0,0,0,0.05);
+    position: relative;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--card);
+    letter-spacing: 0;
+  }
+  .cell.selecting { background: var(--select-color); color: var(--black); }
+  .cell.found { background: var(--found-color); color: var(--green-dark); }
+  .cell.found.last-found { animation: flashFound 0.5s ease; }
+
+  @keyframes flashFound {
+    0% { background: var(--yellow-light); transform: scale(1.15); }
+    100% { background: var(--found-color); transform: scale(1); }
+  }
+
+  /* Word list */
+  .word-list-section {
+    padding: 0 16px;
+  }
+  .word-list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .word-list-title { font-size: 0.9rem; font-weight: 700; color: var(--green-dark); }
+  .words-count { font-size: 0.8rem; color: #888; }
+
+  .words-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+  }
+  .word-chip {
+    background: var(--card);
+    border-radius: 8px;
+    padding: 8px 11px;
+    border: 2px solid #E0E0E0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 1px 4px var(--shadow);
+  }
+  .word-chip.found {
+    background: #E8F5E9;
+    border-color: var(--green-light);
+  }
+  .word-chip .check { font-size: 0.9rem; color: var(--green-light); opacity: 0; transition: opacity 0.2s; }
+  .word-chip.found .check { opacity: 1; }
+  .word-chip .wtext { font-size: 0.82rem; font-weight: 700; color: var(--black); }
+  .word-chip.found .wtext { text-decoration: line-through; color: #999; }
+  .word-chip .wmean { font-size: 0.68rem; color: #888; }
+  body.hide-translations .wmean,
+  body.hide-translations .cat-sub,
+  body.hide-translations #modal-meaning { display: none; }
+
+  /* Hint button */
+  .hint-section {
+    padding: 12px 16px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .hint-btn {
+    flex: 1 1 calc(50% - 8px);
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid var(--yellow);
+    background: #fff;
+    color: var(--green-dark);
+    font-weight: 700;
+    font-size: 0.78rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: all 0.15s;
+  }
+  .hint-btn:active { background: var(--yellow-light); }
+
+  /* ===== WORD REVEAL MODAL ===== */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 200;
+    display: flex;
+    align-items: flex-end;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+  }
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .modal-sheet {
+    background: var(--card);
+    border-radius: 20px 20px 0 0;
+    padding: 28px 24px;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .modal-overlay.open .modal-sheet { transform: translateY(0); }
+
+  .modal-handle {
+    width: 40px; height: 4px;
+    background: #E0E0E0;
+    border-radius: 2px;
+    margin: -12px auto 20px;
+  }
+  .modal-word { font-size: 2rem; font-weight: 900; color: var(--green-dark); }
+  .modal-meaning {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .modal-pron {
+    margin-top: 8px;
+    color: var(--blue);
+    font-size: 0.88rem;
+    font-weight: 700;
+  }
+  .flag-icon { font-size: 1.1rem; }
+  .modal-example {
+    background: var(--bg);
+    border-left: 4px solid var(--green-light);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 14px;
+    margin-top: 14px;
+    font-size: 0.88rem;
+    color: var(--black);
+    font-style: italic;
+  }
+  .modal-example strong { font-style: normal; font-size: 0.75rem; color: var(--green); display: block; margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .modal-note {
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: #FFF8E1;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    color: #795548;
+    display: none;
+  }
+  .modal-note.has-note { display: block; }
+  .modal-note strong { color: var(--yellow); }
+  .modal-close {
+    width: 100%;
+    margin-top: 18px;
+    padding: 14px;
+    background: var(--green);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.15s;
+  }
+  .modal-close:active { background: var(--green-dark); }
+  .modal-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 18px;
+  }
+  .modal-save {
+    padding: 13px;
+    border: 2px solid var(--green);
+    background: #fff;
+    color: var(--green-dark);
+    border-radius: var(--radius);
+    font-weight: 800;
+    cursor: pointer;
+  }
+  .modal-save:disabled {
+    opacity: 0.65;
+    cursor: default;
+  }
+  .modal-actions .modal-close { margin-top: 0; }
+
+  /* Points popup */
+  .points-pop {
+    position: fixed;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--green);
+    pointer-events: none;
+    animation: popUp 1s ease forwards;
+    z-index: 300;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+  @keyframes popUp {
+    0% { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-60px) scale(1.3); }
+  }
+
+  /* ===== VICTORY SCREEN ===== */
+  #victory-screen {
+    background: linear-gradient(160deg, var(--green-dark), var(--blue));
+    align-items: center;
+    justify-content: center;
+    padding: 32px 24px;
+    text-align: center;
+  }
+  .victory-emoji { font-size: 80px; animation: bounce 1s ease infinite alternate; }
+  @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-12px); } }
+  .victory-title { font-size: 2.2rem; font-weight: 900; color: var(--yellow-light); margin-top: 12px; }
+  .victory-msg { font-size: 1rem; color: rgba(255,255,255,0.85); margin-top: 6px; }
+  .stars-row { display: flex; justify-content: center; gap: 12px; margin: 20px 0; font-size: 2.5rem; }
+  .star { opacity: 0; transform: scale(0); animation: starIn 0.4s ease forwards; }
+  .star:nth-child(1) { animation-delay: 0.3s; }
+  .star:nth-child(2) { animation-delay: 0.6s; }
+  .star:nth-child(3) { animation-delay: 0.9s; }
+  @keyframes starIn { to { opacity: 1; transform: scale(1) rotate(15deg); } }
+  .victory-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    width: 100%;
+    max-width: 340px;
+    margin-bottom: 28px;
+  }
+  .v-stat {
+    background: rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 12px 6px;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .v-stat .n { font-size: 1.5rem; font-weight: 900; color: var(--yellow-light); }
+  .v-stat .l { font-size: 0.65rem; color: rgba(255,255,255,0.7); }
+
+  .vocab-summary {
+    background: rgba(255,255,255,0.1);
+    border-radius: var(--radius);
+    padding: 16px;
+    width: 100%;
+    max-width: 340px;
+    margin-bottom: 20px;
+    text-align: left;
+    max-height: 180px;
+    overflow-y: auto;
+  }
+  .vocab-summary h3 { font-size: 0.8rem; color: var(--yellow-light); font-weight: 700; margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase; }
+  .vocab-item { font-size: 0.82rem; color: rgba(255,255,255,0.9); margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .vocab-item:last-child { border-bottom: none; }
+  .vocab-item strong { color: var(--yellow-light); }
+
+  .v-btn {
+    width: 100%;
+    max-width: 320px;
+    padding: 16px;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: transform 0.15s;
+  }
+  .v-btn:active { transform: scale(0.97); }
+  .v-btn.main { background: var(--yellow); color: var(--green-dark); }
+  .v-btn.sec { background: rgba(255,255,255,0.15); color: #fff; border: 2px solid rgba(255,255,255,0.3); }
+
+  /* ===== MODE SELECT ===== */
+  #mode-screen {
+    background: var(--bg);
+  }
+  .mode-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    padding: 16px 20px;
+  }
+  .mode-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 20px 14px;
+    cursor: pointer;
+    box-shadow: 0 2px 10px var(--shadow);
+    text-align: center;
+    transition: transform 0.15s;
+    border: 2px solid transparent;
+  }
+  .mode-card:active { transform: scale(0.96); }
+  .mode-card.active { border-color: var(--green); }
+  .mode-icon { font-size: 2.5rem; margin-bottom: 8px; }
+  .mode-name { font-size: 0.88rem; font-weight: 800; color: var(--black); }
+  .mode-desc { font-size: 0.7rem; color: #888; margin-top: 4px; line-height: 1.4; }
+
+  /* Responsive tweaks */
+  @media (max-width: 360px) {
+    :root { --cell-size: 8.8vw; }
+    .categories-grid { gap: 10px; padding: 10px 14px; }
+    .words-grid { grid-template-columns: 1fr 1fr; gap: 5px; }
+  }
+  @media (min-width: 500px) {
+    :root { --cell-size: min(7vw, 38px); }
+    .categories-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--black);
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 25px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    z-index: 400;
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    white-space: nowrap;
+    max-width: 90vw;
+    text-align: center;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* Loading overlay */
+  .loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 500;
+    flex-direction: column;
+    gap: 16px;
+    font-size: 1rem;
+    color: var(--green);
+    font-weight: 600;
+  }
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #C8E6C9;
+    border-top-color: var(--green);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div class="loading-overlay" id="loading">
+  <div class="spinner"></div>
+  <span>Inapakia Mchezo...</span>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- WORD REVEAL MODAL -->
+<div class="modal-overlay" id="word-modal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-word" id="modal-word"></div>
+    <div class="modal-meaning"><span class="flag-icon">🇬🇧</span><span id="modal-meaning"></span></div>
+    <div class="modal-pron" id="modal-pron"></div>
+    <div class="modal-example">
+      <strong>Mfano wa sentensi:</strong>
+      <span id="modal-example"></span>
+    </div>
+    <div class="modal-note" id="modal-note">
+      <strong>📌 Kumbuka:</strong> <span id="modal-note-text"></span>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-save" id="modal-save" onclick="saveCurrentWord()">Hifadhi Neno</button>
+      <button class="modal-close" onclick="closeModal()">✓ &nbsp;Endelea!</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HOME SCREEN ===== -->
+<div class="screen active" id="home-screen">
+  <div class="home-logo">🦁</div>
+  <div class="home-title">NENO SAFARI</div>
+  <div class="home-subtitle" data-i18n="homeSubtitle">Jifunze Kiswahili kwa Kucheza!</div>
+
+  <div class="flag-stripe">
+    <div class="stripe stripe-g"></div>
+    <div class="stripe stripe-y"></div>
+    <div class="stripe stripe-b"></div>
+    <div class="stripe stripe-k"></div>
+    <div class="stripe stripe-g" style="width:40px"></div>
+  </div>
+
+  <div class="word-of-day" id="home-wod">
+    <div class="wod-label" data-i18n="wordOfDay">🌟 Neno la Leo</div>
+    <div class="wod-word" id="wod-word">Karibu</div>
+    <div class="wod-meaning" id="wod-meaning">Welcome — "Karibu Tanzania!"</div>
+  </div>
+
+  <div class="home-controls">
+    <div class="language-card">
+      <span class="control-label" data-i18n="languageLabel">Lugha ya menyu</span>
+      <div class="segmented" role="group" aria-label="Language">
+        <button id="lang-sw" class="active" onclick="setAppLanguage('sw')">Kiswahili</button>
+        <button id="lang-en" onclick="setAppLanguage('en')">English</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="menu-btn primary" onclick="showScreen('mode-screen')">
+    <span class="btn-icon">🎮</span>
+    <span data-i18n="playNow">Cheza Sasa</span>
+  </button>
+  <button class="menu-btn secondary" onclick="showScreen('category-screen')">
+    <span class="btn-icon">📚</span>
+    <span data-i18n="chooseCategory">Chagua Mada</span>
+  </button>
+  <button class="menu-btn secondary" onclick="startDailyPuzzle()">
+    <span class="btn-icon">☀️</span>
+    <span data-i18n="dailyPuzzle">Fumbo la Leo</span>
+  </button>
+
+  <div class="home-stats">
+    <div class="stat-badge">
+      <span class="num" id="stat-words">0</span>
+      <span class="lbl" data-i18n="wordsStat">Maneno</span>
+    </div>
+    <div class="stat-badge">
+      <span class="num" id="stat-puzzles">0</span>
+      <span class="lbl" data-i18n="puzzlesStat">Mafumbo</span>
+    </div>
+    <div class="stat-badge">
+      <span class="num" id="stat-score">0</span>
+      <span class="lbl" data-i18n="scoreStat">Pointi</span>
+    </div>
+  </div>
+
+  <div class="updates-card">
+    <h3 data-i18n="updatesTitle">Maboresho yajayo</h3>
+    <ul>
+      <li data-i18n="updateOne">Sauti za matamshi kwa maneno muhimu.</li>
+      <li data-i18n="updateTwo">Maswali mafupi baada ya kukamilisha fumbo.</li>
+      <li data-i18n="updateThree">Toleo la Android, kisha iOS na web/PC.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== MODE SCREEN ===== -->
+<div class="screen" id="mode-screen">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showScreen('home-screen')">←</button>
+    <h2 data-i18n="chooseMode">Chagua Aina ya Mchezo</h2>
+  </div>
+  <div class="mode-grid">
+    <div class="mode-card active" onclick="selectMode('classic', this)">
+      <div class="mode-icon">🎯</div>
+      <div class="mode-name" data-i18n="classicMode">Kawaida</div>
+      <div class="mode-desc" data-i18n="classicDesc">Tafuta maneno bila haraka</div>
+    </div>
+    <div class="mode-card" onclick="selectMode('learn', this)">
+      <div class="mode-icon">📖</div>
+      <div class="mode-name" data-i18n="learnMode">Jifunze</div>
+      <div class="mode-desc" data-i18n="learnDesc">Maelezo baada ya kila neno</div>
+    </div>
+    <div class="mode-card" onclick="selectMode('timed', this)">
+      <div class="mode-icon">⏱️</div>
+      <div class="mode-name" data-i18n="timedMode">Haraka</div>
+      <div class="mode-desc" data-i18n="timedDesc">Tafuta maneno kabla ya muda</div>
+    </div>
+    <div class="mode-card" onclick="selectMode('daily', this)">
+      <div class="mode-icon">☀️</div>
+      <div class="mode-name" data-i18n="dailyMode">Leo</div>
+      <div class="mode-desc" data-i18n="dailyDesc">Fumbo jipya kila siku</div>
+    </div>
+  </div>
+
+  <div style="padding: 0 20px 8px;">
+    <div class="word-list-title" style="margin-bottom: 12px;" data-i18n="difficultyTitle">Kiwango cha Ugumu</div>
+    <div class="difficulty-row" style="padding: 0 0 16px;">
+      <button class="diff-btn active" onclick="selectDiff('rahisi', this)">🟢 Rahisi</button>
+      <button class="diff-btn" onclick="selectDiff('kati', this)">🟡 Kati</button>
+      <button class="diff-btn" onclick="selectDiff('ngumu', this)">🔴 Ngumu</button>
+      <button class="diff-btn" onclick="selectDiff('bingwa', this)">⭐ Bingwa</button>
+    </div>
+  </div>
+
+  <div style="padding: 0 20px;">
+    <button class="menu-btn primary" style="max-width:100%; margin:0;" onclick="showScreen('category-screen')">
+      <span class="btn-icon">▶️</span><span data-i18n="continueCategory">Endelea Kuchagua Mada</span>
+    </button>
+  </div>
+</div>
+
+<!-- ===== CATEGORY SCREEN ===== -->
+<div class="screen" id="category-screen">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showScreen('home-screen')">←</button>
+    <h2 data-i18n="chooseCategory">Chagua Mada</h2>
+  </div>
+  <div class="categories-grid" id="cat-grid"></div>
+</div>
+
+<!-- ===== GAME SCREEN ===== -->
+<div class="screen" id="game-screen">
+  <div class="game-top">
+    <button class="back-btn" onclick="exitGame()">←</button>
+    <div class="game-title-area">
+      <div class="game-cat-name" id="game-cat-label">Mada</div>
+      <div class="game-title" id="game-title">Maneno ya Kiswahili</div>
+    </div>
+    <div class="score-area">
+      <div class="score-pill">⭐ <span id="score-display">0</span></div>
+      <div class="score-pill" id="timer-pill" style="display:none">⏱ <span id="timer-display">60</span></div>
+    </div>
+  </div>
+  <div class="timer-bar" id="timer-bar" style="display:none">
+    <div class="timer-fill" id="timer-fill" style="width:100%"></div>
+  </div>
+  <div class="game-body">
+    <div class="grid-container">
+      <div class="grid-wrap">
+        <div id="word-grid"></div>
+      </div>
+    </div>
+    <div class="hint-section">
+      <button class="hint-btn" onclick="useHint('letter')">💡 Herufi ya Kwanza</button>
+      <button class="hint-btn" onclick="useHint('highlight')">🔦 Onyesha Neno</button>
+      <button class="hint-btn" onclick="useHint('meaning')">🇬🇧 Maana</button>
+      <button class="hint-btn" onclick="useHint('pron')">🔊 Matamshi</button>
+      <button class="hint-btn" onclick="toggleTranslations()" id="translation-toggle">Ficha Kiingereza</button>
+    </div>
+    <div class="word-list-section">
+      <div class="word-list-header">
+        <span class="word-list-title" id="words-list-title" data-i18n="wordsToFind">Maneno ya Kutafuta</span>
+        <span class="words-count" id="words-count">0/0 Yamepatikana</span>
+      </div>
+      <div class="words-grid" id="words-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== VICTORY SCREEN ===== -->
+<div class="screen" id="victory-screen">
+  <div class="victory-emoji">🏆</div>
+  <div class="victory-title" id="v-title">Hongera!</div>
+  <div class="victory-msg" id="v-msg">Umefanikiwa!</div>
+  <div class="stars-row" id="stars-row">
+    <span class="star">⭐</span>
+    <span class="star">⭐</span>
+    <span class="star">⭐</span>
+  </div>
+  <div class="victory-stats">
+    <div class="v-stat"><div class="n" id="v-score">0</div><div class="l">Pointi</div></div>
+    <div class="v-stat"><div class="n" id="v-words">0</div><div class="l">Maneno</div></div>
+    <div class="v-stat"><div class="n" id="v-time">0s</div><div class="l">Muda</div></div>
+  </div>
+  <div class="vocab-summary" id="vocab-summary">
+    <h3>📚 Maneno Uliyojifunza</h3>
+    <div id="vocab-list"></div>
+  </div>
+  <button class="v-btn main" onclick="playAgain()">🔄 Cheza Tena</button>
+  <button class="v-btn sec" onclick="showScreen('category-screen')">📚 Mada Nyingine</button>
+  <button class="v-btn sec" onclick="showScreen('home-screen')">🏠 Nyumbani</button>
+</div>
+
+<script>
+// ============================================================
+// DATA: CATEGORIES & WORDS
+// ============================================================
+const CATEGORIES = [
+  {
+    id: 'chakula',
+    name: 'Vyakula vya Tanzania',
+    sub: 'Tanzania Food',
+    icon: '🍽️',
+    color: '#FF7043',
+    words: [
+      { sw: 'UGALI', en: 'Maize porridge / staple meal', ex: 'Ninakula ugali na samaki kila siku.', note: 'Ugali ni chakula kikuu cha Tanzania.' },
+      { sw: 'PILAU', en: 'Spiced rice with meat', ex: 'Pilau ya Zanzibar ni tamu sana.', note: 'Pilau ina viungo vingi kama karafuu na pilipili manga.' },
+      { sw: 'WALI', en: 'Cooked rice', ex: 'Ninapenda wali na maharage.', note: 'Wali ni chakula cha kawaida pwani.' },
+      { sw: 'NYAMA', en: 'Meat', ex: 'Ananunua nyama sokoni asubuhi.' },
+      { sw: 'SAMAKI', en: 'Fish', ex: 'Samaki wa Ziwa Victoria ni mkubwa sana.' },
+      { sw: 'NDIZI', en: 'Banana / plantain', ex: 'Ndizi za Tanzania ni tamu.', note: 'Ndizi za kupika ni tofauti na ndizi za kula moja kwa moja.' },
+      { sw: 'CHIPSI', en: 'French fries / chips', ex: 'Watoto wanakula chipsi baada ya shule.' },
+      { sw: 'MAHARAGE', en: 'Beans', ex: 'Maharage na wali ni mlo wa pamoja.' },
+      { sw: 'MCHICHA', en: 'Spinach / leafy greens', ex: 'Mama anapika mchicha na nyanya.' },
+      { sw: 'KACHUMBARI', en: 'Fresh tomato and onion salad', ex: 'Kachumbari ina nyanya, kitunguu na limau.' },
+      { sw: 'MANDAZI', en: 'Fried dough bread', ex: 'Mandazi na chai ni kifungua kinywa kizuri.' },
+      { sw: 'SUPU', en: 'Soup / broth', ex: 'Supu ya nyama inanipa nguvu.' },
+    ]
+  },
+  {
+    id: 'miji',
+    name: 'Miji na Maeneo',
+    sub: 'Cities & Places',
+    icon: '🏙️',
+    color: '#42A5F5',
+    words: [
+      { sw: 'DODOMA', en: 'Capital city of Tanzania', ex: 'Dodoma ni mji mkuu wa Tanzania.', note: 'Dodoma imekuwa mji mkuu rasmi tangu 1996.' },
+      { sw: 'ARUSHA', en: 'Major city near Kilimanjaro', ex: 'Tunaenda Arusha kuona wanyama.', note: 'Arusha ni lango la safari nyingi.' },
+      { sw: 'MWANZA', en: 'City on Lake Victoria', ex: 'Mwanza iko kandoni mwa Ziwa Victoria.' },
+      { sw: 'MBEYA', en: 'City in Southern Highlands', ex: 'Mbeya ina hali ya hewa ya baridi.', note: 'Mbeya inajulikana kwa kilimo cha chai na kahawa.' },
+      { sw: 'TANGA', en: 'Coastal city in northeastern Tanzania', ex: 'Tanga ina pwani nzuri sana.' },
+      { sw: 'KIGOMA', en: 'City on Lake Tanganyika', ex: 'Kigoma ipo karibu na Ziwa Tanganyika.' },
+      { sw: 'MOSHI', en: 'City at foot of Kilimanjaro', ex: 'Moshi iko chini ya Mlima Kilimanjaro.' },
+      { sw: 'MOROGORO', en: 'City with Uluguru Mountains', ex: 'Morogoro ina milima mizuri ya Uluguru.' },
+      { sw: 'ZANZIBAR', en: 'Island famous for spices', ex: 'Zanzibar inajulikana kwa viungo na pwani.', note: 'Zanzibar ni sehemu ya Jamhuri ya Muungano wa Tanzania.' },
+      { sw: 'DARESSALAAM', en: 'Dar es Salaam, Tanzania largest city', ex: 'Dar es Salaam ni jiji kubwa la biashara.' },
+    ]
+  },
+  {
+    id: 'wanyama',
+    name: 'Wanyama wa Tanzania',
+    sub: 'Tanzanian Animals',
+    icon: '🦁',
+    color: '#66BB6A',
+    words: [
+      { sw: 'SIMBA', en: 'Lion', ex: 'Simba anaishi mbugani na familia yake.', note: 'Tanzania ina idadi kubwa ya simba duniani.' },
+      { sw: 'TEMBO', en: 'Elephant', ex: 'Tembo mkubwa ananywa maji mtoni.', note: 'Serengeti na Mikumi vina tembo wengi.' },
+      { sw: 'TWIGA', en: 'Giraffe', ex: 'Twiga anakula majani ya mti mrefu.' },
+      { sw: 'NYATI', en: 'Buffalo', ex: 'Nyati ni hatari sana ukimkaribia.' },
+      { sw: 'CHUI', en: 'Leopard', ex: 'Chui anapanda mti usiku na nyama yake.' },
+      { sw: 'KIFARU', en: 'Rhinoceros', ex: 'Kifaru ni mnyama alio hatarini kutoweka.' },
+      { sw: 'PUNDAMILIA', en: 'Zebra', ex: 'Pundamilia wana mistari nyeusi na nyeupe.', note: 'Jina linahusishwa na mistari ya mwilini kama milia.' },
+      { sw: 'NYUMBU', en: 'Wildebeest / gnu', ex: 'Nyumbu wengi wanahamia kila mwaka.', note: 'Uhamaji wa nyumbu Serengeti ni maarufu duniani.' },
+      { sw: 'FISI', en: 'Hyena', ex: 'Fisi analia usiku na sauti ya ajabu.' },
+      { sw: 'NYANI', en: 'Monkey / baboon', ex: 'Nyani anakula matunda msituni.' },
+      { sw: 'KIBOKO', en: 'Hippopotamus', ex: 'Kiboko anaishi mtoni na anakula nyasi.' },
+      { sw: 'SWALA', en: 'Gazelle / antelope', ex: 'Swala anaruka mbio mbugani.' },
+    ]
+  },
+  {
+    id: 'salamu',
+    name: 'Salamu na Mazungumzo',
+    sub: 'Greetings & Conversation',
+    icon: '👋',
+    color: '#AB47BC',
+    words: [
+      { sw: 'HABARI', en: 'News / how are you?', ex: 'Habari za asubuhi? Nzuri!', note: 'Majibu ya kawaida: Nzuri, Safi, Poa.' },
+      { sw: 'KARIBU', en: 'Welcome / come in', ex: 'Karibu nyumbani kwangu!', note: 'Unaweza pia kusema "Karibu sana" kwa msisitizo.' },
+      { sw: 'ASANTE', en: 'Thank you', ex: 'Asante sana kwa msaada wako.', note: 'Jibu la asante ni "Karibu" au "Sawa".' },
+      { sw: 'SAMAHANI', en: 'Sorry / excuse me', ex: 'Samahani, naweza kupita?', note: 'Pia hutumika kusema "Msamaha" rasmi zaidi.' },
+      { sw: 'TAFADHALI', en: 'Please', ex: 'Tafadhali nipe maji, nina kiu.' },
+      { sw: 'KWAHERI', en: 'Goodbye', ex: 'Kwaheri! Tutaonana kesho.', note: 'Kwa watu wengi unasema "Kwaherini".' },
+      { sw: 'NDIYO', en: 'Yes', ex: 'Ndiyo, ninaelewa vizuri.' },
+      { sw: 'HAPANA', en: 'No', ex: 'Hapana, sitaki sukari kwenye chai yangu.' },
+      { sw: 'SHIKAMOO', en: 'Respectful greeting (to elders)', ex: 'Shikamoo babu! Habari za leo?', note: 'Jibu ni "Marahaba" — heshima muhimu sana Tanzania.' },
+      { sw: 'MAMBO', en: 'How\'s things? (informal)', ex: 'Mambo vipi? — Poa kabisa!', note: '"Mambo" ni salamu ya vijana na marafiki.' },
+      { sw: 'SAWA', en: 'OK / alright', ex: 'Sawa, nitakuja saa tatu.' },
+      { sw: 'POLE', en: 'Sorry (empathy) / slowly', ex: 'Pole sana kwa msiba wako.', note: '"Pole pole" inamaanisha "slowly slowly".' },
+    ]
+  },
+  {
+    id: 'familia',
+    name: 'Familia',
+    sub: 'Family',
+    icon: '👨‍👩‍👧‍👦',
+    color: '#FFA726',
+    words: [
+      { sw: 'MAMA', en: 'Mother', ex: 'Mama wangu anapika chakula kitamu.', note: '"Mama" pia ni salamu ya heshima kwa mwanamke mzima.' },
+      { sw: 'BABA', en: 'Father', ex: 'Baba ananisaidia na kazi za shule.' },
+      { sw: 'DADA', en: 'Sister (older)', ex: 'Dada yangu anaishi Dar es Salaam.' },
+      { sw: 'KAKA', en: 'Brother (older)', ex: 'Kaka yangu ni daktari.' },
+      { sw: 'MTOTO', en: 'Child', ex: 'Mtoto anacheza kwa furaha.' },
+      { sw: 'BABU', en: 'Grandfather', ex: 'Babu ananieleza hadithi za zamani.', note: '"Bibi" ni bibi (grandmother) na "babu" ni babu (grandfather).' },
+      { sw: 'BIBI', en: 'Grandmother / older woman', ex: 'Bibi ananitengenezea chai.' },
+      { sw: 'MJOMBA', en: 'Uncle (mother\'s brother)', ex: 'Mjomba wangu anaishi Mwanza.' },
+      { sw: 'SHANGAZI', en: 'Aunt (father\'s sister)', ex: 'Shangazi ananiletea zawadi sikukuu.' },
+      { sw: 'BINAMU', en: 'Cousin', ex: 'Binamu zangu wanakaa Arusha.' },
+      { sw: 'MUME', en: 'Husband', ex: 'Mume wake ni mwalimu mzuri.' },
+      { sw: 'MKE', en: 'Wife', ex: 'Mke wake anapenda kupika pilau.' },
+    ]
+  },
+  {
+    id: 'biashara',
+    name: 'Biashara na Sokoni',
+    sub: 'Business & Market',
+    icon: '🛒',
+    color: '#26C6DA',
+    words: [
+      { sw: 'SOKO', en: 'Market', ex: 'Mama anaenda sokoni kununua mboga.', note: 'Masoko ya Tanzania ni ya rangi na ya kupendeza sana.' },
+      { sw: 'DUKA', en: 'Shop / store', ex: 'Duka hili lina vitu vingi.' },
+      { sw: 'BEI', en: 'Price', ex: 'Bei ya mchele ni ngapi leo?' },
+      { sw: 'PESA', en: 'Money', ex: 'Sina pesa za kutosha kununua hilo.' },
+      { sw: 'NUNUA', en: 'To buy', ex: 'Ninataka kununua kanga mbili.' },
+      { sw: 'UZA', en: 'To sell', ex: 'Anauza samaki bei nzuri.' },
+      { sw: 'BIDHAA', en: 'Goods / products', ex: 'Bidhaa hizi zimetoka China.' },
+      { sw: 'FAIDA', en: 'Profit / benefit', ex: 'Biashara yake ina faida kubwa.' },
+      { sw: 'MTEJA', en: 'Customer / client', ex: 'Wateja wengi wanakuja asubuhi.' },
+      { sw: 'PUNGUZA', en: 'To reduce / discount', ex: 'Tafadhali punguza bei kidogo.' },
+      { sw: 'LIPA', en: 'To pay', ex: 'Nimelipa kwa simu ya Mpesa.' },
+      { sw: 'HESABU', en: 'Calculation / arithmetic', ex: 'Hesabu yake ni sahihi kabisa.' },
+    ]
+  },
+  {
+    id: 'usafiri',
+    name: 'Usafiri',
+    sub: 'Transport & Travel',
+    icon: '🚌',
+    color: '#EC407A',
+    words: [
+      { sw: 'SAFARI', en: 'Journey / trip', ex: 'Tunaenda safari ya Arusha kesho.', note: 'Neno "safari" limetoka Kiswahili hadi lugha za Ulaya!' },
+      { sw: 'GARI', en: 'Car / vehicle', ex: 'Gari lake ni jipya na zuri.' },
+      { sw: 'BASI', en: 'Bus', ex: 'Napanda basi kwenda mjini kila asubuhi.' },
+      { sw: 'DALADALA', en: 'Minibus / shared taxi', ex: 'Daladala ni usafiri wa kawaida Dar es Salaam.', note: 'Daladala zinaitwa hivyo kwa sababu zilikuwa zinagharimu "dollar dollar" zamani.' },
+      { sw: 'BODA', en: 'Motorcycle taxi', ex: 'Boda inafika haraka mtaani.' },
+      { sw: 'BAJAJI', en: 'Three-wheeled auto-rickshaw', ex: 'Napanda bajaji kwenda stendi.' },
+      { sw: 'NDEGE', en: 'Airplane / bird', ex: 'Ndege inaondoka saa mbili usiku.' },
+      { sw: 'TRENI', en: 'Train', ex: 'Treni ya TAZARA inakwenda Zambia.' },
+      { sw: 'BARABARA', en: 'Road / street', ex: 'Barabara hii imejengwa vizuri.' },
+      { sw: 'BANDARI', en: 'Port / harbour', ex: 'Bandari ya Dar es Salaam ni kubwa.' },
+      { sw: 'TIKETI', en: 'Ticket', ex: 'Nimenunua tiketi ya basi tayari.' },
+      { sw: 'STENDI', en: 'Bus station / stop', ex: 'Nitakungojea stendi ya mabasi.' },
+      { sw: 'DEREVA', en: 'Driver', ex: 'Dereva wetu anajua njia vizuri.' },
+    ]
+  },
+  {
+    id: 'mazingira',
+    name: 'Mazingira na Hali ya Hewa',
+    sub: 'Environment & Weather',
+    icon: '🌍',
+    color: '#8D6E63',
+    words: [
+      { sw: 'JUA', en: 'Sun / sunshine', ex: 'Jua la Tanzania linawaka sana mchana.' },
+      { sw: 'MVUA', en: 'Rain', ex: 'Mvua inanyesha masika yote.' },
+      { sw: 'UPEPO', en: 'Wind', ex: 'Upepo wa baharini ni baridi na mzuri.' },
+      { sw: 'BAHARI', en: 'Ocean / sea', ex: 'Bahari ya Hindi ipo mashariki mwa Tanzania.' },
+      { sw: 'MLIMA', en: 'Mountain', ex: 'Mlima Kilimanjaro ni mrefu zaidi Afrika.', note: 'Kilimanjaro ni mlima mrefu zaidi barani Afrika — 5,895m.' },
+      { sw: 'MTO', en: 'River', ex: 'Mto Rufiji ni mrefu zaidi Tanzania.' },
+      { sw: 'ZIWA', en: 'Lake', ex: 'Ziwa Victoria ni kubwa zaidi Afrika.' },
+      { sw: 'MSITU', en: 'Forest / jungle', ex: 'Msitu wa Udzungwa una miti mingi.' },
+      { sw: 'JOTO', en: 'Heat / warmth', ex: 'Joto la pwani ni kali sana Januari.' },
+      { sw: 'BARIDI', en: 'Cold / cool', ex: 'Baridi inaingia Julai na Agosti.' },
+      { sw: 'PWANI', en: 'Coast / beach', ex: 'Pwani ya Zanzibar ni nzuri sana.' },
+      { sw: 'ARDHI', en: 'Land / soil / earth', ex: 'Ardhi ya Tanzania ni nzuri kwa kilimo.' },
+    ]
+  },
+  {
+    id: 'utamaduni',
+    name: 'Utamaduni wa Tanzania',
+    sub: 'Tanzanian Culture',
+    icon: '🥁',
+    color: '#7E57C2',
+    words: [
+      { sw: 'NGOMA', en: 'Drum / traditional dance', ex: 'Ngoma zinapigiwa sherehe ya harusi.', note: 'Kuna aina nyingi za ngoma Tanzania, kila kabila lina zake.' },
+      { sw: 'KANGA', en: 'Colorful traditional cloth with a saying', ex: 'Mama anabeba mtoto kwa kanga mgongoni.', note: 'Kanga ina methali au ujumbe mfupi katika Kiswahili.' },
+      { sw: 'KITENGE', en: 'Colorful wax print fabric', ex: 'Amelishwa nguo nzuri ya kitenge.' },
+      { sw: 'TAARAB', en: 'Musical genre mixing Arabic and Swahili', ex: 'Taarab ni muziki maarufu Zanzibar.', note: 'Taarab inachanganya athari za Kiarabu, Kiafrika na Kihindi.' },
+      { sw: 'HARUSI', en: 'Wedding', ex: 'Harusi ya jirani ilikuwa na furaha nyingi.' },
+      { sw: 'SHEREHE', en: 'Celebration / party', ex: 'Sherehe ya uhuru ni tarehe 9 Desemba.', note: 'Tanzania ilipata uhuru tarehe 9 Desemba 1961.' },
+      { sw: 'MILA', en: 'Culture / traditions / customs', ex: 'Mila za Tanzania ni nyingi na tofauti.' },
+      { sw: 'HADITHI', en: 'Story / tale', ex: 'Bibi ananieleza hadithi za kimapokeo.', note: 'Hadithi za kimapokeo za Kiswahili zinaanza na "Hadithi hadithi — hadithi njoo!"' },
+      { sw: 'SANAA', en: 'Art / craft', ex: 'Sanaa za Tanzania zinauza vizuri kwa watalii.' },
+      { sw: 'WIMBO', en: 'Song', ex: 'Wimbo huu wa bongo flava ni mzuri.' },
+    ]
+  },
+  {
+    id: 'historia',
+    name: 'Historia na Taifa',
+    sub: 'History & Nation',
+    icon: '🏛️',
+    color: '#EF5350',
+    words: [
+      { sw: 'UHURU', en: 'Freedom / independence', ex: 'Uhuru wa Tanzania ulipatikana 1961.', note: 'Tanganyika ilipata uhuru 9 Desemba 1961. Muungano na Zanzibar ulianza 1964.' },
+      { sw: 'AMANI', en: 'Peace', ex: 'Tanzania inajulikana kwa amani na utulivu.' },
+      { sw: 'TAIFA', en: 'Nation / country', ex: 'Taifa letu linastawi kila siku.' },
+      { sw: 'RAIS', en: 'President', ex: 'Rais wa Tanzania anaishi Ikulu Dar es Salaam.' },
+      { sw: 'BENDERA', en: 'Flag', ex: 'Bendera ya Tanzania ina rangi nne.', note: 'Rangi za bendera: kijani, njano, nyeusi, na bluu.' },
+      { sw: 'SERIKALI', en: 'Government', ex: 'Serikali inajengea barabara mpya.' },
+      { sw: 'KATIBA', en: 'Constitution', ex: 'Katiba ya Tanzania inalinda haki za wananchi.' },
+      { sw: 'WANANCHI', en: 'Citizens / the people', ex: 'Wananchi wanaomba maendeleo zaidi.' },
+      { sw: 'MUUNGANO', en: 'Union', ex: 'Muungano wa Tanganyika na Zanzibar ni nguvu.', note: 'Muungano ulianzishwa tarehe 26 Aprili 1964.' },
+      { sw: 'LUGHA', en: 'Language', ex: 'Lugha ya taifa ya Tanzania ni Kiswahili.' },
+    ]
+  }
+];
+
+// Daily puzzle seed words
+const DAILY_WORDS = [
+  { sw: 'KILIMANJARO', en: 'Highest mountain in Africa', ex: 'Kilimanjaro ni mlima mrefu zaidi Afrika.', note: 'Urefu wake ni mita 5,895.' },
+  { sw: 'SERENGETI', en: 'Famous national park in Tanzania', ex: 'Serengeti inajulikana duniani kote.', note: 'Serengeti ina wanyama wengi na mazingira mazuri.' },
+  { sw: 'SWAHILI', en: 'The Swahili language', ex: 'Ninajifunza Kiswahili kwa furaha.' },
+  { sw: 'BONGO', en: 'Tanzania (slang)', ex: 'Ninapenda kuishi bongo nchi yangu.', note: '"Bongo" ni jina la kimombo la Tanzania linalotumika katika muziki wa bongo flava.' },
+  { sw: 'UJAMAA', en: 'African socialism / unity', ex: 'Ujamaa ulianzishwa na Mwalimu Nyerere.', note: 'Ujamaa ulikuwa sera ya Tanzania baada ya uhuru.' },
+];
+
+// Word of the day list
+const WODS = [
+  { word: 'Karibu', meaning: 'Welcome — "Karibu Tanzania!"' },
+  { word: 'Ujamaa', meaning: 'Unity/Socialism — "Ujamaa ni nguvu yetu."' },
+  { word: 'Poa', meaning: 'Cool/Great — "Mambo? — Poa kabisa!"' },
+  { word: 'Asante', meaning: 'Thank you — "Asante sana!"' },
+      { word: 'Polepole', meaning: 'Slowly/calmly — "Twende polepole."' },
+  { word: 'Subira', meaning: 'Patience — "Subira huvuta heri."' },
+  { word: 'Upole', meaning: 'Gentleness — "Upole ni nguvu ya mtu mzima."' },
+  { word: 'Safari', meaning: 'Journey — "Safari ndefu huanza hatua moja."' },
+  { word: 'Umoja', meaning: 'Unity — "Umoja ni nguvu, utengano ni udhaifu."' },
+  { word: 'Pamoja', meaning: 'Together — "Pamoja tutafika mbali."' },
+];
+
+const ENCOURAGEMENTS = [
+  'Hongera! 🎉', 'Umefanikiwa! 🏆', 'Vizuri sana! ⭐',
+  'Nzuri kabisa! 🌟', 'Bora sana! 💪', 'Poa kabisa! 🔥',
+  'Endelea hivyo! 👍', 'Wewe ni bingwa! 🦁',
+];
+
+const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+// ============================================================
+// GAME STATE
+// ============================================================
+let state = {
+  currentCategory: null,
+  currentMode: 'classic',
+  difficulty: 'kati',
+  gridSize: 10,
+  grid: [],
+  wordPlacements: [],
+  foundWords: [],
+  score: 0,
+  totalScore: 0,
+  puzzlesDone: 0,
+  wordsFound: 0,
+  startTime: null,
+  timerInterval: null,
+  timerSeconds: 60,
+  timerRemaining: 60,
+  selecting: false,
+  selectionPath: [],
+  selectionStart: null,
+  hintCount: 3,
+  showTranslations: true,
+  appLanguage: 'sw',
+  savedWords: [],
+  currentWordObj: null,
+};
+
+const UI_TEXT = {
+  sw: {
+    homeSubtitle: 'Jifunze Kiswahili kwa Kucheza!',
+    wordOfDay: '🌟 Neno la Leo',
+    languageLabel: 'Lugha ya menyu',
+    playNow: 'Cheza Sasa',
+    chooseCategory: 'Chagua Mada',
+    dailyPuzzle: 'Fumbo la Leo',
+    wordsStat: 'Maneno',
+    puzzlesStat: 'Mafumbo',
+    scoreStat: 'Pointi',
+    updatesTitle: 'Maboresho yajayo',
+    updateOne: 'Sauti za matamshi kwa maneno muhimu.',
+    updateTwo: 'Maswali mafupi baada ya kukamilisha fumbo.',
+    updateThree: 'Toleo la Android, kisha iOS na web/PC.',
+    chooseMode: 'Chagua Aina ya Mchezo',
+    classicMode: 'Kawaida',
+    classicDesc: 'Tafuta maneno bila haraka',
+    learnMode: 'Jifunze',
+    learnDesc: 'Maelezo baada ya kila neno',
+    timedMode: 'Haraka',
+    timedDesc: 'Tafuta maneno kabla ya muda',
+    dailyMode: 'Leo',
+    dailyDesc: 'Fumbo jipya kila siku',
+    difficultyTitle: 'Kiwango cha Ugumu',
+    continueCategory: 'Endelea Kuchagua Mada',
+    wordsToFind: 'Maneno ya Kutafuta',
+    foundSuffix: 'Yamepatikana',
+    hideEnglish: 'Ficha Kiingereza',
+    showEnglish: 'Onyesha Kiingereza',
+    englishOn: 'Tafsiri za Kiingereza zimewashwa.',
+    englishOff: 'Tafsiri zimefichwa.',
+    menuSwahili: 'Menyu iko kwa Kiswahili.',
+    menuEnglish: 'Menu language changed to English.',
+    modalExample: 'Mfano wa sentensi:',
+    modalNote: '📌 Kumbuka:',
+    saveWord: 'Hifadhi Neno',
+    savedWord: 'Neno Limehifadhiwa',
+    continue: '✓  Endelea!',
+    scoreLabel: 'Pointi',
+    wordsLabel: 'Maneno',
+    timeLabel: 'Muda',
+    vocabSummary: '📚 Maneno Uliyojifunza',
+    playAgain: '🔄 Cheza Tena',
+    otherCategory: '📚 Mada Nyingine',
+    home: '🏠 Nyumbani',
+  },
+  en: {
+    homeSubtitle: 'Learn Swahili by playing!',
+    wordOfDay: '🌟 Word of the Day',
+    languageLabel: 'Menu language',
+    playNow: 'Play Now',
+    chooseCategory: 'Choose Category',
+    dailyPuzzle: 'Daily Puzzle',
+    wordsStat: 'Words',
+    puzzlesStat: 'Puzzles',
+    scoreStat: 'Points',
+    updatesTitle: 'Updates and Upgrades',
+    updateOne: 'Audio pronunciation for key vocabulary.',
+    updateTwo: 'Short quizzes after each completed puzzle.',
+    updateThree: 'Android first, then iOS and web/PC.',
+    chooseMode: 'Choose Game Mode',
+    classicMode: 'Classic',
+    classicDesc: 'Find words without rushing',
+    learnMode: 'Learn',
+    learnDesc: 'Get details after each word',
+    timedMode: 'Timed',
+    timedDesc: 'Find words before time runs out',
+    dailyMode: 'Daily',
+    dailyDesc: 'A fresh puzzle every day',
+    difficultyTitle: 'Difficulty Level',
+    continueCategory: 'Continue to Categories',
+    wordsToFind: 'Words to Find',
+    foundSuffix: 'Found',
+    hideEnglish: 'Hide English',
+    showEnglish: 'Show English',
+    englishOn: 'English translations are on.',
+    englishOff: 'Translations are hidden.',
+    menuSwahili: 'Menu language changed to Swahili.',
+    menuEnglish: 'Menu language changed to English.',
+    modalExample: 'Example sentence:',
+    modalNote: '📌 Note:',
+    saveWord: 'Save Word',
+    savedWord: 'Word Saved',
+    continue: '✓  Continue',
+    scoreLabel: 'Points',
+    wordsLabel: 'Words',
+    timeLabel: 'Time',
+    vocabSummary: '📚 Words You Learned',
+    playAgain: '🔄 Play Again',
+    otherCategory: '📚 Other Category',
+    home: '🏠 Home',
+  }
+};
+
+// ============================================================
+// PERSISTENCE
+// ============================================================
+function saveProgress() {
+  try {
+    localStorage.setItem('neno_score', state.totalScore);
+    localStorage.setItem('neno_puzzles', state.puzzlesDone);
+    localStorage.setItem('neno_words', state.wordsFound);
+    localStorage.setItem('neno_catprog', JSON.stringify(state.catProgress || {}));
+    localStorage.setItem('neno_saved_words', JSON.stringify(state.savedWords || []));
+    localStorage.setItem('neno_show_translations', state.showTranslations ? '1' : '0');
+    localStorage.setItem('neno_app_language', state.appLanguage);
+  } catch(e) {}
+}
+function loadProgress() {
+  try {
+    state.totalScore = parseInt(localStorage.getItem('neno_score') || '0');
+    state.puzzlesDone = parseInt(localStorage.getItem('neno_puzzles') || '0');
+    state.wordsFound = parseInt(localStorage.getItem('neno_words') || '0');
+    state.catProgress = JSON.parse(localStorage.getItem('neno_catprog') || '{}');
+    state.savedWords = JSON.parse(localStorage.getItem('neno_saved_words') || '[]');
+    state.showTranslations = localStorage.getItem('neno_show_translations') !== '0';
+    state.appLanguage = localStorage.getItem('neno_app_language') || 'sw';
+  } catch(e) {
+    state.catProgress = {};
+    state.savedWords = [];
+  }
+}
+
+// ============================================================
+// SCREEN MANAGEMENT
+// ============================================================
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (id === 'category-screen') renderCategories();
+  if (id === 'home-screen') updateHomeStats();
+}
+
+function updateHomeStats() {
+  document.getElementById('stat-score').textContent = state.totalScore;
+  document.getElementById('stat-puzzles').textContent = state.puzzlesDone;
+  document.getElementById('stat-words').textContent = state.wordsFound;
+}
+
+function applyTranslationPreference() {
+  document.body.classList.toggle('hide-translations', !state.showTranslations);
+  const btn = document.getElementById('translation-toggle');
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  if (btn) btn.textContent = state.showTranslations ? copy.hideEnglish : copy.showEnglish;
+}
+
+function applyAppLanguage() {
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  document.documentElement.lang = state.appLanguage === 'en' ? 'en' : 'sw';
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (copy[key]) el.textContent = copy[key];
+  });
+  document.getElementById('lang-sw')?.classList.toggle('active', state.appLanguage === 'sw');
+  document.getElementById('lang-en')?.classList.toggle('active', state.appLanguage === 'en');
+  const exampleLabel = document.querySelector('.modal-example strong');
+  if (exampleLabel) exampleLabel.textContent = copy.modalExample;
+  const noteLabel = document.querySelector('.modal-note strong');
+  if (noteLabel) noteLabel.textContent = copy.modalNote;
+  const closeBtn = document.querySelector('.modal-close');
+  if (closeBtn) closeBtn.textContent = copy.continue;
+  document.querySelectorAll('.v-stat .l')[0].textContent = copy.scoreLabel;
+  document.querySelectorAll('.v-stat .l')[1].textContent = copy.wordsLabel;
+  document.querySelectorAll('.v-stat .l')[2].textContent = copy.timeLabel;
+  document.querySelector('#vocab-summary h3').textContent = copy.vocabSummary;
+  document.querySelectorAll('.v-btn')[0].textContent = copy.playAgain;
+  document.querySelectorAll('.v-btn')[1].textContent = copy.otherCategory;
+  document.querySelectorAll('.v-btn')[2].textContent = copy.home;
+  applyTranslationPreference();
+  updateWordCount();
+}
+
+function setAppLanguage(lang) {
+  state.appLanguage = lang === 'en' ? 'en' : 'sw';
+  applyAppLanguage();
+  saveProgress();
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  showToast(state.appLanguage === 'en' ? copy.menuEnglish : copy.menuSwahili);
+}
+
+function toggleTranslations() {
+  state.showTranslations = !state.showTranslations;
+  applyTranslationPreference();
+  saveProgress();
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  showToast(state.showTranslations ? copy.englishOn : copy.englishOff);
+}
+
+function getPronunciation(word) {
+  const manual = {
+    UGALI: 'oo-GAH-lee',
+    PILAU: 'pee-LAU',
+    SAMAKI: 'sah-MAH-kee',
+    KACHUMBARI: 'kah-choom-BAH-ree',
+    KARIBU: 'kah-REE-boo',
+    ASANTE: 'ah-SAHN-teh',
+    SHIKAMOO: 'shee-kah-MOH',
+    KWAHERI: 'kwah-HEH-ree',
+    DALADALA: 'dah-lah-DAH-lah',
+    BAJAJI: 'bah-JAH-jee',
+    KILIMANJARO: 'kee-lee-mahn-JAH-roh',
+    ZANZIBAR: 'zahn-zee-BAHR',
+    PUNDAMILIA: 'poon-dah-MEE-lee-ah',
+  };
+  const key = word.replace(/\s+/g, '').toUpperCase();
+  if (manual[key]) return manual[key];
+  return key.toLowerCase()
+    .replace(/a/g, 'ah')
+    .replace(/e/g, 'eh')
+    .replace(/i/g, 'ee')
+    .replace(/o/g, 'oh')
+    .replace(/u/g, 'oo');
+}
+
+// ============================================================
+// MODE & DIFFICULTY
+// ============================================================
+function selectMode(mode, el) {
+  state.currentMode = mode;
+  document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+}
+function selectDiff(diff, el) {
+  state.difficulty = diff;
+  document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  updateGridSize();
+}
+function updateGridSize() {
+  const sizes = { rahisi: 8, kati: 10, ngumu: 12, bingwa: 14 };
+  state.gridSize = sizes[state.difficulty] || 10;
+}
+
+// ============================================================
+// CATEGORIES
+// ============================================================
+function renderCategories() {
+  const grid = document.getElementById('cat-grid');
+  grid.innerHTML = '';
+  CATEGORIES.forEach((cat, i) => {
+    const prog = state.catProgress?.[cat.id] || 0;
+    const div = document.createElement('div');
+    div.className = `cat-card cat-${i}`;
+    div.innerHTML = `
+      <span class="cat-icon">${cat.icon}</span>
+      <div class="cat-name">${cat.name}</div>
+      <div class="cat-sub">${cat.sub}</div>
+      <div class="cat-progress">
+        <div class="prog-bar"><div class="prog-fill" style="width:${prog}%"></div></div>
+        <span class="prog-label">${prog}%</span>
+      </div>
+    `;
+    div.style.setProperty('--cat-color', cat.color);
+    div.onclick = () => startGame(cat);
+    grid.appendChild(div);
+  });
+}
+
+// ============================================================
+// GRID GENERATION
+// ============================================================
+function generateGrid(words, size) {
+  // Initialize empty grid
+  const grid = Array.from({ length: size }, () => Array(size).fill(''));
+  const placements = [];
+  const directions = [
+    [0, 1],   // right
+    [1, 0],   // down
+    [1, 1],   // diagonal down-right
+    [0, -1],  // left
+    [-1, 0],  // up
+    [-1, -1], // diagonal up-left
+    [1, -1],  // diagonal down-left
+    [-1, 1],  // diagonal up-right
+  ];
+
+  // Filter directions by difficulty
+  let allowedDirs;
+  if (state.difficulty === 'rahisi') allowedDirs = [[0,1],[1,0]];
+  else if (state.difficulty === 'kati') allowedDirs = [[0,1],[1,0],[1,1],[0,-1]];
+  else allowedDirs = directions;
+
+  // Sort words longest first for better placement
+  const sortedWords = [...words].sort((a, b) => b.sw.length - a.sw.length);
+
+  for (const wordObj of sortedWords) {
+    const word = wordObj.sw.replace(/\s+/g, '');
+    let placed = false;
+    const attempts = 200;
+
+    for (let attempt = 0; attempt < attempts && !placed; attempt++) {
+      const dir = allowedDirs[Math.floor(Math.random() * allowedDirs.length)];
+      const [dr, dc] = dir;
+      const len = word.length;
+
+      // Calculate valid starting positions
+      const rowStart = dr === 1 ? 0 : (dr === -1 ? len - 1 : 0);
+      const rowEnd = dr === 1 ? size - len : (dr === -1 ? size - 1 : size - 1);
+      const colStart = dc === 1 ? 0 : (dc === -1 ? len - 1 : 0);
+      const colEnd = dc === 1 ? size - len : (dc === -1 ? size - 1 : size - 1);
+
+      if (rowStart > rowEnd || colStart > colEnd) continue;
+
+      const r = rowStart + Math.floor(Math.random() * (rowEnd - rowStart + 1));
+      const c = colStart + Math.floor(Math.random() * (colEnd - colStart + 1));
+
+      // Check if placement is valid
+      let valid = true;
+      const cells = [];
+      for (let i = 0; i < len; i++) {
+        const nr = r + i * dr;
+        const nc = c + i * dc;
+        if (nr < 0 || nr >= size || nc < 0 || nc >= size) { valid = false; break; }
+        if (grid[nr][nc] !== '' && grid[nr][nc] !== word[i]) { valid = false; break; }
+        cells.push([nr, nc]);
+      }
+
+      if (valid) {
+        cells.forEach(([nr, nc], i) => { grid[nr][nc] = word[i]; });
+        placements.push({ word: word, wordObj, cells });
+        placed = true;
+      }
+    }
+  }
+
+  // Fill remaining empty cells with random letters
+  for (let r = 0; r < size; r++) {
+    for (let c = 0; c < size; c++) {
+      if (grid[r][c] === '') {
+        grid[r][c] = ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
+      }
+    }
+  }
+
+  return { grid, placements };
+}
+
+// ============================================================
+// GAME START
+// ============================================================
+function startGame(category) {
+  state.currentCategory = category;
+  state.foundWords = [];
+  state.score = 0;
+  state.hintCount = 3;
+  state.startTime = Date.now();
+  state.selectionPath = [];
+  state.selecting = false;
+
+  updateGridSize();
+
+  // Pick words based on difficulty
+  const wordCounts = { rahisi: 6, kati: 8, ngumu: 10, bingwa: 12 };
+  const count = Math.min(wordCounts[state.difficulty] || 8, category.words.length);
+  const shuffled = [...category.words].sort(() => Math.random() - 0.5);
+  const selectedWords = shuffled.slice(0, count);
+
+  // Generate puzzle
+  const { grid, placements } = generateGrid(selectedWords, state.gridSize);
+  state.grid = grid;
+  state.wordPlacements = placements;
+
+  // Render
+  document.getElementById('game-cat-label').textContent = category.sub;
+  document.getElementById('game-title').textContent = category.name;
+  document.getElementById('score-display').textContent = 0;
+
+  renderGrid();
+  renderWordList();
+  applyTranslationPreference();
+
+  // Timer mode
+  const timerBar = document.getElementById('timer-bar');
+  const timerPill = document.getElementById('timer-pill');
+  if (state.currentMode === 'timed') {
+    const times = { rahisi: 120, kati: 90, ngumu: 60, bingwa: 45 };
+    state.timerSeconds = times[state.difficulty] || 60;
+    state.timerRemaining = state.timerSeconds;
+    timerBar.style.display = 'block';
+    timerPill.style.display = 'flex';
+    document.getElementById('timer-display').textContent = state.timerRemaining;
+    startTimer();
+  } else {
+    timerBar.style.display = 'none';
+    timerPill.style.display = 'none';
+    if (state.timerInterval) clearInterval(state.timerInterval);
+  }
+
+  showScreen('game-screen');
+}
+
+function startTimer() {
+  if (state.timerInterval) clearInterval(state.timerInterval);
+  state.timerInterval = setInterval(() => {
+    state.timerRemaining--;
+    document.getElementById('timer-display').textContent = state.timerRemaining;
+    const pct = (state.timerRemaining / state.timerSeconds) * 100;
+    document.getElementById('timer-fill').style.width = pct + '%';
+    if (state.timerRemaining <= 0) {
+      clearInterval(state.timerInterval);
+      endGame(false);
+    }
+  }, 1000);
+}
+
+// ============================================================
+// RENDER GRID
+// ============================================================
+function renderGrid() {
+  const gridEl = document.getElementById('word-grid');
+  const size = state.gridSize;
+  const cellSize = Math.min(Math.floor((window.innerWidth - 32) / size), 38);
+  document.documentElement.style.setProperty('--cell-size', cellSize + 'px');
+  gridEl.style.gridTemplateColumns = `repeat(${size}, ${cellSize}px)`;
+  gridEl.innerHTML = '';
+
+  for (let r = 0; r < size; r++) {
+    for (let c = 0; c < size; c++) {
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      cell.textContent = state.grid[r][c];
+      cell.dataset.r = r;
+      cell.dataset.c = c;
+      gridEl.appendChild(cell);
+    }
+  }
+
+  // Touch events
+  gridEl.addEventListener('touchstart', onTouchStart, { passive: false });
+  gridEl.addEventListener('touchmove', onTouchMove, { passive: false });
+  gridEl.addEventListener('touchend', onTouchEnd, { passive: false });
+  gridEl.addEventListener('mousedown', onMouseDown);
+  gridEl.addEventListener('mousemove', onMouseMove);
+  gridEl.addEventListener('mouseup', onMouseUp);
+}
+
+function getCell(r, c) {
+  if (r < 0 || r >= state.gridSize || c < 0 || c >= state.gridSize) return null;
+  return document.querySelector(`#word-grid .cell[data-r="${r}"][data-c="${c}"]`);
+}
+
+function getCellFromPoint(x, y) {
+  const el = document.elementFromPoint(x, y);
+  if (el && el.classList.contains('cell')) return el;
+  return null;
+}
+
+// ============================================================
+// SELECTION LOGIC
+// ============================================================
+function startSelection(r, c) {
+  state.selecting = true;
+  state.selectionStart = [r, c];
+  state.selectionPath = [[r, c]];
+  highlightSelection();
+}
+
+function extendSelection(r, c) {
+  if (!state.selecting) return;
+  const [sr, sc] = state.selectionStart;
+  const dr = r - sr, dc = c - sc;
+  const len = Math.max(Math.abs(dr), Math.abs(dc));
+  if (len === 0) { state.selectionPath = [[sr, sc]]; highlightSelection(); return; }
+
+  // Determine direction (8 directions)
+  let normR = 0, normC = 0;
+  if (Math.abs(dr) === Math.abs(dc)) { normR = dr/len; normC = dc/len; }
+  else if (Math.abs(dr) > Math.abs(dc)) { normR = dr/Math.abs(dr); normC = 0; }
+  else { normR = 0; normC = dc/Math.abs(dc); }
+
+  const path = [];
+  for (let i = 0; i <= len; i++) {
+    const nr = Math.round(sr + i * normR);
+    const nc = Math.round(sc + i * normC);
+    if (nr >= 0 && nr < state.gridSize && nc >= 0 && nc < state.gridSize) {
+      path.push([nr, nc]);
+    }
+  }
+  state.selectionPath = path;
+  highlightSelection();
+}
+
+function highlightSelection() {
+  document.querySelectorAll('#word-grid .cell').forEach(c => {
+    if (!c.classList.contains('found')) c.classList.remove('selecting');
+  });
+  state.selectionPath.forEach(([r, c]) => {
+    const cell = getCell(r, c);
+    if (cell && !cell.classList.contains('found')) cell.classList.add('selecting');
+  });
+}
+
+function endSelection() {
+  if (!state.selecting) return;
+  state.selecting = false;
+  checkWord(state.selectionPath);
+  // Clear selection highlight
+  document.querySelectorAll('#word-grid .cell.selecting').forEach(c => c.classList.remove('selecting'));
+  state.selectionPath = [];
+}
+
+function checkWord(path) {
+  const selectedWord = path.map(([r, c]) => state.grid[r][c]).join('');
+  const selectedWordRev = selectedWord.split('').reverse().join('');
+
+  for (const placement of state.wordPlacements) {
+    if (state.foundWords.includes(placement.word)) continue;
+    if (placement.word === selectedWord || placement.word === selectedWordRev) {
+      // Check that the path matches placement cells
+      const placementStr = JSON.stringify(placement.cells.map(([r,c]) => `${r},${c}`).sort());
+      const selectionStr = JSON.stringify(path.map(([r,c]) => `${r},${c}`).sort());
+      if (placementStr === selectionStr) {
+        wordFound(placement);
+        return;
+      }
+    }
+  }
+  // No match — subtle shake
+  shakeSelection(path);
+}
+
+function shakeSelection(path) {
+  path.forEach(([r, c]) => {
+    const cell = getCell(r, c);
+    if (cell) {
+      cell.style.animation = 'none';
+      cell.offsetHeight; // reflow
+      cell.style.animation = '';
+    }
+  });
+}
+
+// ============================================================
+// WORD FOUND
+// ============================================================
+function wordFound(placement) {
+  state.foundWords.push(placement.word);
+
+  // Highlight cells
+  placement.cells.forEach(([r, c], i) => {
+    const cell = getCell(r, c);
+    if (cell) {
+      cell.classList.add('found');
+      if (i === 0) cell.classList.add('last-found');
+    }
+  });
+
+  // Score
+  const basePoints = placement.word.length * 10;
+  const speedBonus = state.currentMode === 'timed' ? Math.floor(state.timerRemaining * 0.5) : 0;
+  const points = basePoints + speedBonus;
+  state.score += points;
+  state.wordsFound++;
+  document.getElementById('score-display').textContent = state.score;
+
+  // Points popup
+  showPointsPopup(points, placement.cells[0]);
+
+  // Update word list
+  document.querySelectorAll('.word-chip').forEach(chip => {
+    if (chip.dataset.word === placement.word) chip.classList.add('found');
+  });
+  updateWordCount();
+
+  // Show word info modal (learn mode or always)
+  if (state.currentMode === 'learn' || state.currentMode === 'classic') {
+    showWordModal(placement.wordObj);
+  } else {
+    showToast(ENCOURAGEMENTS[Math.floor(Math.random() * ENCOURAGEMENTS.length)]);
+  }
+
+  // Check completion
+  if (state.foundWords.length === state.wordPlacements.length) {
+    setTimeout(() => endGame(true), state.currentMode === 'learn' ? 2000 : 800);
+  }
+}
+
+function showPointsPopup(points, [r, c]) {
+  const cell = getCell(r, c);
+  if (!cell) return;
+  const rect = cell.getBoundingClientRect();
+  const pop = document.createElement('div');
+  pop.className = 'points-pop';
+  pop.textContent = `+${points}`;
+  pop.style.left = rect.left + 'px';
+  pop.style.top = (rect.top - 10) + 'px';
+  document.body.appendChild(pop);
+  setTimeout(() => pop.remove(), 1000);
+}
+
+// ============================================================
+// MODAL
+// ============================================================
+function showWordModal(wordObj) {
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  state.currentWordObj = wordObj;
+  document.getElementById('modal-word').textContent = wordObj.sw;
+  document.getElementById('modal-meaning').textContent = wordObj.en;
+  document.getElementById('modal-pron').textContent = 'Matamshi: ' + (wordObj.pron || getPronunciation(wordObj.sw));
+  document.getElementById('modal-example').textContent = wordObj.ex || '';
+  const saveBtn = document.getElementById('modal-save');
+  const isSaved = state.savedWords.some(w => w.sw === wordObj.sw);
+  saveBtn.textContent = isSaved ? copy.savedWord : copy.saveWord;
+  saveBtn.disabled = isSaved;
+  const noteEl = document.getElementById('modal-note');
+  const noteText = document.getElementById('modal-note-text');
+  if (wordObj.note) {
+    noteText.textContent = wordObj.note;
+    noteEl.classList.add('has-note');
+  } else {
+    noteEl.classList.remove('has-note');
+  }
+  document.getElementById('word-modal').classList.add('open');
+}
+
+function saveCurrentWord() {
+  if (!state.currentWordObj) return;
+  const exists = state.savedWords.some(w => w.sw === state.currentWordObj.sw);
+  if (!exists) {
+    state.savedWords.push({
+      sw: state.currentWordObj.sw,
+      en: state.currentWordObj.en,
+      ex: state.currentWordObj.ex || '',
+      category: state.currentCategory?.name || '',
+    });
+    saveProgress();
+    showToast(state.appLanguage === 'en' ? 'Word saved for revision.' : 'Neno limehifadhiwa kwa marudio.');
+    const saveBtn = document.getElementById('modal-save');
+    const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+    saveBtn.textContent = copy.savedWord;
+    saveBtn.disabled = true;
+  }
+}
+
+function closeModal() {
+  document.getElementById('word-modal').classList.remove('open');
+  // Check if game is done
+  if (state.foundWords.length === state.wordPlacements.length) {
+    endGame(true);
+  }
+}
+
+// ============================================================
+// HINTS
+// ============================================================
+function useHint(type) {
+  if (state.hintCount <= 0) { showToast('Vidokezo vimekwisha! 😅'); return; }
+  const unfound = state.wordPlacements.filter(p => !state.foundWords.includes(p.word));
+  if (unfound.length === 0) return;
+
+  const target = unfound[Math.floor(Math.random() * unfound.length)];
+
+  if (type === 'letter') {
+    const [fr, fc] = target.cells[0];
+    const cell = getCell(fr, fc);
+    if (cell) {
+      cell.style.background = '#FFF176';
+      cell.style.color = '#E65100';
+      cell.style.fontWeight = '900';
+      setTimeout(() => { if (!cell.classList.contains('found')) { cell.style.background = ''; cell.style.color = ''; } }, 3000);
+      showToast(`💡 Herufi ya kwanza: "${target.word[0]}"`);
+    }
+  } else if (type === 'highlight') {
+    target.cells.forEach(([r, c], i) => {
+      const cell = getCell(r, c);
+      if (cell && !cell.classList.contains('found')) {
+        cell.style.background = 'rgba(255, 235, 59, 0.6)';
+        setTimeout(() => { if (!cell.classList.contains('found')) cell.style.background = ''; }, 2500);
+      }
+    });
+    showToast(`🔦 Neno linaloangaziwa: ${target.wordObj.en}`);
+  } else if (type === 'meaning') {
+    showToast(`🇬🇧 Maana: ${target.wordObj.en}`);
+  } else if (type === 'pron') {
+    showToast(`🔊 Matamshi: ${target.wordObj.pron || getPronunciation(target.wordObj.sw)}`);
+  }
+
+  state.hintCount--;
+}
+
+// ============================================================
+// WORD LIST RENDER
+// ============================================================
+function renderWordList() {
+  const list = document.getElementById('words-list');
+  list.innerHTML = '';
+  state.wordPlacements.forEach(placement => {
+    const chip = document.createElement('div');
+    chip.className = 'word-chip';
+    chip.dataset.word = placement.word;
+    chip.innerHTML = `
+      <span class="check">✓</span>
+      <div>
+        <div class="wtext">${placement.word}</div>
+        <div class="wmean">${placement.wordObj.en}</div>
+      </div>
+    `;
+    chip.onclick = () => {
+      if (!chip.classList.contains('found')) {
+        showToast(`💡 Kiswahili: ${placement.word} = ${placement.wordObj.en}`);
+      } else {
+        showWordModal(placement.wordObj);
+      }
+    };
+    list.appendChild(chip);
+  });
+  updateWordCount();
+}
+
+function updateWordCount() {
+  const total = state.wordPlacements.length;
+  const found = state.foundWords.length;
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  document.getElementById('words-count').textContent = `${found}/${total} ${copy.foundSuffix}`;
+}
+
+// ============================================================
+// TOUCH & MOUSE EVENTS
+// ============================================================
+function onTouchStart(e) {
+  e.preventDefault();
+  const touch = e.touches[0];
+  const cell = getCellFromPoint(touch.clientX, touch.clientY);
+  if (cell) startSelection(parseInt(cell.dataset.r), parseInt(cell.dataset.c));
+}
+function onTouchMove(e) {
+  e.preventDefault();
+  const touch = e.touches[0];
+  const cell = getCellFromPoint(touch.clientX, touch.clientY);
+  if (cell) extendSelection(parseInt(cell.dataset.r), parseInt(cell.dataset.c));
+}
+function onTouchEnd(e) { e.preventDefault(); endSelection(); }
+
+function onMouseDown(e) {
+  const cell = e.target.closest('.cell');
+  if (cell) startSelection(parseInt(cell.dataset.r), parseInt(cell.dataset.c));
+}
+function onMouseMove(e) {
+  if (!state.selecting) return;
+  const cell = e.target.closest('.cell');
+  if (cell) extendSelection(parseInt(cell.dataset.r), parseInt(cell.dataset.c));
+}
+function onMouseUp() { endSelection(); }
+
+// ============================================================
+// END GAME / VICTORY
+// ============================================================
+function endGame(completed) {
+  if (state.timerInterval) clearInterval(state.timerInterval);
+  const elapsed = Math.floor((Date.now() - state.startTime) / 1000);
+  const found = state.foundWords.length;
+  const total = state.wordPlacements.length;
+
+  // Calculate stars
+  let stars = 1;
+  if (found >= total) stars = 3;
+  else if (found >= total * 0.6) stars = 2;
+
+  // Bonus points
+  if (found >= total) {
+    const timeBonus = Math.max(0, 300 - elapsed) * 2;
+    state.score += timeBonus;
+    state.puzzlesDone++;
+  }
+  state.totalScore += state.score;
+
+  // Update category progress
+  if (!state.catProgress) state.catProgress = {};
+  const prog = Math.round((found / total) * 100);
+  state.catProgress[state.currentCategory.id] = Math.max(prog, state.catProgress[state.currentCategory.id] || 0);
+
+  saveProgress();
+
+  // Victory messages
+  const msgs = ['Hongera!', 'Umefanikiwa!', 'Vizuri Sana!', 'Wewe ni Bingwa!'];
+  const submsg = completed ? 'Umekamilisha fumbo hili!' : `Umefikia maneno ${found} kati ya ${total}.`;
+  document.getElementById('v-title').textContent = msgs[Math.floor(Math.random() * msgs.length)];
+  document.getElementById('v-msg').textContent = submsg;
+  document.getElementById('v-score').textContent = state.score;
+  document.getElementById('v-words').textContent = found;
+  document.getElementById('v-time').textContent = elapsed + 's';
+
+  // Stars
+  const starsRow = document.getElementById('stars-row');
+  starsRow.innerHTML = '';
+  for (let i = 0; i < 3; i++) {
+    const s = document.createElement('span');
+    s.className = 'star';
+    s.textContent = i < stars ? '⭐' : '☆';
+    starsRow.appendChild(s);
+  }
+
+  // Vocabulary summary
+  const vocabList = document.getElementById('vocab-list');
+  vocabList.innerHTML = '';
+  state.wordPlacements.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'vocab-item';
+    const found = state.foundWords.includes(p.word);
+    div.innerHTML = `<strong>${p.word}</strong> — ${p.wordObj.en} ${found ? '✓' : ''}`;
+    vocabList.appendChild(div);
+  });
+
+  showScreen('victory-screen');
+}
+
+function playAgain() {
+  if (state.currentCategory) startGame(state.currentCategory);
+}
+
+function exitGame() {
+  if (state.timerInterval) clearInterval(state.timerInterval);
+  showScreen('category-screen');
+}
+
+// ============================================================
+// DAILY PUZZLE
+// ============================================================
+function startDailyPuzzle() {
+  const today = new Date();
+  const dayIdx = (today.getFullYear() * 365 + today.getMonth() * 30 + today.getDate()) % CATEGORIES.length;
+  startGame(CATEGORIES[dayIdx]);
+  showToast('☀️ Fumbo la Leo limefunguliwa!');
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timeout);
+  t._timeout = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ============================================================
+// WORD OF THE DAY
+// ============================================================
+function setWordOfDay() {
+  const idx = new Date().getDate() % WODS.length;
+  const wod = WODS[idx];
+  document.getElementById('wod-word').textContent = wod.word;
+  document.getElementById('wod-meaning').textContent = wod.meaning;
+}
+
+// ============================================================
+// INIT
+// ============================================================
+function init() {
+  loadProgress();
+  updateHomeStats();
+  setWordOfDay();
+  applyAppLanguage();
+  // Set default difficulty buttons
+  document.querySelectorAll('.diff-btn').forEach((b, i) => {
+    if (i === 1) b.classList.add('active');
+    else b.classList.remove('active');
+  });
+  state.difficulty = 'kati';
+  updateGridSize();
+
+  setTimeout(() => {
+    document.getElementById('loading').style.display = 'none';
+  }, 800);
+}
+
+window.addEventListener('DOMContentLoaded', init);
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js').catch(() => {});
+  });
+}
+
+// Prevent context menu on long press
+document.addEventListener('contextmenu', e => e.preventDefault());
+</script>
+</body>
+</html>

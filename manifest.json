@@ -1,0 +1,20 @@
+{
+  "name": "Neno Safari",
+  "short_name": "Neno Safari",
+  "description": "Tafuta maneno ya Kiswahili na ujifunze msamiati wa Tanzania.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F1F8E9",
+  "theme_color": "#1B5E20",
+  "lang": "sw-TZ",
+  "icons": [
+    {
+      "src": "app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
