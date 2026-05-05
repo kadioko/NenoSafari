@@ -637,11 +637,22 @@
     background: none;
     border: none;
     color: #fff;
-    font-size: 1.4rem;
+    font-size: 0;
     cursor: pointer;
     padding: 4px 8px;
     border-radius: 8px;
     transition: background 0.15s;
+    width: 40px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .back-btn::before {
+    content: '\2039';
+    font-size: 2rem;
+    line-height: 1;
+    font-weight: 900;
   }
   .back-btn:active { background: rgba(255,255,255,0.2); }
   .top-bar h2 { font-size: 1.1rem; font-weight: 700; flex: 1; }
@@ -1413,7 +1424,7 @@
 <!-- ===== ABOUT SCREEN ===== -->
 <div class="screen panel-screen" id="about-screen">
   <div class="top-bar">
-    <button class="back-btn" onclick="showScreen('home-screen')">â†</button>
+    <button class="back-btn" onclick="showScreen('home-screen')" aria-label="Rudi nyumbani"></button>
     <h2 data-i18n="aboutTitle">Kuhusu Neno Safari</h2>
   </div>
   <div class="panel-content">
@@ -2914,3 +2925,5 @@ document.addEventListener('contextmenu', e => e.preventDefault());
 </script>
 </body>
 </html>
+
+
