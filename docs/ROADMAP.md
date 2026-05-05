@@ -84,6 +84,14 @@ Recommended first production path:
 5. Port same app shell to iOS through Capacitor or rebuild in Flutter/React Native if needed.
 6. Keep web/PC as a PWA version.
 
+## Mobile App Path Progress
+
+- Capacitor dependencies installed.
+- Mobile web build script added.
+- Capacitor config added for Android and future iOS.
+- Android beta checklist added.
+- Store/privacy docs updated for mobile release work.
+
 ## Production Readiness Checklist
 
 - Confirm all vocabulary with a Tanzanian Swahili speaker.

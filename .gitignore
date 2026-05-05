@@ -1,2 +1,17 @@
 .claude/
 audio/
+node_modules/
+www/
+
+# Native build outputs
+android/.gradle/
+android/build/
+android/app/build/
+android/capacitor-cordova-android-plugins/build/
+ios/App/Pods/
+ios/App/build/
+ios/App/App/public/
+
+# Local OS files
+.DS_Store
+Thumbs.db

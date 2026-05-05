@@ -3,6 +3,7 @@
 Neno Safari is a mobile-friendly Swahili vocabulary word search game inspired by Tanzania. Players find hidden Swahili words in themed puzzles, then learn each word through an English meaning, pronunciation guide, simple Swahili sentence, and optional cultural note.
 
 The MVP is currently a static Progressive Web App (PWA) built in plain HTML, CSS, and JavaScript.
+The first production mobile path wraps the same PWA with Capacitor for Android, then iOS later.
 
 ## Current MVP
 
@@ -54,6 +55,7 @@ http://127.0.0.1:5177/index.html?v=16
     +-- accessibility.js
 +-- manifest.json       # PWA install metadata
 +-- package.json        # Local validation/test commands
++-- capacitor.config.json # Capacitor mobile app settings
 +-- service-worker.js   # Offline cache
 +-- app-icon.svg        # App icon
 +-- scripts/
@@ -68,6 +70,8 @@ http://127.0.0.1:5177/index.html?v=16
     +-- APP_STORE.md
     +-- OFFLINE_PACKS.md
     +-- AUDIO.md
+    +-- MOBILE_APP.md
+    +-- ANDROID_BETA.md
 ```
 
 ## Important Files
@@ -91,6 +95,8 @@ http://127.0.0.1:5177/index.html?v=16
 - [docs/APP_STORE.md](./docs/APP_STORE.md): Android/iOS store listing and screenshot preparation notes.
 - [docs/OFFLINE_PACKS.md](./docs/OFFLINE_PACKS.md): future content-pack plan for downloadable puzzle sets.
 - [docs/AUDIO.md](./docs/AUDIO.md): recorded pronunciation audio plan and content format.
+- [docs/MOBILE_APP.md](./docs/MOBILE_APP.md): Capacitor Android/iOS build path and device QA flow.
+- [docs/ANDROID_BETA.md](./docs/ANDROID_BETA.md): Google Play internal testing checklist.
 - [scripts/validate-content.mjs](./scripts/validate-content.mjs): checks vocabulary entries for basic quality issues.
 - [scripts/test-puzzle-engine.mjs](./scripts/test-puzzle-engine.mjs): smoke tests for deterministic puzzle generation and placement rules.
 - [scripts/test-storage.mjs](./scripts/test-storage.mjs): checks local progress save/load behavior.
@@ -142,6 +148,19 @@ Capture real app-store screenshot files when Playwright is installed:
 
 ```powershell
 npm run screenshots:store
+```
+
+Build the Capacitor web bundle for Android/iOS:
+
+```powershell
+npm run mobile:build
+```
+
+Create or sync the Android wrapper:
+
+```powershell
+npm run android:add
+npm run cap:sync
 ```
 
 ## Status

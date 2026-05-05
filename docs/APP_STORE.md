@@ -56,12 +56,23 @@ Final Android/iOS store screenshots should still be captured on real or emulated
 ## Store Assets Needed
 
 - 512x512 app icon
-- Feature graphic for Google Play
+- Android adaptive icon set
+- Splash screen assets
+- Google Play feature graphic
 - Phone screenshots
 - Privacy policy URL
 - Support email
 - Category: Educational / Word / Puzzle
 - Content rating questionnaire
+
+## Mobile Build Docs
+
+The production mobile path now lives in:
+
+- `docs/MOBILE_APP.md`
+- `docs/ANDROID_BETA.md`
+
+Use those docs for Capacitor build commands, Android beta testing, and store submission readiness.
 
 ## Release Notes Template
 

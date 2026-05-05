@@ -37,7 +37,9 @@ The MVP does not collect:
 
 ## Audio
 
-The pronunciation button uses the device or browser speech synthesis feature. The MVP does not record the player's voice.
+The pronunciation button can use local audio files generated before release or the device/browser speech synthesis feature. The MVP does not record the player's voice and does not send player audio to any service.
+
+Audio generation API keys must stay local on the developer machine and must never be bundled into the app.
 
 ## Children
 
@@ -46,4 +48,3 @@ The game is educational and may be used by children. The MVP does not include ac
 ## Future Changes
 
 If analytics, cloud saves, ads, purchases, or accounts are added later, this policy must be updated before release.
-
