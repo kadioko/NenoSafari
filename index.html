@@ -542,6 +542,62 @@
     transition: transform 0.2s;
   }
   .toggle.on { background: var(--green); }
+  .cheat-card {
+    background: linear-gradient(135deg, #FFFDE7, #E8F5E9);
+    border: 2px dashed rgba(46,125,50,0.35);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 10px var(--shadow);
+    padding: 16px;
+  }
+  .cheat-card h3 {
+    color: var(--green-dark);
+    font-size: 0.98rem;
+    margin-bottom: 5px;
+  }
+  .cheat-card p,
+  .cheat-card li {
+    color: #555;
+    font-size: 0.76rem;
+    line-height: 1.32;
+  }
+  .cheat-input-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    margin: 12px 0;
+  }
+  .cheat-input-row input {
+    min-width: 0;
+    border: 2px solid #D8EAD9;
+    border-radius: 8px;
+    padding: 11px 12px;
+    font: inherit;
+    font-size: 0.86rem;
+    text-transform: uppercase;
+  }
+  .cheat-input-row button {
+    border: 0;
+    border-radius: 8px;
+    padding: 0 14px;
+    background: var(--green);
+    color: #fff;
+    font-weight: 900;
+    cursor: pointer;
+  }
+  .cheat-code-list {
+    display: grid;
+    gap: 6px;
+    padding-left: 0;
+    list-style: none;
+  }
+  .cheat-code-list code {
+    color: var(--green-dark);
+    background: rgba(255,255,255,0.75);
+    border: 1px solid rgba(46,125,50,0.18);
+    border-radius: 6px;
+    padding: 2px 6px;
+    font-weight: 900;
+  }
   .toggle.on::after { transform: translateX(24px); }
   .saved-word-card {
     background: var(--card);
@@ -1418,6 +1474,20 @@
       <div><strong data-i18n="contrastSetting">Rangi zenye utofauti</strong><span data-i18n="contrastSettingDesc">Ongeza utofauti wa rangi kwa kusomeka.</span></div>
       <button class="toggle" id="contrast-toggle" onclick="toggleSetting('contrast')"></button>
     </div>
+    <div class="cheat-card">
+      <h3 data-i18n="cheatTitle">Menyu ya cheat</h3>
+      <p data-i18n="cheatDesc">Kwa majaribio ya beta na QA. Ingiza code kisha bonyeza Tumia.</p>
+      <div class="cheat-input-row">
+        <input id="cheat-code-input" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" data-i18n-placeholder="cheatPlaceholder" placeholder="Ingiza code" onkeydown="if(event.key === 'Enter') applyCheatCode()">
+        <button onclick="applyCheatCode()" data-i18n="cheatApply">Tumia</button>
+      </div>
+      <ul class="cheat-code-list">
+        <li><code>NENOCOINS</code> <span data-i18n="cheatCoins">ongeza sarafu 500.</span></li>
+        <li><code>SAFARI100</code> <span data-i18n="cheatSmallCoins">ongeza sarafu 100.</span></li>
+        <li><code>DAILYDONE</code> <span data-i18n="cheatDaily">weka fumbo la leo kama limekamilika.</span></li>
+        <li><code>UNLOCKSHOP</code> <span data-i18n="cheatShop">fungua vipengele vya duka.</span></li>
+      </ul>
+    </div>
   </div>
 </div>
 
@@ -1627,14 +1697,14 @@
   <button class="v-btn sec" onclick="showScreen('home-screen')">🏠 Nyumbani</button>
 </div>
 
-<script src="js/content.js?v=19"></script>
-<script src="js/daily-puzzles.js?v=19"></script>
-<script src="js/puzzle-engine.js?v=19"></script>
-<script src="js/i18n.js?v=19"></script>
-<script src="js/storage.js?v=19"></script>
-<script src="js/offline-packs.js?v=19"></script>
-<script src="js/accessibility.js?v=19"></script>
-<script src="js/ui-utils.js?v=19"></script>
+<script src="js/content.js?v=20"></script>
+<script src="js/daily-puzzles.js?v=20"></script>
+<script src="js/puzzle-engine.js?v=20"></script>
+<script src="js/i18n.js?v=20"></script>
+<script src="js/storage.js?v=20"></script>
+<script src="js/offline-packs.js?v=20"></script>
+<script src="js/accessibility.js?v=20"></script>
+<script src="js/ui-utils.js?v=20"></script>
 <script>
 // ============================================================
 // DATA: CATEGORIES & WORDS
@@ -1816,6 +1886,47 @@ function toggleSetting(key) {
   saveProgress();
   const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
   showToast((state.settings[key] === false ? copy.settingOff : copy.settingOn));
+}
+
+function addCheatCoins(amount) {
+  state.coins = (state.coins || 0) + amount;
+  saveProgress();
+  updateHomeStats();
+  renderRewards();
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  showToast(copy.cheatCoinsToast.replace('{coins}', amount));
+}
+
+function applyCheatCode() {
+  const input = document.getElementById('cheat-code-input');
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  const code = (input?.value || '').trim().toUpperCase().replace(/\s+/g, '');
+  if (!code) {
+    showToast(copy.cheatInvalid);
+    return;
+  }
+
+  if (code === 'NENOCOINS') {
+    addCheatCoins(500);
+  } else if (code === 'SAFARI100') {
+    addCheatCoins(100);
+  } else if (code === 'DAILYDONE') {
+    updateDailyStreak(dailyKey());
+    saveProgress();
+    updateHomeStats();
+    renderProgressDashboard();
+    showToast(copy.cheatDailyToast);
+  } else if (code === 'UNLOCKSHOP') {
+    state.ownedItems = [...new Set([...(state.ownedItems || []), ...SHOP_ITEMS.map(item => item.id)])];
+    saveProgress();
+    renderRewards();
+    showToast(copy.cheatShopToast);
+  } else {
+    showToast(copy.cheatInvalid);
+    return;
+  }
+
+  if (input) input.value = '';
 }
 
 function renderProgressDashboard() {
@@ -2082,6 +2193,10 @@ function applyAppLanguage() {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.dataset.i18n;
     if (copy[key]) el.textContent = copy[key];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (copy[key]) el.setAttribute('placeholder', copy[key]);
   });
   document.getElementById('lang-sw')?.classList.toggle('active', state.appLanguage === 'sw');
   document.getElementById('lang-en')?.classList.toggle('active', state.appLanguage === 'en');
