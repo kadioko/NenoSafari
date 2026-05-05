@@ -12,32 +12,63 @@
 - Translation toggle
 - Kiswahili / English menu switch
 - Progress and saved words in local storage
+- Saved words review screen
+- In-app upgrades and release plan screen
+- Mini quiz prompt after completed puzzles
+- 3-question mini quiz flow after puzzles
+- Saved word category filter and clear control
+- Stable seeded Daily Puzzle generation
+- Display names for multi-word place names
+- Daily Puzzle streak stat on the home screen
+- Visible Daily Puzzle completion badge
+- Dedicated Progress Dashboard
+- Per-word saved review counts
+- Expanded category vocabulary pack
+- Richer category progress stats
+- Mixed quiz question types
+- Speech synthesis pronunciation button
+- Coins and badge rewards
+- Settings screen
+- Accessibility settings for reduced motion and high contrast
+- Progress recommendations
+- Badge gallery and coin shop
+- Advanced vocabulary pack
+- Content validation script
+- Automated puzzle generation smoke tests
+- Draft privacy policy
+- App store preparation guide
+- Offline puzzle pack plan
+- Puzzle content and engine split into separate files
+- Translation copy split into a separate UI language file
+- Local progress storage split into a separate helper file
+- Storage save/load smoke test
+- Dependency-free app boot smoke test
+- Richer progress charts
+- Adaptive recommendations from hints and quiz misses
+- Flexible future multi-word display names
+- Success burst animation polish
+- Recorded pronunciation audio file support
+- Larger cosmetic coin shop with equipped items
+- Accessibility screen-reader labels
+- Tanzania-themed Daily Puzzle sets
+- Offline puzzle pack metadata and install-state helpers
+- App store screenshot placeholder assets
+- Deeper app boot smoke tests for progress, rewards, and accessibility
 
 ## Version 0.2
 
-- Add quiz after puzzle completion
-- Add saved words review screen
-- Improve Daily Puzzle so it uses a stable date seed
-- Add better category progress tracking
-- Add more words per category
-- Add better display names for multi-word places
+- Completed in local v15 build.
 
 ## Version 0.3
 
-- Add audio pronunciation
-- Add more visual polish and success animations
-- Add badges and coins
-- Add settings screen
-- Add accessibility improvements
-- Add more Tanzania-themed daily puzzle sets
+- Completed in local v16 build.
 
 ## Version 0.4
 
-- Split code into multiple files
-- Add automated tests for puzzle generation
-- Add content validation script
-- Add screenshots for app store preparation
-- Add offline puzzle packs
+- Continue splitting UI code into focused files
+- Replace placeholder screenshots with real Android/iOS captures
+- Expand offline pack downloads beyond metadata
+- Add real browser automation when Playwright or browser runtime is available in CI
 
 ## Mobile App Path
 
@@ -53,10 +84,9 @@ Recommended first production path:
 ## Production Readiness Checklist
 
 - Confirm all vocabulary with a Tanzanian Swahili speaker.
-- Add privacy policy.
-- Add app store screenshots.
+- Review privacy policy with store/legal requirements before release.
+- Capture final app store screenshots.
 - Test on small Android phones.
 - Test offline behavior after install.
 - Confirm service worker updates behave correctly.
 - Add analytics only after privacy policy is ready.
-

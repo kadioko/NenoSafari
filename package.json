@@ -1,0 +1,16 @@
+{
+  "name": "neno-safari",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Mobile-friendly Tanzanian Swahili vocabulary word search game.",
+  "type": "module",
+  "scripts": {
+    "test": "node ./scripts/validate-content.mjs && node ./scripts/test-puzzle-engine.mjs && node ./scripts/test-storage.mjs && node ./scripts/test-offline-packs.mjs && node ./scripts/test-app-boot.mjs",
+    "test:app": "node ./scripts/test-app-boot.mjs",
+    "test:content": "node ./scripts/validate-content.mjs",
+    "test:packs": "node ./scripts/test-offline-packs.mjs",
+    "test:puzzle": "node ./scripts/test-puzzle-engine.mjs",
+    "test:storage": "node ./scripts/test-storage.mjs",
+    "audio:elevenlabs": "node ./scripts/generate-elevenlabs-audio.mjs"
+  }
+}

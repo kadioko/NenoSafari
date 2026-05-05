@@ -1,9 +1,16 @@
-const CACHE_NAME = 'neno-safari-v2';
+const CACHE_NAME = 'neno-safari-v16';
 const ASSETS = [
   './',
   './index.html',
   './manifest.json',
-  './app-icon.svg'
+  './app-icon.svg',
+  './js/content.js?v=16',
+  './js/daily-puzzles.js?v=16',
+  './js/puzzle-engine.js?v=16',
+  './js/i18n.js?v=16',
+  './js/storage.js?v=16',
+  './js/offline-packs.js?v=16',
+  './js/accessibility.js?v=16'
 ];
 
 self.addEventListener('install', event => {
@@ -25,6 +32,12 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
   event.respondWith(
-    caches.match(event.request).then(cached => cached || fetch(event.request))
+    fetch(event.request)
+      .then(response => {
+        const copy = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+        return response;
+      })
+      .catch(() => caches.match(event.request))
   );
 });

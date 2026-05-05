@@ -41,6 +41,41 @@
     user-select: none;
     -webkit-user-select: none;
   }
+  body.theme-ocean {
+    --green-dark: #01579B;
+    --green: #0277BD;
+    --green-light: #4FC3F7;
+    --yellow: #FBC02D;
+    --bg: #E1F5FE;
+  }
+  body.theme-savanna {
+    --green-dark: #4E342E;
+    --green: #7CB342;
+    --green-light: #AED581;
+    --yellow: #F9A825;
+    --bg: #FFF8E1;
+  }
+  body.theme-kilimanjaro {
+    --green-dark: #263238;
+    --green: #607D8B;
+    --green-light: #90A4AE;
+    --yellow: #80DEEA;
+    --bg: #ECEFF1;
+  }
+  body.theme-zanzibar {
+    --green-dark: #00695C;
+    --green: #00897B;
+    --green-light: #4DB6AC;
+    --yellow: #FFB300;
+    --bg: #FFF3E0;
+  }
+  body.theme-dar {
+    --green-dark: #102A43;
+    --green: #1565C0;
+    --green-light: #64B5F6;
+    --yellow: #FFCA28;
+    --bg: #E8EAF6;
+  }
 
   /* ===== SCREENS ===== */
   .screen { display: none; flex-direction: column; min-height: 100vh; }
@@ -143,6 +178,21 @@
   }
   .stat-badge .num { font-size: 1.4rem; font-weight: 900; color: var(--yellow-light); display: block; }
   .stat-badge .lbl { font-size: 0.7rem; color: rgba(255,255,255,0.7); }
+  body.high-contrast {
+    --bg: #FFFFFF;
+    --card: #FFFFFF;
+    --black: #050505;
+    --green-dark: #003B12;
+    --green: #005C20;
+    --blue: #003C8F;
+    --yellow: #FFD500;
+  }
+  body.reduce-motion *,
+  body.reduce-motion *::before,
+  body.reduce-motion *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 
   .word-of-day {
     background: rgba(255,255,255,0.1);
@@ -208,6 +258,292 @@
   }
   .updates-card ul { padding-left: 18px; display: grid; gap: 5px; }
   .updates-card li { font-size: 0.78rem; color: rgba(255,255,255,0.86); line-height: 1.25; }
+  .daily-badge {
+    width: 100%;
+    max-width: 320px;
+    position: relative;
+    z-index: 1;
+    margin: -10px 0 14px;
+    padding: 10px 12px;
+    border-radius: var(--radius);
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.24);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-align: center;
+  }
+  .daily-badge.done {
+    background: rgba(76,175,80,0.3);
+    border-color: rgba(255,255,255,0.45);
+    color: var(--yellow-light);
+  }
+
+  .panel-screen {
+    background: var(--bg);
+    padding-bottom: 24px;
+  }
+  .panel-content {
+    padding: 16px 20px 24px;
+    display: grid;
+    gap: 12px;
+  }
+  .info-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 10px var(--shadow);
+    padding: 16px;
+    border-left: 5px solid var(--green-light);
+  }
+  .info-card h3 {
+    color: var(--green-dark);
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  .info-card p,
+  .info-card li {
+    color: #555;
+    font-size: 0.86rem;
+    line-height: 1.35;
+  }
+  .info-card ul {
+    padding-left: 18px;
+    display: grid;
+    gap: 6px;
+  }
+  .progress-summary {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .progress-stat {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 10px var(--shadow);
+    padding: 14px;
+    border-top: 4px solid var(--green-light);
+  }
+  .progress-stat .n {
+    color: var(--green-dark);
+    font-size: 1.45rem;
+    font-weight: 900;
+  }
+  .progress-stat .l {
+    color: #666;
+    font-size: 0.74rem;
+    font-weight: 800;
+  }
+  .progress-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 10px var(--shadow);
+    padding: 14px;
+  }
+  .progress-card h3 {
+    color: var(--green-dark);
+    font-size: 0.96rem;
+    margin-bottom: 6px;
+  }
+  .progress-card .meta {
+    color: #666;
+    font-size: 0.76rem;
+    margin-top: 7px;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .progress-chart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 12px 0;
+  }
+  .chart-tile {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 10px var(--shadow);
+    padding: 14px;
+  }
+  .chart-tile strong { color: var(--green-dark); font-size: 0.82rem; }
+  .chart-meter {
+    height: 96px;
+    display: flex;
+    align-items: end;
+    gap: 5px;
+    margin-top: 10px;
+  }
+  .chart-bar {
+    flex: 1;
+    min-height: 8px;
+    border-radius: 6px 6px 2px 2px;
+    background: linear-gradient(180deg, var(--yellow), var(--green));
+  }
+  .progress-card.needs-practice {
+    border-left: 5px solid var(--red);
+  }
+  .signal-pill {
+    display: inline-block;
+    margin-top: 8px;
+    border-radius: 999px;
+    background: #FFEBEE;
+    color: var(--red);
+    padding: 5px 8px;
+    font-size: 0.7rem;
+    font-weight: 800;
+  }
+  .settings-row {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 10px var(--shadow);
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+  }
+  .settings-row strong { color: var(--green-dark); font-size: 0.95rem; }
+  .settings-row span { display: block; color: #666; font-size: 0.76rem; margin-top: 3px; }
+  .recommendation-card {
+    background: linear-gradient(135deg, #E8F5E9, #E3F2FD);
+    border-radius: var(--radius);
+    border-left: 5px solid var(--yellow);
+    box-shadow: 0 2px 10px var(--shadow);
+    padding: 16px;
+  }
+  .recommendation-card h3 { color: var(--green-dark); font-size: 1rem; margin-bottom: 6px; }
+  .recommendation-card p { color: #555; font-size: 0.86rem; line-height: 1.35; }
+  .badge-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .badge-card,
+  .shop-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 10px var(--shadow);
+    padding: 14px;
+    border: 2px solid #E0E0E0;
+  }
+  .badge-card.unlocked { border-color: var(--yellow); background: #FFFDE7; }
+  .badge-card .icon { font-size: 1.8rem; }
+  .badge-card strong,
+  .shop-card strong { color: var(--green-dark); display: block; margin: 5px 0 3px; }
+  .badge-card span,
+  .shop-card span { color: #666; font-size: 0.76rem; line-height: 1.25; }
+  .shop-card button {
+    margin-top: 10px;
+    width: 100%;
+    border: 0;
+    border-radius: 8px;
+    padding: 10px;
+    background: var(--green);
+    color: #fff;
+    font-weight: 800;
+    cursor: pointer;
+  }
+  .shop-card button:disabled { background: #BDBDBD; cursor: default; }
+  .shop-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+  .shop-actions button { margin-top: 0; }
+  .shop-actions .equip-btn { background: var(--blue); }
+  .shop-card.equipped { border-color: var(--green); background: #F1F8E9; }
+  body.badge-gold .badge-card.unlocked { border-color: #F9A825; box-shadow: 0 0 0 2px rgba(249,168,37,0.2), 0 2px 10px var(--shadow); }
+  body.badge-kanga .badge-card.unlocked { border-color: #AB47BC; background: linear-gradient(135deg, #FFFDE7, #F3E5F5); }
+  .toggle {
+    border: 0;
+    border-radius: 999px;
+    width: 56px;
+    min-width: 56px;
+    height: 32px;
+    background: #BDBDBD;
+    position: relative;
+    cursor: pointer;
+  }
+  .toggle::after {
+    content: '';
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #fff;
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    transition: transform 0.2s;
+  }
+  .toggle.on { background: var(--green); }
+  .toggle.on::after { transform: translateX(24px); }
+  .saved-word-card {
+    background: var(--card);
+    border-radius: 8px;
+    box-shadow: 0 1px 6px var(--shadow);
+    padding: 13px;
+    border: 1px solid #E0E0E0;
+  }
+  .saved-word-card strong {
+    color: var(--green-dark);
+    font-size: 1rem;
+  }
+  .saved-word-card .meaning {
+    color: var(--blue);
+    font-size: 0.82rem;
+    margin-top: 3px;
+    font-weight: 700;
+  }
+  .saved-word-card .example {
+    color: #555;
+    font-size: 0.82rem;
+    margin-top: 6px;
+    font-style: italic;
+  }
+  .saved-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    align-items: center;
+    margin-top: 9px;
+    color: #777;
+    font-size: 0.74rem;
+  }
+  .saved-review-btn {
+    border: 0;
+    border-radius: 8px;
+    padding: 7px 10px;
+    background: var(--green);
+    color: #fff;
+    font-weight: 800;
+    cursor: pointer;
+  }
+  .saved-controls {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 12px;
+    box-shadow: 0 2px 10px var(--shadow);
+  }
+  .saved-controls select,
+  .saved-controls button {
+    border-radius: 8px;
+    border: 2px solid #E0E0E0;
+    padding: 10px;
+    font-weight: 800;
+    background: #fff;
+    color: var(--green-dark);
+  }
+  .saved-controls button {
+    border-color: var(--red);
+    color: var(--red);
+    cursor: pointer;
+  }
+  .empty-state {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 24px 18px;
+    text-align: center;
+    color: #666;
+    box-shadow: 0 2px 10px var(--shadow);
+  }
 
   /* ===== CATEGORY SELECT ===== */
   #category-screen {
@@ -588,6 +924,16 @@
     cursor: default;
   }
   .modal-actions .modal-close { margin-top: 0; }
+  .pronounce-btn {
+    margin-top: 10px;
+    border: 2px solid var(--blue);
+    background: #fff;
+    color: var(--blue);
+    border-radius: 8px;
+    padding: 9px 11px;
+    font-weight: 800;
+    cursor: pointer;
+  }
 
   /* Points popup */
   .points-pop {
@@ -623,6 +969,24 @@
   .star:nth-child(2) { animation-delay: 0.6s; }
   .star:nth-child(3) { animation-delay: 0.9s; }
   @keyframes starIn { to { opacity: 1; transform: scale(1) rotate(15deg); } }
+  .success-burst {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 80;
+    overflow: hidden;
+  }
+  .success-burst span {
+    position: absolute;
+    left: 50%;
+    top: 52%;
+    font-size: 1.6rem;
+    animation: burstFly 900ms ease-out forwards;
+  }
+  @keyframes burstFly {
+    from { opacity: 1; transform: translate(-50%, -50%) scale(0.4); }
+    to { opacity: 0; transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.3) rotate(var(--r)); }
+  }
   .victory-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -655,6 +1019,50 @@
   .vocab-item { font-size: 0.82rem; color: rgba(255,255,255,0.9); margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.1); }
   .vocab-item:last-child { border-bottom: none; }
   .vocab-item strong { color: var(--yellow-light); }
+  .quiz-card {
+    background: rgba(255,255,255,0.1);
+    border-radius: var(--radius);
+    padding: 16px;
+    width: 100%;
+    max-width: 340px;
+    margin-bottom: 16px;
+    text-align: left;
+    border: 1px solid rgba(255,255,255,0.16);
+  }
+  .quiz-card h3 {
+    font-size: 0.8rem;
+    color: var(--yellow-light);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .quiz-progress {
+    color: rgba(255,255,255,0.76);
+    font-size: 0.74rem;
+    margin-bottom: 8px;
+  }
+  .quiz-question {
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .quiz-options {
+    display: grid;
+    gap: 8px;
+  }
+  .quiz-option {
+    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-weight: 700;
+    text-align: left;
+    cursor: pointer;
+  }
+  .quiz-option.correct { background: var(--green-light); border-color: var(--green-light); }
+  .quiz-option.wrong { background: var(--red); border-color: var(--red); }
 
   .v-btn {
     width: 100%;
@@ -773,6 +1181,7 @@
     <div class="modal-word" id="modal-word"></div>
     <div class="modal-meaning"><span class="flag-icon">🇬🇧</span><span id="modal-meaning"></span></div>
     <div class="modal-pron" id="modal-pron"></div>
+    <button class="pronounce-btn" id="pronounce-btn" onclick="speakCurrentWord()">🔊 Sikia Matamshi</button>
     <div class="modal-example">
       <strong>Mfano wa sentensi:</strong>
       <span id="modal-example"></span>
@@ -829,6 +1238,27 @@
     <span class="btn-icon">☀️</span>
     <span data-i18n="dailyPuzzle">Fumbo la Leo</span>
   </button>
+  <div class="daily-badge" id="daily-badge">Fumbo la leo bado</div>
+  <button class="menu-btn secondary" onclick="showScreen('saved-screen')">
+    <span class="btn-icon">🔖</span>
+    <span data-i18n="savedWordsBtn">Maneno Yangu</span>
+  </button>
+  <button class="menu-btn secondary" onclick="showScreen('progress-screen')">
+    <span class="btn-icon">📈</span>
+    <span data-i18n="progressBtn">Maendeleo</span>
+  </button>
+  <button class="menu-btn secondary" onclick="showScreen('rewards-screen')">
+    <span class="btn-icon">🏅</span>
+    <span data-i18n="rewardsBtn">Zawadi</span>
+  </button>
+  <button class="menu-btn secondary" onclick="showScreen('settings-screen')">
+    <span class="btn-icon">⚙️</span>
+    <span data-i18n="settingsBtn">Mipangilio</span>
+  </button>
+  <button class="menu-btn secondary" onclick="showScreen('upgrades-screen')">
+    <span class="btn-icon">⬆️</span>
+    <span data-i18n="upgradesBtn">Maboresho</span>
+  </button>
 
   <div class="home-stats">
     <div class="stat-badge">
@@ -843,6 +1273,18 @@
       <span class="num" id="stat-score">0</span>
       <span class="lbl" data-i18n="scoreStat">Pointi</span>
     </div>
+    <div class="stat-badge">
+      <span class="num" id="stat-streak">0</span>
+      <span class="lbl" data-i18n="streakStat">Siku</span>
+    </div>
+    <div class="stat-badge">
+      <span class="num" id="stat-coins">0</span>
+      <span class="lbl" data-i18n="coinsStat">Sarafu</span>
+    </div>
+    <div class="stat-badge">
+      <span class="num" id="stat-badges">0</span>
+      <span class="lbl" data-i18n="badgesStat">Beji</span>
+    </div>
   </div>
 
   <div class="updates-card">
@@ -852,6 +1294,98 @@
       <li data-i18n="updateTwo">Maswali mafupi baada ya kukamilisha fumbo.</li>
       <li data-i18n="updateThree">Toleo la Android, kisha iOS na web/PC.</li>
     </ul>
+  </div>
+</div>
+
+<!-- ===== REWARDS SCREEN ===== -->
+<div class="screen panel-screen" id="rewards-screen">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showScreen('home-screen')">←</button>
+    <h2 data-i18n="rewardsTitle">Zawadi</h2>
+  </div>
+  <div class="panel-content">
+    <div class="progress-summary" id="rewards-summary"></div>
+    <div class="word-list-title" data-i18n="badgeGalleryTitle">Beji Ulizopata</div>
+    <div class="badge-grid" id="badge-gallery"></div>
+    <div class="word-list-title" data-i18n="coinShopTitle">Duka la Sarafu</div>
+    <div class="panel-content" id="coin-shop" style="padding:0"></div>
+  </div>
+</div>
+
+<!-- ===== SETTINGS SCREEN ===== -->
+<div class="screen panel-screen" id="settings-screen">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showScreen('home-screen')">←</button>
+    <h2 data-i18n="settingsTitle">Mipangilio</h2>
+  </div>
+  <div class="panel-content">
+    <div class="settings-row">
+      <div><strong data-i18n="soundSetting">Sauti za matamshi</strong><span data-i18n="soundSettingDesc">Washa au zima kusoma matamshi.</span></div>
+      <button class="toggle" id="sound-toggle" onclick="toggleSetting('sound')"></button>
+    </div>
+    <div class="settings-row">
+      <div><strong data-i18n="motionSetting">Punguza mwendo</strong><span data-i18n="motionSettingDesc">Punguza animation kwa utulivu.</span></div>
+      <button class="toggle" id="motion-toggle" onclick="toggleSetting('motion')"></button>
+    </div>
+    <div class="settings-row">
+      <div><strong data-i18n="contrastSetting">Rangi zenye utofauti</strong><span data-i18n="contrastSettingDesc">Ongeza utofauti wa rangi kwa kusomeka.</span></div>
+      <button class="toggle" id="contrast-toggle" onclick="toggleSetting('contrast')"></button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PROGRESS SCREEN ===== -->
+<div class="screen panel-screen" id="progress-screen">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showScreen('home-screen')">←</button>
+    <h2 data-i18n="progressTitle">Maendeleo</h2>
+  </div>
+  <div class="panel-content">
+    <div class="progress-summary" id="progress-summary"></div>
+    <div id="progress-categories"></div>
+  </div>
+</div>
+
+<!-- ===== SAVED WORDS SCREEN ===== -->
+<div class="screen panel-screen" id="saved-screen">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showScreen('home-screen')">←</button>
+    <h2 data-i18n="savedWordsTitle">Maneno Yangu</h2>
+  </div>
+  <div class="panel-content" id="saved-words-list"></div>
+</div>
+
+<!-- ===== UPGRADES SCREEN ===== -->
+<div class="screen panel-screen" id="upgrades-screen">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showScreen('home-screen')">←</button>
+    <h2 data-i18n="upgradesTitleFull">Maboresho na Mpango</h2>
+  </div>
+  <div class="panel-content">
+    <div class="info-card">
+      <h3 data-i18n="upgradeNowTitle">Sasa tunaboresha</h3>
+      <ul>
+        <li data-i18n="upgradeNowOne">Ongeza maswali mafupi baada ya fumbo.</li>
+        <li data-i18n="upgradeNowTwo">Tengeneza sehemu ya kurudia maneno yaliyohifadhiwa.</li>
+        <li data-i18n="upgradeNowThree">Sahihisha na ongeza msamiati wa Tanzania.</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3 data-i18n="upgradeNextTitle">Toleo linalofuata</h3>
+      <ul>
+        <li data-i18n="upgradeNextOne">Sauti halisi za matamshi.</li>
+        <li data-i18n="upgradeNextTwo">Badges, coins, na zawadi za mfululizo wa siku.</li>
+        <li data-i18n="upgradeNextThree">Fumbo la leo lenye seed maalum ili lisibadilike siku hiyo.</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3 data-i18n="upgradeMobileTitle">Njia ya simu</h3>
+      <ul>
+        <li data-i18n="upgradeMobileOne">Android kwanza kupitia PWA/Capacitor.</li>
+        <li data-i18n="upgradeMobileTwo">iOS baada ya testing ya Android.</li>
+        <li data-i18n="upgradeMobileThree">Web/PC ibaki kama toleo la majaribio na shule.</li>
+      </ul>
+    </div>
   </div>
 </div>
 
@@ -968,253 +1502,46 @@
     <h3>📚 Maneno Uliyojifunza</h3>
     <div id="vocab-list"></div>
   </div>
+  <div class="quiz-card" id="quiz-card">
+    <h3 data-i18n="miniQuizTitle">Jaribio Fupi</h3>
+    <div class="quiz-progress" id="quiz-progress"></div>
+    <div class="quiz-question" id="quiz-question"></div>
+    <div class="quiz-options" id="quiz-options"></div>
+  </div>
   <button class="v-btn main" onclick="playAgain()">🔄 Cheza Tena</button>
   <button class="v-btn sec" onclick="showScreen('category-screen')">📚 Mada Nyingine</button>
   <button class="v-btn sec" onclick="showScreen('home-screen')">🏠 Nyumbani</button>
 </div>
 
+<script src="js/content.js?v=16"></script>
+<script src="js/daily-puzzles.js?v=16"></script>
+<script src="js/puzzle-engine.js?v=16"></script>
+<script src="js/i18n.js?v=16"></script>
+<script src="js/storage.js?v=16"></script>
+<script src="js/offline-packs.js?v=16"></script>
+<script src="js/accessibility.js?v=16"></script>
 <script>
 // ============================================================
 // DATA: CATEGORIES & WORDS
 // ============================================================
-const CATEGORIES = [
-  {
-    id: 'chakula',
-    name: 'Vyakula vya Tanzania',
-    sub: 'Tanzania Food',
-    icon: '🍽️',
-    color: '#FF7043',
-    words: [
-      { sw: 'UGALI', en: 'Maize porridge / staple meal', ex: 'Ninakula ugali na samaki kila siku.', note: 'Ugali ni chakula kikuu cha Tanzania.' },
-      { sw: 'PILAU', en: 'Spiced rice with meat', ex: 'Pilau ya Zanzibar ni tamu sana.', note: 'Pilau ina viungo vingi kama karafuu na pilipili manga.' },
-      { sw: 'WALI', en: 'Cooked rice', ex: 'Ninapenda wali na maharage.', note: 'Wali ni chakula cha kawaida pwani.' },
-      { sw: 'NYAMA', en: 'Meat', ex: 'Ananunua nyama sokoni asubuhi.' },
-      { sw: 'SAMAKI', en: 'Fish', ex: 'Samaki wa Ziwa Victoria ni mkubwa sana.' },
-      { sw: 'NDIZI', en: 'Banana / plantain', ex: 'Ndizi za Tanzania ni tamu.', note: 'Ndizi za kupika ni tofauti na ndizi za kula moja kwa moja.' },
-      { sw: 'CHIPSI', en: 'French fries / chips', ex: 'Watoto wanakula chipsi baada ya shule.' },
-      { sw: 'MAHARAGE', en: 'Beans', ex: 'Maharage na wali ni mlo wa pamoja.' },
-      { sw: 'MCHICHA', en: 'Spinach / leafy greens', ex: 'Mama anapika mchicha na nyanya.' },
-      { sw: 'KACHUMBARI', en: 'Fresh tomato and onion salad', ex: 'Kachumbari ina nyanya, kitunguu na limau.' },
-      { sw: 'MANDAZI', en: 'Fried dough bread', ex: 'Mandazi na chai ni kifungua kinywa kizuri.' },
-      { sw: 'SUPU', en: 'Soup / broth', ex: 'Supu ya nyama inanipa nguvu.' },
-    ]
-  },
-  {
-    id: 'miji',
-    name: 'Miji na Maeneo',
-    sub: 'Cities & Places',
-    icon: '🏙️',
-    color: '#42A5F5',
-    words: [
-      { sw: 'DODOMA', en: 'Capital city of Tanzania', ex: 'Dodoma ni mji mkuu wa Tanzania.', note: 'Dodoma imekuwa mji mkuu rasmi tangu 1996.' },
-      { sw: 'ARUSHA', en: 'Major city near Kilimanjaro', ex: 'Tunaenda Arusha kuona wanyama.', note: 'Arusha ni lango la safari nyingi.' },
-      { sw: 'MWANZA', en: 'City on Lake Victoria', ex: 'Mwanza iko kandoni mwa Ziwa Victoria.' },
-      { sw: 'MBEYA', en: 'City in Southern Highlands', ex: 'Mbeya ina hali ya hewa ya baridi.', note: 'Mbeya inajulikana kwa kilimo cha chai na kahawa.' },
-      { sw: 'TANGA', en: 'Coastal city in northeastern Tanzania', ex: 'Tanga ina pwani nzuri sana.' },
-      { sw: 'KIGOMA', en: 'City on Lake Tanganyika', ex: 'Kigoma ipo karibu na Ziwa Tanganyika.' },
-      { sw: 'MOSHI', en: 'City at foot of Kilimanjaro', ex: 'Moshi iko chini ya Mlima Kilimanjaro.' },
-      { sw: 'MOROGORO', en: 'City with Uluguru Mountains', ex: 'Morogoro ina milima mizuri ya Uluguru.' },
-      { sw: 'ZANZIBAR', en: 'Island famous for spices', ex: 'Zanzibar inajulikana kwa viungo na pwani.', note: 'Zanzibar ni sehemu ya Jamhuri ya Muungano wa Tanzania.' },
-      { sw: 'DARESSALAAM', en: 'Dar es Salaam, Tanzania largest city', ex: 'Dar es Salaam ni jiji kubwa la biashara.' },
-    ]
-  },
-  {
-    id: 'wanyama',
-    name: 'Wanyama wa Tanzania',
-    sub: 'Tanzanian Animals',
-    icon: '🦁',
-    color: '#66BB6A',
-    words: [
-      { sw: 'SIMBA', en: 'Lion', ex: 'Simba anaishi mbugani na familia yake.', note: 'Tanzania ina idadi kubwa ya simba duniani.' },
-      { sw: 'TEMBO', en: 'Elephant', ex: 'Tembo mkubwa ananywa maji mtoni.', note: 'Serengeti na Mikumi vina tembo wengi.' },
-      { sw: 'TWIGA', en: 'Giraffe', ex: 'Twiga anakula majani ya mti mrefu.' },
-      { sw: 'NYATI', en: 'Buffalo', ex: 'Nyati ni hatari sana ukimkaribia.' },
-      { sw: 'CHUI', en: 'Leopard', ex: 'Chui anapanda mti usiku na nyama yake.' },
-      { sw: 'KIFARU', en: 'Rhinoceros', ex: 'Kifaru ni mnyama alio hatarini kutoweka.' },
-      { sw: 'PUNDAMILIA', en: 'Zebra', ex: 'Pundamilia wana mistari nyeusi na nyeupe.', note: 'Jina linahusishwa na mistari ya mwilini kama milia.' },
-      { sw: 'NYUMBU', en: 'Wildebeest / gnu', ex: 'Nyumbu wengi wanahamia kila mwaka.', note: 'Uhamaji wa nyumbu Serengeti ni maarufu duniani.' },
-      { sw: 'FISI', en: 'Hyena', ex: 'Fisi analia usiku na sauti ya ajabu.' },
-      { sw: 'NYANI', en: 'Monkey / baboon', ex: 'Nyani anakula matunda msituni.' },
-      { sw: 'KIBOKO', en: 'Hippopotamus', ex: 'Kiboko anaishi mtoni na anakula nyasi.' },
-      { sw: 'SWALA', en: 'Gazelle / antelope', ex: 'Swala anaruka mbio mbugani.' },
-    ]
-  },
-  {
-    id: 'salamu',
-    name: 'Salamu na Mazungumzo',
-    sub: 'Greetings & Conversation',
-    icon: '👋',
-    color: '#AB47BC',
-    words: [
-      { sw: 'HABARI', en: 'News / how are you?', ex: 'Habari za asubuhi? Nzuri!', note: 'Majibu ya kawaida: Nzuri, Safi, Poa.' },
-      { sw: 'KARIBU', en: 'Welcome / come in', ex: 'Karibu nyumbani kwangu!', note: 'Unaweza pia kusema "Karibu sana" kwa msisitizo.' },
-      { sw: 'ASANTE', en: 'Thank you', ex: 'Asante sana kwa msaada wako.', note: 'Jibu la asante ni "Karibu" au "Sawa".' },
-      { sw: 'SAMAHANI', en: 'Sorry / excuse me', ex: 'Samahani, naweza kupita?', note: 'Pia hutumika kusema "Msamaha" rasmi zaidi.' },
-      { sw: 'TAFADHALI', en: 'Please', ex: 'Tafadhali nipe maji, nina kiu.' },
-      { sw: 'KWAHERI', en: 'Goodbye', ex: 'Kwaheri! Tutaonana kesho.', note: 'Kwa watu wengi unasema "Kwaherini".' },
-      { sw: 'NDIYO', en: 'Yes', ex: 'Ndiyo, ninaelewa vizuri.' },
-      { sw: 'HAPANA', en: 'No', ex: 'Hapana, sitaki sukari kwenye chai yangu.' },
-      { sw: 'SHIKAMOO', en: 'Respectful greeting (to elders)', ex: 'Shikamoo babu! Habari za leo?', note: 'Jibu ni "Marahaba" — heshima muhimu sana Tanzania.' },
-      { sw: 'MAMBO', en: 'How\'s things? (informal)', ex: 'Mambo vipi? — Poa kabisa!', note: '"Mambo" ni salamu ya vijana na marafiki.' },
-      { sw: 'SAWA', en: 'OK / alright', ex: 'Sawa, nitakuja saa tatu.' },
-      { sw: 'POLE', en: 'Sorry (empathy) / slowly', ex: 'Pole sana kwa msiba wako.', note: '"Pole pole" inamaanisha "slowly slowly".' },
-    ]
-  },
-  {
-    id: 'familia',
-    name: 'Familia',
-    sub: 'Family',
-    icon: '👨‍👩‍👧‍👦',
-    color: '#FFA726',
-    words: [
-      { sw: 'MAMA', en: 'Mother', ex: 'Mama wangu anapika chakula kitamu.', note: '"Mama" pia ni salamu ya heshima kwa mwanamke mzima.' },
-      { sw: 'BABA', en: 'Father', ex: 'Baba ananisaidia na kazi za shule.' },
-      { sw: 'DADA', en: 'Sister (older)', ex: 'Dada yangu anaishi Dar es Salaam.' },
-      { sw: 'KAKA', en: 'Brother (older)', ex: 'Kaka yangu ni daktari.' },
-      { sw: 'MTOTO', en: 'Child', ex: 'Mtoto anacheza kwa furaha.' },
-      { sw: 'BABU', en: 'Grandfather', ex: 'Babu ananieleza hadithi za zamani.', note: '"Bibi" ni bibi (grandmother) na "babu" ni babu (grandfather).' },
-      { sw: 'BIBI', en: 'Grandmother / older woman', ex: 'Bibi ananitengenezea chai.' },
-      { sw: 'MJOMBA', en: 'Uncle (mother\'s brother)', ex: 'Mjomba wangu anaishi Mwanza.' },
-      { sw: 'SHANGAZI', en: 'Aunt (father\'s sister)', ex: 'Shangazi ananiletea zawadi sikukuu.' },
-      { sw: 'BINAMU', en: 'Cousin', ex: 'Binamu zangu wanakaa Arusha.' },
-      { sw: 'MUME', en: 'Husband', ex: 'Mume wake ni mwalimu mzuri.' },
-      { sw: 'MKE', en: 'Wife', ex: 'Mke wake anapenda kupika pilau.' },
-    ]
-  },
-  {
-    id: 'biashara',
-    name: 'Biashara na Sokoni',
-    sub: 'Business & Market',
-    icon: '🛒',
-    color: '#26C6DA',
-    words: [
-      { sw: 'SOKO', en: 'Market', ex: 'Mama anaenda sokoni kununua mboga.', note: 'Masoko ya Tanzania ni ya rangi na ya kupendeza sana.' },
-      { sw: 'DUKA', en: 'Shop / store', ex: 'Duka hili lina vitu vingi.' },
-      { sw: 'BEI', en: 'Price', ex: 'Bei ya mchele ni ngapi leo?' },
-      { sw: 'PESA', en: 'Money', ex: 'Sina pesa za kutosha kununua hilo.' },
-      { sw: 'NUNUA', en: 'To buy', ex: 'Ninataka kununua kanga mbili.' },
-      { sw: 'UZA', en: 'To sell', ex: 'Anauza samaki bei nzuri.' },
-      { sw: 'BIDHAA', en: 'Goods / products', ex: 'Bidhaa hizi zimetoka China.' },
-      { sw: 'FAIDA', en: 'Profit / benefit', ex: 'Biashara yake ina faida kubwa.' },
-      { sw: 'MTEJA', en: 'Customer / client', ex: 'Wateja wengi wanakuja asubuhi.' },
-      { sw: 'PUNGUZA', en: 'To reduce / discount', ex: 'Tafadhali punguza bei kidogo.' },
-      { sw: 'LIPA', en: 'To pay', ex: 'Nimelipa kwa simu ya Mpesa.' },
-      { sw: 'HESABU', en: 'Calculation / arithmetic', ex: 'Hesabu yake ni sahihi kabisa.' },
-    ]
-  },
-  {
-    id: 'usafiri',
-    name: 'Usafiri',
-    sub: 'Transport & Travel',
-    icon: '🚌',
-    color: '#EC407A',
-    words: [
-      { sw: 'SAFARI', en: 'Journey / trip', ex: 'Tunaenda safari ya Arusha kesho.', note: 'Neno "safari" limetoka Kiswahili hadi lugha za Ulaya!' },
-      { sw: 'GARI', en: 'Car / vehicle', ex: 'Gari lake ni jipya na zuri.' },
-      { sw: 'BASI', en: 'Bus', ex: 'Napanda basi kwenda mjini kila asubuhi.' },
-      { sw: 'DALADALA', en: 'Minibus / shared taxi', ex: 'Daladala ni usafiri wa kawaida Dar es Salaam.', note: 'Daladala zinaitwa hivyo kwa sababu zilikuwa zinagharimu "dollar dollar" zamani.' },
-      { sw: 'BODA', en: 'Motorcycle taxi', ex: 'Boda inafika haraka mtaani.' },
-      { sw: 'BAJAJI', en: 'Three-wheeled auto-rickshaw', ex: 'Napanda bajaji kwenda stendi.' },
-      { sw: 'NDEGE', en: 'Airplane / bird', ex: 'Ndege inaondoka saa mbili usiku.' },
-      { sw: 'TRENI', en: 'Train', ex: 'Treni ya TAZARA inakwenda Zambia.' },
-      { sw: 'BARABARA', en: 'Road / street', ex: 'Barabara hii imejengwa vizuri.' },
-      { sw: 'BANDARI', en: 'Port / harbour', ex: 'Bandari ya Dar es Salaam ni kubwa.' },
-      { sw: 'TIKETI', en: 'Ticket', ex: 'Nimenunua tiketi ya basi tayari.' },
-      { sw: 'STENDI', en: 'Bus station / stop', ex: 'Nitakungojea stendi ya mabasi.' },
-      { sw: 'DEREVA', en: 'Driver', ex: 'Dereva wetu anajua njia vizuri.' },
-    ]
-  },
-  {
-    id: 'mazingira',
-    name: 'Mazingira na Hali ya Hewa',
-    sub: 'Environment & Weather',
-    icon: '🌍',
-    color: '#8D6E63',
-    words: [
-      { sw: 'JUA', en: 'Sun / sunshine', ex: 'Jua la Tanzania linawaka sana mchana.' },
-      { sw: 'MVUA', en: 'Rain', ex: 'Mvua inanyesha masika yote.' },
-      { sw: 'UPEPO', en: 'Wind', ex: 'Upepo wa baharini ni baridi na mzuri.' },
-      { sw: 'BAHARI', en: 'Ocean / sea', ex: 'Bahari ya Hindi ipo mashariki mwa Tanzania.' },
-      { sw: 'MLIMA', en: 'Mountain', ex: 'Mlima Kilimanjaro ni mrefu zaidi Afrika.', note: 'Kilimanjaro ni mlima mrefu zaidi barani Afrika — 5,895m.' },
-      { sw: 'MTO', en: 'River', ex: 'Mto Rufiji ni mrefu zaidi Tanzania.' },
-      { sw: 'ZIWA', en: 'Lake', ex: 'Ziwa Victoria ni kubwa zaidi Afrika.' },
-      { sw: 'MSITU', en: 'Forest / jungle', ex: 'Msitu wa Udzungwa una miti mingi.' },
-      { sw: 'JOTO', en: 'Heat / warmth', ex: 'Joto la pwani ni kali sana Januari.' },
-      { sw: 'BARIDI', en: 'Cold / cool', ex: 'Baridi inaingia Julai na Agosti.' },
-      { sw: 'PWANI', en: 'Coast / beach', ex: 'Pwani ya Zanzibar ni nzuri sana.' },
-      { sw: 'ARDHI', en: 'Land / soil / earth', ex: 'Ardhi ya Tanzania ni nzuri kwa kilimo.' },
-    ]
-  },
-  {
-    id: 'utamaduni',
-    name: 'Utamaduni wa Tanzania',
-    sub: 'Tanzanian Culture',
-    icon: '🥁',
-    color: '#7E57C2',
-    words: [
-      { sw: 'NGOMA', en: 'Drum / traditional dance', ex: 'Ngoma zinapigiwa sherehe ya harusi.', note: 'Kuna aina nyingi za ngoma Tanzania, kila kabila lina zake.' },
-      { sw: 'KANGA', en: 'Colorful traditional cloth with a saying', ex: 'Mama anabeba mtoto kwa kanga mgongoni.', note: 'Kanga ina methali au ujumbe mfupi katika Kiswahili.' },
-      { sw: 'KITENGE', en: 'Colorful wax print fabric', ex: 'Amelishwa nguo nzuri ya kitenge.' },
-      { sw: 'TAARAB', en: 'Musical genre mixing Arabic and Swahili', ex: 'Taarab ni muziki maarufu Zanzibar.', note: 'Taarab inachanganya athari za Kiarabu, Kiafrika na Kihindi.' },
-      { sw: 'HARUSI', en: 'Wedding', ex: 'Harusi ya jirani ilikuwa na furaha nyingi.' },
-      { sw: 'SHEREHE', en: 'Celebration / party', ex: 'Sherehe ya uhuru ni tarehe 9 Desemba.', note: 'Tanzania ilipata uhuru tarehe 9 Desemba 1961.' },
-      { sw: 'MILA', en: 'Culture / traditions / customs', ex: 'Mila za Tanzania ni nyingi na tofauti.' },
-      { sw: 'HADITHI', en: 'Story / tale', ex: 'Bibi ananieleza hadithi za kimapokeo.', note: 'Hadithi za kimapokeo za Kiswahili zinaanza na "Hadithi hadithi — hadithi njoo!"' },
-      { sw: 'SANAA', en: 'Art / craft', ex: 'Sanaa za Tanzania zinauza vizuri kwa watalii.' },
-      { sw: 'WIMBO', en: 'Song', ex: 'Wimbo huu wa bongo flava ni mzuri.' },
-    ]
-  },
-  {
-    id: 'historia',
-    name: 'Historia na Taifa',
-    sub: 'History & Nation',
-    icon: '🏛️',
-    color: '#EF5350',
-    words: [
-      { sw: 'UHURU', en: 'Freedom / independence', ex: 'Uhuru wa Tanzania ulipatikana 1961.', note: 'Tanganyika ilipata uhuru 9 Desemba 1961. Muungano na Zanzibar ulianza 1964.' },
-      { sw: 'AMANI', en: 'Peace', ex: 'Tanzania inajulikana kwa amani na utulivu.' },
-      { sw: 'TAIFA', en: 'Nation / country', ex: 'Taifa letu linastawi kila siku.' },
-      { sw: 'RAIS', en: 'President', ex: 'Rais wa Tanzania anaishi Ikulu Dar es Salaam.' },
-      { sw: 'BENDERA', en: 'Flag', ex: 'Bendera ya Tanzania ina rangi nne.', note: 'Rangi za bendera: kijani, njano, nyeusi, na bluu.' },
-      { sw: 'SERIKALI', en: 'Government', ex: 'Serikali inajengea barabara mpya.' },
-      { sw: 'KATIBA', en: 'Constitution', ex: 'Katiba ya Tanzania inalinda haki za wananchi.' },
-      { sw: 'WANANCHI', en: 'Citizens / the people', ex: 'Wananchi wanaomba maendeleo zaidi.' },
-      { sw: 'MUUNGANO', en: 'Union', ex: 'Muungano wa Tanganyika na Zanzibar ni nguvu.', note: 'Muungano ulianzishwa tarehe 26 Aprili 1964.' },
-      { sw: 'LUGHA', en: 'Language', ex: 'Lugha ya taifa ya Tanzania ni Kiswahili.' },
-    ]
-  }
-];
+const {
+  CATEGORIES,
+  DAILY_WORDS,
+  WODS,
+  ENCOURAGEMENTS,
+  EXTRA_WORDS,
+  ADVANCED_WORDS,
+  BADGE_DEFS,
+  SHOP_ITEMS,
+} = window.NenoSafariContent;
 
-// Daily puzzle seed words
-const DAILY_WORDS = [
-  { sw: 'KILIMANJARO', en: 'Highest mountain in Africa', ex: 'Kilimanjaro ni mlima mrefu zaidi Afrika.', note: 'Urefu wake ni mita 5,895.' },
-  { sw: 'SERENGETI', en: 'Famous national park in Tanzania', ex: 'Serengeti inajulikana duniani kote.', note: 'Serengeti ina wanyama wengi na mazingira mazuri.' },
-  { sw: 'SWAHILI', en: 'The Swahili language', ex: 'Ninajifunza Kiswahili kwa furaha.' },
-  { sw: 'BONGO', en: 'Tanzania (slang)', ex: 'Ninapenda kuishi bongo nchi yangu.', note: '"Bongo" ni jina la kimombo la Tanzania linalotumika katika muziki wa bongo flava.' },
-  { sw: 'UJAMAA', en: 'African socialism / unity', ex: 'Ujamaa ulianzishwa na Mwalimu Nyerere.', note: 'Ujamaa ulikuwa sera ya Tanzania baada ya uhuru.' },
-];
-
-// Word of the day list
-const WODS = [
-  { word: 'Karibu', meaning: 'Welcome — "Karibu Tanzania!"' },
-  { word: 'Ujamaa', meaning: 'Unity/Socialism — "Ujamaa ni nguvu yetu."' },
-  { word: 'Poa', meaning: 'Cool/Great — "Mambo? — Poa kabisa!"' },
-  { word: 'Asante', meaning: 'Thank you — "Asante sana!"' },
-      { word: 'Polepole', meaning: 'Slowly/calmly — "Twende polepole."' },
-  { word: 'Subira', meaning: 'Patience — "Subira huvuta heri."' },
-  { word: 'Upole', meaning: 'Gentleness — "Upole ni nguvu ya mtu mzima."' },
-  { word: 'Safari', meaning: 'Journey — "Safari ndefu huanza hatua moja."' },
-  { word: 'Umoja', meaning: 'Unity — "Umoja ni nguvu, utengano ni udhaifu."' },
-  { word: 'Pamoja', meaning: 'Together — "Pamoja tutafika mbali."' },
-];
-
-const ENCOURAGEMENTS = [
-  'Hongera! 🎉', 'Umefanikiwa! 🏆', 'Vizuri sana! ⭐',
-  'Nzuri kabisa! 🌟', 'Bora sana! 💪', 'Poa kabisa! 🔥',
-  'Endelea hivyo! 👍', 'Wewe ni bingwa! 🦁',
-];
-
-const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const {
+  seededRandom,
+  dateSeed,
+  shuffleWithRng,
+  generateGrid: generateWordSearchGrid,
+} = window.NenoSafariEngine;
+const { DAILY_PUZZLE_SETS } = window.NenoSafariDaily;
 
 // ============================================================
 // GAME STATE
@@ -1229,6 +1556,11 @@ let state = {
   foundWords: [],
   score: 0,
   totalScore: 0,
+  coins: 0,
+  badges: [],
+  ownedItems: [],
+  equippedItems: [],
+  learningSignals: {},
   puzzlesDone: 0,
   wordsFound: 0,
   startTime: null,
@@ -1241,132 +1573,28 @@ let state = {
   hintCount: 3,
   showTranslations: true,
   appLanguage: 'sw',
+  settings: { sound: true, motion: true, contrast: false },
   savedWords: [],
+  savedFilter: 'all',
+  dailyStats: { streak: 0, lastDate: '', completedDates: [] },
+  currentDailyKey: '',
+  isDailyPuzzle: false,
+  quizQuestions: [],
+  quizIndex: 0,
+  quizScore: 0,
   currentWordObj: null,
 };
 
-const UI_TEXT = {
-  sw: {
-    homeSubtitle: 'Jifunze Kiswahili kwa Kucheza!',
-    wordOfDay: '🌟 Neno la Leo',
-    languageLabel: 'Lugha ya menyu',
-    playNow: 'Cheza Sasa',
-    chooseCategory: 'Chagua Mada',
-    dailyPuzzle: 'Fumbo la Leo',
-    wordsStat: 'Maneno',
-    puzzlesStat: 'Mafumbo',
-    scoreStat: 'Pointi',
-    updatesTitle: 'Maboresho yajayo',
-    updateOne: 'Sauti za matamshi kwa maneno muhimu.',
-    updateTwo: 'Maswali mafupi baada ya kukamilisha fumbo.',
-    updateThree: 'Toleo la Android, kisha iOS na web/PC.',
-    chooseMode: 'Chagua Aina ya Mchezo',
-    classicMode: 'Kawaida',
-    classicDesc: 'Tafuta maneno bila haraka',
-    learnMode: 'Jifunze',
-    learnDesc: 'Maelezo baada ya kila neno',
-    timedMode: 'Haraka',
-    timedDesc: 'Tafuta maneno kabla ya muda',
-    dailyMode: 'Leo',
-    dailyDesc: 'Fumbo jipya kila siku',
-    difficultyTitle: 'Kiwango cha Ugumu',
-    continueCategory: 'Endelea Kuchagua Mada',
-    wordsToFind: 'Maneno ya Kutafuta',
-    foundSuffix: 'Yamepatikana',
-    hideEnglish: 'Ficha Kiingereza',
-    showEnglish: 'Onyesha Kiingereza',
-    englishOn: 'Tafsiri za Kiingereza zimewashwa.',
-    englishOff: 'Tafsiri zimefichwa.',
-    menuSwahili: 'Menyu iko kwa Kiswahili.',
-    menuEnglish: 'Menu language changed to English.',
-    modalExample: 'Mfano wa sentensi:',
-    modalNote: '📌 Kumbuka:',
-    saveWord: 'Hifadhi Neno',
-    savedWord: 'Neno Limehifadhiwa',
-    continue: '✓  Endelea!',
-    scoreLabel: 'Pointi',
-    wordsLabel: 'Maneno',
-    timeLabel: 'Muda',
-    vocabSummary: '📚 Maneno Uliyojifunza',
-    playAgain: '🔄 Cheza Tena',
-    otherCategory: '📚 Mada Nyingine',
-    home: '🏠 Nyumbani',
-  },
-  en: {
-    homeSubtitle: 'Learn Swahili by playing!',
-    wordOfDay: '🌟 Word of the Day',
-    languageLabel: 'Menu language',
-    playNow: 'Play Now',
-    chooseCategory: 'Choose Category',
-    dailyPuzzle: 'Daily Puzzle',
-    wordsStat: 'Words',
-    puzzlesStat: 'Puzzles',
-    scoreStat: 'Points',
-    updatesTitle: 'Updates and Upgrades',
-    updateOne: 'Audio pronunciation for key vocabulary.',
-    updateTwo: 'Short quizzes after each completed puzzle.',
-    updateThree: 'Android first, then iOS and web/PC.',
-    chooseMode: 'Choose Game Mode',
-    classicMode: 'Classic',
-    classicDesc: 'Find words without rushing',
-    learnMode: 'Learn',
-    learnDesc: 'Get details after each word',
-    timedMode: 'Timed',
-    timedDesc: 'Find words before time runs out',
-    dailyMode: 'Daily',
-    dailyDesc: 'A fresh puzzle every day',
-    difficultyTitle: 'Difficulty Level',
-    continueCategory: 'Continue to Categories',
-    wordsToFind: 'Words to Find',
-    foundSuffix: 'Found',
-    hideEnglish: 'Hide English',
-    showEnglish: 'Show English',
-    englishOn: 'English translations are on.',
-    englishOff: 'Translations are hidden.',
-    menuSwahili: 'Menu language changed to Swahili.',
-    menuEnglish: 'Menu language changed to English.',
-    modalExample: 'Example sentence:',
-    modalNote: '📌 Note:',
-    saveWord: 'Save Word',
-    savedWord: 'Word Saved',
-    continue: '✓  Continue',
-    scoreLabel: 'Points',
-    wordsLabel: 'Words',
-    timeLabel: 'Time',
-    vocabSummary: '📚 Words You Learned',
-    playAgain: '🔄 Play Again',
-    otherCategory: '📚 Other Category',
-    home: '🏠 Home',
-  }
-};
+const { UI_TEXT } = window.NenoSafariI18n;
+const storage = window.NenoSafariStorage;
+const accessibility = window.NenoSafariAccessibility;
 
-// ============================================================
-// PERSISTENCE
-// ============================================================
 function saveProgress() {
-  try {
-    localStorage.setItem('neno_score', state.totalScore);
-    localStorage.setItem('neno_puzzles', state.puzzlesDone);
-    localStorage.setItem('neno_words', state.wordsFound);
-    localStorage.setItem('neno_catprog', JSON.stringify(state.catProgress || {}));
-    localStorage.setItem('neno_saved_words', JSON.stringify(state.savedWords || []));
-    localStorage.setItem('neno_show_translations', state.showTranslations ? '1' : '0');
-    localStorage.setItem('neno_app_language', state.appLanguage);
-  } catch(e) {}
+  storage.saveProgress(state);
 }
+
 function loadProgress() {
-  try {
-    state.totalScore = parseInt(localStorage.getItem('neno_score') || '0');
-    state.puzzlesDone = parseInt(localStorage.getItem('neno_puzzles') || '0');
-    state.wordsFound = parseInt(localStorage.getItem('neno_words') || '0');
-    state.catProgress = JSON.parse(localStorage.getItem('neno_catprog') || '{}');
-    state.savedWords = JSON.parse(localStorage.getItem('neno_saved_words') || '[]');
-    state.showTranslations = localStorage.getItem('neno_show_translations') !== '0';
-    state.appLanguage = localStorage.getItem('neno_app_language') || 'sw';
-  } catch(e) {
-    state.catProgress = {};
-    state.savedWords = [];
-  }
+  storage.loadProgress(state);
 }
 
 // ============================================================
@@ -1377,12 +1605,363 @@ function showScreen(id) {
   document.getElementById(id).classList.add('active');
   if (id === 'category-screen') renderCategories();
   if (id === 'home-screen') updateHomeStats();
+  if (id === 'saved-screen') renderSavedWords();
+  if (id === 'progress-screen') renderProgressDashboard();
+  if (id === 'rewards-screen') renderRewards();
+  if (id === 'settings-screen') renderSettings();
+  applyAppLanguage();
+  accessibility.applyAccessibilityLabels(state.appLanguage);
 }
 
 function updateHomeStats() {
   document.getElementById('stat-score').textContent = state.totalScore;
   document.getElementById('stat-puzzles').textContent = state.puzzlesDone;
   document.getElementById('stat-words').textContent = state.wordsFound;
+  document.getElementById('stat-streak').textContent = state.dailyStats?.streak || 0;
+  document.getElementById('stat-coins').textContent = state.coins || 0;
+  document.getElementById('stat-badges').textContent = state.badges?.length || 0;
+  renderDailyBadge();
+}
+
+function displayWord(wordObj) {
+  if (wordObj.display) return wordObj.display;
+  if (Array.isArray(wordObj.parts) && wordObj.parts.length) return wordObj.parts.join(' ');
+  return wordObj.sw;
+}
+
+function categoryForWord(wordObj) {
+  return CATEGORIES.find(category => category.words.some(word => word.sw === wordObj.sw))?.id || state.currentCategory?.id || '';
+}
+
+function recordLearningSignal(type, categoryId = state.currentCategory?.id) {
+  if (!categoryId) return;
+  if (!state.learningSignals) state.learningSignals = {};
+  const current = state.learningSignals[categoryId] || { mistakes: 0, hints: 0 };
+  current[type] = (current[type] || 0) + 1;
+  current.lastSeen = new Date().toISOString();
+  state.learningSignals[categoryId] = current;
+  saveProgress();
+}
+
+function getAdaptiveRecommendation() {
+  const scored = CATEGORIES.map(category => {
+    const stats = getCategoryStats(category.id);
+    const signals = state.learningSignals?.[category.id] || {};
+    const weakness = (signals.mistakes || 0) * 2 + (signals.hints || 0);
+    const progressGap = Math.max(0, 100 - (stats.best || 0)) / 20;
+    return { category, stats, signals, score: weakness + progressGap };
+  }).sort((a, b) => b.score - a.score);
+  return scored[0];
+}
+
+function dailyKey(date = new Date()) {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+}
+
+function previousDailyKey(key) {
+  const [year, month, day] = key.split('-').map(Number);
+  const date = new Date(year, month - 1, day);
+  date.setDate(date.getDate() - 1);
+  return dailyKey(date);
+}
+
+function getCategoryStats(catId) {
+  const raw = state.catProgress?.[catId];
+  if (typeof raw === 'number') {
+    return { best: raw, completed: raw >= 100 ? 1 : 0, words: 0, stars: 0 };
+  }
+  return raw || { best: 0, completed: 0, words: 0, stars: 0 };
+}
+
+function isTodayDailyComplete() {
+  return Boolean(state.dailyStats?.completedDates?.includes(dailyKey()));
+}
+
+function renderDailyBadge() {
+  const badge = document.getElementById('daily-badge');
+  if (!badge) return;
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  const done = isTodayDailyComplete();
+  badge.textContent = done ? copy.dailyDoneBadge : copy.dailyOpenBadge;
+  badge.classList.toggle('done', done);
+}
+
+function applySettings() {
+  document.body.classList.toggle('reduce-motion', state.settings?.motion === false);
+  document.body.classList.toggle('high-contrast', Boolean(state.settings?.contrast));
+  renderSettings();
+}
+
+function renderSettings() {
+  const settings = state.settings || { sound: true, motion: true, contrast: false };
+  const sound = document.getElementById('sound-toggle');
+  const motion = document.getElementById('motion-toggle');
+  const contrast = document.getElementById('contrast-toggle');
+  if (sound) sound.classList.toggle('on', Boolean(settings.sound));
+  if (motion) motion.classList.toggle('on', settings.motion === false);
+  if (contrast) contrast.classList.toggle('on', Boolean(settings.contrast));
+}
+
+function toggleSetting(key) {
+  if (!state.settings) state.settings = { sound: true, motion: true, contrast: false };
+  if (key === 'sound') state.settings.sound = !state.settings.sound;
+  if (key === 'motion') state.settings.motion = state.settings.motion === false;
+  if (key === 'contrast') state.settings.contrast = !state.settings.contrast;
+  applySettings();
+  saveProgress();
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  showToast((state.settings[key] === false ? copy.settingOff : copy.settingOn));
+}
+
+function renderProgressDashboard() {
+  const summary = document.getElementById('progress-summary');
+  const categories = document.getElementById('progress-categories');
+  if (!summary || !categories) return;
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  const completedCats = CATEGORIES.filter(cat => getCategoryStats(cat.id).best >= 100).length;
+  const savedCount = state.savedWords?.length || 0;
+  const recommendation = getAdaptiveRecommendation();
+  const recommended = recommendation.category;
+  const recStats = recommendation.stats;
+  const recSignals = recommendation.signals || {};
+  const chartCats = [...CATEGORIES].sort((a, b) => getCategoryStats(b.id).best - getCategoryStats(a.id).best).slice(0, 6);
+  const signalCats = [...CATEGORIES]
+    .map(cat => ({ cat, signals: state.learningSignals?.[cat.id] || {} }))
+    .sort((a, b) => ((b.signals.mistakes || 0) + (b.signals.hints || 0)) - ((a.signals.mistakes || 0) + (a.signals.hints || 0)))
+    .slice(0, 6);
+
+  summary.innerHTML = `
+    <div class="progress-stat"><div class="n">${state.wordsFound}</div><div class="l">${copy.wordsStat}</div></div>
+    <div class="progress-stat"><div class="n">${state.puzzlesDone}</div><div class="l">${copy.puzzlesStat}</div></div>
+    <div class="progress-stat"><div class="n">${completedCats}/${CATEGORIES.length}</div><div class="l">${copy.progressComplete}</div></div>
+    <div class="progress-stat"><div class="n">${state.dailyStats?.streak || 0}</div><div class="l">${copy.streakStat}</div></div>
+    <div class="progress-stat"><div class="n">${savedCount}</div><div class="l">${copy.progressSaved}</div></div>
+    <div class="progress-stat"><div class="n">${isTodayDailyComplete() ? '?' : '0'}</div><div class="l">${isTodayDailyComplete() ? copy.progressDailyDone : copy.progressDailyOpen}</div></div>
+  `;
+
+  categories.innerHTML = `
+    <div class="recommendation-card">
+      <h3>${copy.recommendationTitle}</h3>
+      <p>${copy.recommendationCopy.replace('{category}', recommended.name).replace('{progress}', recStats.best || 0)}</p>
+      <p>${state.appLanguage === 'en'
+        ? `Recent practice signals: ${recSignals.mistakes || 0} quiz misses and ${recSignals.hints || 0} hints.`
+        : `Alama za mazoezi: makosa ${recSignals.mistakes || 0} na vidokezo ${recSignals.hints || 0}.`}</p>
+    </div>
+    <div class="progress-chart-grid">
+      <div class="chart-tile">
+        <strong>${state.appLanguage === 'en' ? 'Strongest Categories' : 'Mada Zenye Nguvu'}</strong>
+        <div class="chart-meter">
+          ${chartCats.map(cat => `<div class="chart-bar" title="${cat.name}" style="height:${Math.max(8, getCategoryStats(cat.id).best || 4)}%"></div>`).join('')}
+        </div>
+      </div>
+      <div class="chart-tile">
+        <strong>${state.appLanguage === 'en' ? 'Practice Signals' : 'Alama za Mazoezi'}</strong>
+        <div class="chart-meter">
+          ${signalCats.map(({ cat, signals }) => `<div class="chart-bar" title="${cat.name}" style="height:${Math.min(100, Math.max(8, ((signals.mistakes || 0) * 20) + ((signals.hints || 0) * 10)))}%"></div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="word-list-title" style="margin: 14px 0 10px;">${copy.progressCategories}</div>
+  `;
+  CATEGORIES.forEach(cat => {
+    const stats = getCategoryStats(cat.id);
+    const signals = state.learningSignals?.[cat.id] || {};
+    const needsPractice = (signals.mistakes || 0) + (signals.hints || 0) > 0;
+    const card = document.createElement('div');
+    card.className = `progress-card ${needsPractice ? 'needs-practice' : ''}`;
+    card.innerHTML = `
+      <h3>${cat.icon} ${cat.name}</h3>
+      <div class="prog-bar"><div class="prog-fill" style="width:${stats.best || 0}%"></div></div>
+      <div class="meta"><span>${stats.best || 0}%</span><span>${copy.wordsStat}: ${stats.words || 0}</span><span>? ${stats.stars || 0}</span><span>${stats.completed || 0}x</span></div>
+      ${needsPractice ? `<span class="signal-pill">${state.appLanguage === 'en' ? 'Practice' : 'Mazoezi'}: ${signals.mistakes || 0}/${signals.hints || 0}</span>` : ''}
+    `;
+    categories.appendChild(card);
+  });
+}
+
+function renderRewards() {
+  const summary = document.getElementById('rewards-summary');
+  const gallery = document.getElementById('badge-gallery');
+  const shop = document.getElementById('coin-shop');
+  if (!summary || !gallery || !shop) return;
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  summary.innerHTML = `
+    <div class="progress-stat"><div class="n">${state.coins || 0}</div><div class="l">${copy.coinsStat}</div></div>
+    <div class="progress-stat"><div class="n">${state.badges?.length || 0}</div><div class="l">${copy.badgesStat}</div></div>
+    <div class="progress-stat"><div class="n">${state.equippedItems?.length || 0}</div><div class="l">${state.appLanguage === 'en' ? 'Equipped' : 'Vimevaliwa'}</div></div>
+  `;
+
+  gallery.innerHTML = '';
+  BADGE_DEFS.forEach(badge => {
+    const unlocked = state.badges?.some(id => id === badge.id || id.startsWith(`${badge.id}-`));
+    const card = document.createElement('div');
+    card.className = `badge-card ${unlocked ? 'unlocked' : ''}`;
+    card.innerHTML = `
+      <div class="icon">${badge.icon}</div>
+      <strong>${state.appLanguage === 'en' ? badge.en : badge.sw}</strong>
+      <span>${state.appLanguage === 'en' ? badge.descEn : badge.descSw}</span>
+      <span style="display:block;margin-top:6px;font-weight:800">${unlocked ? copy.unlockedBadge : copy.lockedBadge}</span>
+    `;
+    gallery.appendChild(card);
+  });
+
+  shop.innerHTML = '';
+  SHOP_ITEMS.forEach(item => {
+    const owned = state.ownedItems?.includes(item.id);
+    const equipped = state.equippedItems?.includes(item.id);
+    const card = document.createElement('div');
+    card.className = `shop-card ${equipped ? 'equipped' : ''}`;
+    card.innerHTML = `
+      <strong>${state.appLanguage === 'en' ? item.en : item.sw}</strong>
+      <span>${state.appLanguage === 'en' ? item.descEn : item.descSw}</span>
+      <div class="shop-actions">
+        <button ${owned ? 'disabled' : ''} onclick="buyShopItem('${item.id}')">${owned ? copy.ownedItem : `${copy.buyItem} ? ${item.cost}`}</button>
+        <button class="equip-btn" ${owned ? '' : 'disabled'} onclick="equipShopItem('${item.id}')">${equipped ? (copy.equippedItem || 'Equipped') : (copy.equipItem || 'Equip')}</button>
+      </div>
+    `;
+    shop.appendChild(card);
+  });
+}
+
+function buyShopItem(id) {
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  const item = SHOP_ITEMS.find(entry => entry.id === id);
+  if (!item || state.ownedItems?.includes(id)) return;
+  if ((state.coins || 0) < item.cost) {
+    showToast(copy.notEnoughCoins);
+    return;
+  }
+  state.coins -= item.cost;
+  state.ownedItems.push(id);
+  if (!state.equippedItems) state.equippedItems = [];
+  if (item.type === 'theme' && !state.equippedItems.some(itemId => SHOP_ITEMS.find(entry => entry.id === itemId)?.type === 'theme')) {
+    equipShopItem(id, { silent: true });
+  }
+  saveProgress();
+  updateHomeStats();
+  renderRewards();
+  showToast(copy.itemBought);
+}
+
+function equipShopItem(id, options = {}) {
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  const item = SHOP_ITEMS.find(entry => entry.id === id);
+  if (!item || !state.ownedItems?.includes(id)) return;
+  if (!state.equippedItems) state.equippedItems = [];
+  state.equippedItems = state.equippedItems.filter(itemId => {
+    const equipped = SHOP_ITEMS.find(entry => entry.id === itemId);
+    return equipped && equipped.type !== item.type;
+  });
+  state.equippedItems.push(id);
+  applyEquippedCosmetics();
+  saveProgress();
+  renderRewards();
+  if (!options.silent) showToast(copy.equippedToast || 'Equipped.');
+}
+
+function applyEquippedCosmetics() {
+  const themeClasses = SHOP_ITEMS.filter(item => item.type === 'theme').map(item => item.id);
+  const badgeClasses = SHOP_ITEMS.filter(item => item.type === 'badge').map(item => item.id);
+  document.body.classList.remove(...themeClasses, ...badgeClasses, 'trail-spark');
+  (state.equippedItems || []).forEach(id => document.body.classList.add(id));
+}
+
+function awardBadge(id) {
+  if (!state.badges) state.badges = [];
+  if (state.badges.includes(id)) return false;
+  state.badges.push(id);
+  return true;
+}
+
+function applyRewards({ completed, stars, found }) {
+  const unlocked = [];
+  const coins = completed ? 20 + (stars * 10) : Math.max(3, found * 2);
+  state.coins = (state.coins || 0) + coins;
+
+  if (state.wordsFound >= 10 && awardBadge('words-10')) unlocked.push('10 Words');
+  if (state.puzzlesDone >= 1 && awardBadge('first-puzzle')) unlocked.push('First Puzzle');
+  if ((state.dailyStats?.streak || 0) >= 3 && awardBadge('daily-3')) unlocked.push('3 Day Streak');
+  if (stars >= 3 && awardBadge(`three-star-${state.currentCategory.id}`)) unlocked.push('3 Star Category');
+
+  return { coins, badges: unlocked };
+}
+
+function renderSavedWords() {
+  const list = document.getElementById('saved-words-list');
+  if (!list) return;
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  list.innerHTML = '';
+  const categories = [...new Set((state.savedWords || []).map(w => w.category).filter(Boolean))];
+  const controls = document.createElement('div');
+  controls.className = 'saved-controls';
+  controls.innerHTML = `
+    <select aria-label="Saved word category filter" onchange="setSavedFilter(this.value)">
+      <option value="all">${copy.savedFilterAll}</option>
+      ${categories.map(cat => `<option value="${cat}" ${state.savedFilter === cat ? 'selected' : ''}>${cat}</option>`).join('')}
+    </select>
+    <button onclick="clearSavedWords()">${copy.clearSaved}</button>
+  `;
+  controls.querySelector('select').value = state.savedFilter;
+  list.appendChild(controls);
+
+  if (!state.savedWords || state.savedWords.length === 0) {
+    const empty = document.createElement('div');
+    empty.className = 'empty-state';
+    empty.textContent = copy.noSavedWords;
+    list.appendChild(empty);
+    return;
+  }
+  const filtered = state.savedFilter === 'all'
+    ? state.savedWords
+    : state.savedWords.filter(word => word.category === state.savedFilter);
+  if (filtered.length === 0) {
+    const empty = document.createElement('div');
+    empty.className = 'empty-state';
+    empty.textContent = copy.noSavedWords;
+    list.appendChild(empty);
+    return;
+  }
+  [...filtered].reverse().forEach(word => {
+    const card = document.createElement('div');
+    card.className = 'saved-word-card';
+    card.innerHTML = `
+      <strong>${word.sw}</strong>
+      <div class="meaning">${word.en}</div>
+      <div class="example">${word.ex || ''}</div>
+      <div class="saved-meta">
+        <span>${copy.reviewedLabel}: ${word.reviewed || 0}</span>
+        <button class="saved-review-btn" onclick="markWordReviewed('${word.key || word.sw}')">${copy.reviewWord}</button>
+      </div>
+    `;
+    list.appendChild(card);
+  });
+}
+
+function markWordReviewed(key) {
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  const word = state.savedWords.find(item => (item.key || item.sw) === key);
+  if (!word) return;
+  word.reviewed = (word.reviewed || 0) + 1;
+  word.lastReviewed = new Date().toISOString();
+  saveProgress();
+  renderSavedWords();
+  showToast(copy.wordReviewed);
+}
+
+function setSavedFilter(value) {
+  state.savedFilter = value || 'all';
+  renderSavedWords();
+}
+
+function clearSavedWords() {
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  if (!confirm(copy.confirmClearSaved)) return;
+  state.savedWords = [];
+  state.savedFilter = 'all';
+  saveProgress();
+  renderSavedWords();
+  updateHomeStats();
+  showToast(copy.savedCleared);
 }
 
 function applyTranslationPreference() {
@@ -1414,8 +1993,16 @@ function applyAppLanguage() {
   document.querySelectorAll('.v-btn')[0].textContent = copy.playAgain;
   document.querySelectorAll('.v-btn')[1].textContent = copy.otherCategory;
   document.querySelectorAll('.v-btn')[2].textContent = copy.home;
+  const pronounceBtn = document.getElementById('pronounce-btn');
+  if (pronounceBtn) pronounceBtn.textContent = copy.pronounceWord;
+  renderSavedWords();
+  renderDailyBadge();
+  renderProgressDashboard();
+  renderRewards();
+  renderSettings();
   applyTranslationPreference();
   updateWordCount();
+  accessibility.applyAccessibilityLabels(state.appLanguage);
 }
 
 function setAppLanguage(lang) {
@@ -1460,6 +2047,17 @@ function getPronunciation(word) {
     .replace(/u/g, 'oo');
 }
 
+function enrichVocabulary() {
+  CATEGORIES.forEach(category => {
+    const extras = [...(EXTRA_WORDS[category.id] || []), ...(ADVANCED_WORDS[category.id] || [])];
+    extras.forEach(word => {
+      if (!category.words.some(existing => existing.sw === word.sw)) {
+        category.words.push(word);
+      }
+    });
+  });
+}
+
 // ============================================================
 // MODE & DIFFICULTY
 // ============================================================
@@ -1486,7 +2084,8 @@ function renderCategories() {
   const grid = document.getElementById('cat-grid');
   grid.innerHTML = '';
   CATEGORIES.forEach((cat, i) => {
-    const prog = state.catProgress?.[cat.id] || 0;
+    const stats = getCategoryStats(cat.id);
+    const prog = stats.best || 0;
     const div = document.createElement('div');
     div.className = `cat-card cat-${i}`;
     div.innerHTML = `
@@ -1495,99 +2094,29 @@ function renderCategories() {
       <div class="cat-sub">${cat.sub}</div>
       <div class="cat-progress">
         <div class="prog-bar"><div class="prog-fill" style="width:${prog}%"></div></div>
-        <span class="prog-label">${prog}%</span>
+        <span class="prog-label">${prog}% · ${stats.completed || 0}x</span>
       </div>
     `;
-    div.style.setProperty('--cat-color', cat.color);
-    div.onclick = () => startGame(cat);
-    grid.appendChild(div);
+  div.style.setProperty('--cat-color', cat.color);
+  div.setAttribute('role', 'button');
+  div.setAttribute('tabindex', '0');
+  div.setAttribute('aria-label', `${cat.name} ${cat.sub}`);
+  div.onclick = () => startGame(cat);
+  div.onkeydown = (event) => {
+    if (event.key === 'Enter' || event.key === ' ') startGame(cat);
+  };
+  grid.appendChild(div);
   });
-}
-
-// ============================================================
-// GRID GENERATION
-// ============================================================
-function generateGrid(words, size) {
-  // Initialize empty grid
-  const grid = Array.from({ length: size }, () => Array(size).fill(''));
-  const placements = [];
-  const directions = [
-    [0, 1],   // right
-    [1, 0],   // down
-    [1, 1],   // diagonal down-right
-    [0, -1],  // left
-    [-1, 0],  // up
-    [-1, -1], // diagonal up-left
-    [1, -1],  // diagonal down-left
-    [-1, 1],  // diagonal up-right
-  ];
-
-  // Filter directions by difficulty
-  let allowedDirs;
-  if (state.difficulty === 'rahisi') allowedDirs = [[0,1],[1,0]];
-  else if (state.difficulty === 'kati') allowedDirs = [[0,1],[1,0],[1,1],[0,-1]];
-  else allowedDirs = directions;
-
-  // Sort words longest first for better placement
-  const sortedWords = [...words].sort((a, b) => b.sw.length - a.sw.length);
-
-  for (const wordObj of sortedWords) {
-    const word = wordObj.sw.replace(/\s+/g, '');
-    let placed = false;
-    const attempts = 200;
-
-    for (let attempt = 0; attempt < attempts && !placed; attempt++) {
-      const dir = allowedDirs[Math.floor(Math.random() * allowedDirs.length)];
-      const [dr, dc] = dir;
-      const len = word.length;
-
-      // Calculate valid starting positions
-      const rowStart = dr === 1 ? 0 : (dr === -1 ? len - 1 : 0);
-      const rowEnd = dr === 1 ? size - len : (dr === -1 ? size - 1 : size - 1);
-      const colStart = dc === 1 ? 0 : (dc === -1 ? len - 1 : 0);
-      const colEnd = dc === 1 ? size - len : (dc === -1 ? size - 1 : size - 1);
-
-      if (rowStart > rowEnd || colStart > colEnd) continue;
-
-      const r = rowStart + Math.floor(Math.random() * (rowEnd - rowStart + 1));
-      const c = colStart + Math.floor(Math.random() * (colEnd - colStart + 1));
-
-      // Check if placement is valid
-      let valid = true;
-      const cells = [];
-      for (let i = 0; i < len; i++) {
-        const nr = r + i * dr;
-        const nc = c + i * dc;
-        if (nr < 0 || nr >= size || nc < 0 || nc >= size) { valid = false; break; }
-        if (grid[nr][nc] !== '' && grid[nr][nc] !== word[i]) { valid = false; break; }
-        cells.push([nr, nc]);
-      }
-
-      if (valid) {
-        cells.forEach(([nr, nc], i) => { grid[nr][nc] = word[i]; });
-        placements.push({ word: word, wordObj, cells });
-        placed = true;
-      }
-    }
-  }
-
-  // Fill remaining empty cells with random letters
-  for (let r = 0; r < size; r++) {
-    for (let c = 0; c < size; c++) {
-      if (grid[r][c] === '') {
-        grid[r][c] = ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
-      }
-    }
-  }
-
-  return { grid, placements };
 }
 
 // ============================================================
 // GAME START
 // ============================================================
-function startGame(category) {
+function startGame(category, options = {}) {
+  const rng = options.seed ? seededRandom(options.seed) : Math.random;
   state.currentCategory = category;
+  state.isDailyPuzzle = Boolean(options.daily);
+  state.currentDailyKey = options.dailyKey || '';
   state.foundWords = [];
   state.score = 0;
   state.hintCount = 3;
@@ -1600,11 +2129,11 @@ function startGame(category) {
   // Pick words based on difficulty
   const wordCounts = { rahisi: 6, kati: 8, ngumu: 10, bingwa: 12 };
   const count = Math.min(wordCounts[state.difficulty] || 8, category.words.length);
-  const shuffled = [...category.words].sort(() => Math.random() - 0.5);
+  const shuffled = shuffleWithRng(category.words, rng);
   const selectedWords = shuffled.slice(0, count);
 
   // Generate puzzle
-  const { grid, placements } = generateGrid(selectedWords, state.gridSize);
+  const { grid, placements } = generateWordSearchGrid(selectedWords, state.gridSize, state.difficulty, rng);
   state.grid = grid;
   state.wordPlacements = placements;
 
@@ -1842,12 +2371,12 @@ function showPointsPopup(points, [r, c]) {
 function showWordModal(wordObj) {
   const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
   state.currentWordObj = wordObj;
-  document.getElementById('modal-word').textContent = wordObj.sw;
+  document.getElementById('modal-word').textContent = displayWord(wordObj);
   document.getElementById('modal-meaning').textContent = wordObj.en;
   document.getElementById('modal-pron').textContent = 'Matamshi: ' + (wordObj.pron || getPronunciation(wordObj.sw));
   document.getElementById('modal-example').textContent = wordObj.ex || '';
   const saveBtn = document.getElementById('modal-save');
-  const isSaved = state.savedWords.some(w => w.sw === wordObj.sw);
+  const isSaved = state.savedWords.some(w => (w.key || w.sw) === wordObj.sw);
   saveBtn.textContent = isSaved ? copy.savedWord : copy.saveWord;
   saveBtn.disabled = isSaved;
   const noteEl = document.getElementById('modal-note');
@@ -1863,10 +2392,11 @@ function showWordModal(wordObj) {
 
 function saveCurrentWord() {
   if (!state.currentWordObj) return;
-  const exists = state.savedWords.some(w => w.sw === state.currentWordObj.sw);
+  const exists = state.savedWords.some(w => (w.key || w.sw) === state.currentWordObj.sw);
   if (!exists) {
     state.savedWords.push({
-      sw: state.currentWordObj.sw,
+      sw: displayWord(state.currentWordObj),
+      key: state.currentWordObj.sw,
       en: state.currentWordObj.en,
       ex: state.currentWordObj.ex || '',
       category: state.currentCategory?.name || '',
@@ -1878,6 +2408,29 @@ function saveCurrentWord() {
     saveBtn.textContent = copy.savedWord;
     saveBtn.disabled = true;
   }
+}
+
+function speakCurrentWord() {
+  if (!state.currentWordObj || state.settings?.sound === false) return;
+  const audioPath = state.currentWordObj.audio || `audio/${state.currentWordObj.sw.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.mp3`;
+  if ('Audio' in window) {
+    const audio = new Audio(audioPath);
+    audio.play().catch(() => speakWordWithBrowserVoice());
+    return;
+  }
+  speakWordWithBrowserVoice();
+}
+
+function speakWordWithBrowserVoice() {
+  if (!('speechSynthesis' in window)) {
+    showToast(state.appLanguage === 'en' ? 'Speech is not available here.' : 'Sauti haipatikani hapa.');
+    return;
+  }
+  const utterance = new SpeechSynthesisUtterance(displayWord(state.currentWordObj));
+  utterance.lang = 'sw-TZ';
+  utterance.rate = 0.86;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(utterance);
 }
 
 function closeModal() {
@@ -1897,6 +2450,7 @@ function useHint(type) {
   if (unfound.length === 0) return;
 
   const target = unfound[Math.floor(Math.random() * unfound.length)];
+  recordLearningSignal('hints');
 
   if (type === 'letter') {
     const [fr, fc] = target.cells[0];
@@ -1939,13 +2493,13 @@ function renderWordList() {
     chip.innerHTML = `
       <span class="check">✓</span>
       <div>
-        <div class="wtext">${placement.word}</div>
+        <div class="wtext">${displayWord(placement.wordObj)}</div>
         <div class="wmean">${placement.wordObj.en}</div>
       </div>
     `;
     chip.onclick = () => {
       if (!chip.classList.contains('found')) {
-        showToast(`💡 Kiswahili: ${placement.word} = ${placement.wordObj.en}`);
+        showToast(`💡 Kiswahili: ${displayWord(placement.wordObj)} = ${placement.wordObj.en}`);
       } else {
         showWordModal(placement.wordObj);
       }
@@ -2015,7 +2569,19 @@ function endGame(completed) {
   // Update category progress
   if (!state.catProgress) state.catProgress = {};
   const prog = Math.round((found / total) * 100);
-  state.catProgress[state.currentCategory.id] = Math.max(prog, state.catProgress[state.currentCategory.id] || 0);
+  const catStats = getCategoryStats(state.currentCategory.id);
+  state.catProgress[state.currentCategory.id] = {
+    best: Math.max(prog, catStats.best || 0),
+    completed: (catStats.completed || 0) + (completed ? 1 : 0),
+    words: (catStats.words || 0) + found,
+    stars: Math.max(stars, catStats.stars || 0),
+  };
+
+  if (completed && state.isDailyPuzzle && state.currentDailyKey) {
+    updateDailyStreak(state.currentDailyKey);
+  }
+
+  const rewards = applyRewards({ completed, stars, found });
 
   saveProgress();
 
@@ -2049,7 +2615,146 @@ function endGame(completed) {
     vocabList.appendChild(div);
   });
 
+  renderMiniQuiz();
   showScreen('victory-screen');
+  if (completed) launchSuccessBurst(stars);
+  if (completed) {
+    const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+    showToast(copy.rewardsToast
+      .replace('{coins}', rewards.coins)
+      .replace('{badges}', rewards.badges.length || 0));
+  }
+}
+
+function renderMiniQuiz() {
+  const card = document.getElementById('quiz-card');
+  const titleEl = card?.querySelector('h3');
+  const progressEl = document.getElementById('quiz-progress');
+  const questionEl = document.getElementById('quiz-question');
+  const optionsEl = document.getElementById('quiz-options');
+  if (!card || !titleEl || !progressEl || !questionEl || !optionsEl) return;
+
+  const foundPlacements = state.wordPlacements.filter(p => state.foundWords.includes(p.word));
+  if (foundPlacements.length === 0) {
+    card.style.display = 'none';
+    return;
+  }
+
+  card.style.display = 'block';
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  state.quizQuestions = shuffleWithRng(foundPlacements, Math.random).slice(0, Math.min(3, foundPlacements.length));
+  state.quizIndex = 0;
+  state.quizScore = 0;
+  titleEl.textContent = copy.miniQuizTitle;
+  renderQuizQuestion();
+}
+
+function renderQuizQuestion() {
+  const card = document.getElementById('quiz-card');
+  const titleEl = card?.querySelector('h3');
+  const progressEl = document.getElementById('quiz-progress');
+  const questionEl = document.getElementById('quiz-question');
+  const optionsEl = document.getElementById('quiz-options');
+  if (!card || !titleEl || !progressEl || !questionEl || !optionsEl) return;
+
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  const total = state.quizQuestions.length;
+  if (state.quizIndex >= total) {
+    titleEl.textContent = copy.miniQuizTitle;
+    progressEl.textContent = copy.quizDone
+      .replace('{score}', state.quizScore)
+      .replace('{total}', total);
+    questionEl.textContent = state.appLanguage === 'en' ? 'Nice revision. Keep practicing your saved words.' : 'Umefanya marudio vizuri. Endelea kujifunza.';
+    optionsEl.innerHTML = '';
+    return;
+  }
+
+  const target = state.quizQuestions[state.quizIndex].wordObj;
+  const type = state.quizIndex % 3;
+  const allWords = CATEGORIES.flatMap(cat => cat.words);
+  let answer;
+  let options;
+
+  progressEl.textContent = copy.quizProgress
+    .replace('{current}', state.quizIndex + 1)
+    .replace('{total}', total)
+    .replace('{score}', state.quizScore);
+
+  if (type === 1) {
+    answer = displayWord(target);
+    const wrongWords = allWords.filter(w => w.sw !== target.sw).map(displayWord);
+    options = [answer, ...[...new Set(wrongWords)].sort(() => Math.random() - 0.5).slice(0, 2)].sort(() => Math.random() - 0.5);
+    questionEl.textContent = copy.quizPromptWord.replace('{meaning}', target.en);
+  } else if (type === 2 && target.ex) {
+    answer = displayWord(target);
+    const wrongWords = allWords.filter(w => w.sw !== target.sw).map(displayWord);
+    options = [answer, ...[...new Set(wrongWords)].sort(() => Math.random() - 0.5).slice(0, 2)].sort(() => Math.random() - 0.5);
+    questionEl.textContent = target.ex.replace(new RegExp(displayWord(target), 'i'), '_____');
+  } else {
+    answer = target.en;
+    const allMeanings = allWords.map(w => w.en).filter(en => en !== target.en);
+    const wrong = [...new Set(allMeanings)].sort(() => Math.random() - 0.5).slice(0, 2);
+    options = [answer, ...wrong].sort(() => Math.random() - 0.5);
+    questionEl.textContent = copy.quizPrompt.replace('{word}', displayWord(target));
+  }
+
+  optionsEl.innerHTML = '';
+  options.forEach(option => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-option';
+    btn.textContent = option;
+    btn.onclick = () => answerMiniQuiz(btn, option === answer, answer);
+    optionsEl.appendChild(btn);
+  });
+}
+
+function answerMiniQuiz(btn, correct, answer) {
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  document.querySelectorAll('.quiz-option').forEach(option => {
+    option.disabled = true;
+    if (option.textContent === answer) option.classList.add('correct');
+  });
+  if (!correct) {
+    btn.classList.add('wrong');
+    const target = state.quizQuestions[state.quizIndex]?.wordObj;
+    if (target) recordLearningSignal('mistakes', categoryForWord(target));
+  }
+  if (correct) state.quizScore++;
+  showToast(correct ? copy.quizCorrect : copy.quizWrong.replace('{answer}', answer));
+  setTimeout(() => {
+    state.quizIndex++;
+    renderQuizQuestion();
+  }, 900);
+}
+
+function updateDailyStreak(key) {
+  if (!state.dailyStats) state.dailyStats = { streak: 0, lastDate: '', completedDates: [] };
+  if (state.dailyStats.completedDates?.includes(key)) return;
+
+  const previous = previousDailyKey(key);
+  const continues = state.dailyStats.lastDate === previous;
+  state.dailyStats.streak = continues ? (state.dailyStats.streak || 0) + 1 : 1;
+  state.dailyStats.lastDate = key;
+  state.dailyStats.completedDates = [...(state.dailyStats.completedDates || []), key].slice(-60);
+}
+
+function launchSuccessBurst(stars = 3) {
+  if (state.settings?.motion === false) return;
+  const burst = document.createElement('div');
+  burst.className = 'success-burst';
+  const icons = ['★', '✓', '+', 'Neno', 'TZ'];
+  const count = 10 + stars * 4;
+  for (let i = 0; i < count; i++) {
+    const piece = document.createElement('span');
+    piece.textContent = icons[i % icons.length];
+    piece.style.setProperty('--x', `${Math.round((Math.random() - 0.5) * 320)}px`);
+    piece.style.setProperty('--y', `${Math.round((Math.random() - 0.8) * 280)}px`);
+    piece.style.setProperty('--r', `${Math.round((Math.random() - 0.5) * 120)}deg`);
+    piece.style.animationDelay = `${i * 18}ms`;
+    burst.appendChild(piece);
+  }
+  document.body.appendChild(burst);
+  setTimeout(() => burst.remove(), 1200);
 }
 
 function playAgain() {
@@ -2066,8 +2771,19 @@ function exitGame() {
 // ============================================================
 function startDailyPuzzle() {
   const today = new Date();
-  const dayIdx = (today.getFullYear() * 365 + today.getMonth() * 30 + today.getDate()) % CATEGORIES.length;
-  startGame(CATEGORIES[dayIdx]);
+  const seed = dateSeed(today);
+  const key = dailyKey(today);
+  const dayIdx = seed % CATEGORIES.length;
+  const dailySet = DAILY_PUZZLE_SETS[seed % DAILY_PUZZLE_SETS.length];
+  const fallbackCategory = CATEGORIES[dayIdx];
+  startGame({
+    id: `daily-${dailySet.id}`,
+    name: dailySet.name,
+    sub: fallbackCategory.sub,
+    icon: fallbackCategory.icon,
+    color: fallbackCategory.color,
+    words: dailySet.words,
+  }, { seed, daily: true, dailyKey: key });
   showToast('☀️ Fumbo la Leo limefunguliwa!');
 }
 
@@ -2096,10 +2812,14 @@ function setWordOfDay() {
 // INIT
 // ============================================================
 function init() {
+  enrichVocabulary();
   loadProgress();
+  applySettings();
+  applyEquippedCosmetics();
   updateHomeStats();
   setWordOfDay();
   applyAppLanguage();
+  accessibility.applyAccessibilityLabels(state.appLanguage);
   // Set default difficulty buttons
   document.querySelectorAll('.diff-btn').forEach((b, i) => {
     if (i === 1) b.classList.add('active');

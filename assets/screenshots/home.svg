@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <rect width="1080" height="1920" fill="#1B5E20"/>
+  <rect y="1440" width="1080" height="480" fill="#1565C0"/>
+  <text x="540" y="320" text-anchor="middle" font-family="Segoe UI, Arial" font-size="108" font-weight="800" fill="#FDD835">Neno Safari</text>
+  <text x="540" y="420" text-anchor="middle" font-family="Segoe UI, Arial" font-size="44" fill="#FFFFFF">Learn Tanzanian Swahili by playing</text>
+  <rect x="190" y="640" width="700" height="120" rx="28" fill="#F9A825"/>
+  <text x="540" y="718" text-anchor="middle" font-family="Segoe UI, Arial" font-size="48" font-weight="700" fill="#1B5E20">Play Now</text>
+  <rect x="190" y="800" width="700" height="120" rx="28" fill="#FFFFFF" opacity="0.18"/>
+  <text x="540" y="878" text-anchor="middle" font-family="Segoe UI, Arial" font-size="44" font-weight="700" fill="#FFFFFF">Daily Tanzania Puzzle</text>
+  <text x="540" y="1590" text-anchor="middle" font-family="Segoe UI, Arial" font-size="42" fill="#FFFFFF">Placeholder screenshot asset</text>
+</svg>

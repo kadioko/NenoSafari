@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <rect width="1080" height="1920" fill="#E8F5E9"/>
+  <text x="540" y="160" text-anchor="middle" font-family="Segoe UI, Arial" font-size="82" font-weight="800" fill="#1B5E20">Progress</text>
+  <rect x="120" y="280" width="840" height="260" rx="24" fill="#FFFFFF"/>
+  <text x="170" y="365" font-family="Segoe UI, Arial" font-size="44" font-weight="700" fill="#1B5E20">Adaptive Recommendation</text>
+  <text x="170" y="440" font-family="Segoe UI, Arial" font-size="34" fill="#555">Practice categories with hints or quiz misses.</text>
+  <g transform="translate(120 680)">
+    <rect width="840" height="420" rx="24" fill="#FFFFFF"/>
+    <rect x="90" y="240" width="70" height="120" fill="#F9A825"/>
+    <rect x="220" y="180" width="70" height="180" fill="#2E7D32"/>
+    <rect x="350" y="110" width="70" height="250" fill="#1565C0"/>
+    <rect x="480" y="220" width="70" height="140" fill="#F9A825"/>
+    <rect x="610" y="80" width="70" height="280" fill="#2E7D32"/>
+  </g>
+  <text x="540" y="1590" text-anchor="middle" font-family="Segoe UI, Arial" font-size="42" fill="#555">Placeholder screenshot asset</text>
+</svg>

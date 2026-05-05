@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <rect width="1080" height="1920" fill="#F1F8E9"/>
+  <text x="540" y="150" text-anchor="middle" font-family="Segoe UI, Arial" font-size="72" font-weight="800" fill="#1B5E20">Vyakula vya Tanzania</text>
+  <g transform="translate(140 300)">
+    <rect width="800" height="800" rx="24" fill="#FFFFFF"/>
+    <g font-family="Segoe UI, Arial" font-size="42" font-weight="800" fill="#212121">
+      <text x="64" y="84">U G A L I S M A</text>
+      <text x="64" y="164">P I L A U N D I</text>
+      <text x="64" y="244">S A M A K I Z I</text>
+      <text x="64" y="324">M C H I C H A K</text>
+      <text x="64" y="404">W A L I M B O G</text>
+    </g>
+  </g>
+  <text x="540" y="1280" text-anchor="middle" font-family="Segoe UI, Arial" font-size="48" font-weight="700" fill="#1565C0">Find words, learn meanings</text>
+  <text x="540" y="1590" text-anchor="middle" font-family="Segoe UI, Arial" font-size="42" fill="#555">Placeholder screenshot asset</text>
+</svg>
