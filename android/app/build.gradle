@@ -1,5 +1,21 @@
 apply plugin: 'com.android.application'
 
+import java.util.Properties
+
+def signingProperties = new Properties()
+def signingPropertiesFile = rootProject.file('keystore.properties')
+if (signingPropertiesFile.exists()) {
+    signingPropertiesFile.withInputStream { signingProperties.load(it) }
+}
+
+def releaseStoreFile = signingProperties.getProperty('storeFile') ?: System.getenv('NENO_SAFARI_UPLOAD_STORE_FILE')
+def releaseStorePassword = signingProperties.getProperty('storePassword') ?: System.getenv('NENO_SAFARI_UPLOAD_STORE_PASSWORD')
+def releaseKeyAlias = signingProperties.getProperty('keyAlias') ?: System.getenv('NENO_SAFARI_UPLOAD_KEY_ALIAS')
+def releaseKeyPassword = signingProperties.getProperty('keyPassword') ?: System.getenv('NENO_SAFARI_UPLOAD_KEY_PASSWORD')
+def hasReleaseSigning = [releaseStoreFile, releaseStorePassword, releaseKeyAlias, releaseKeyPassword].every {
+    it != null && it.toString().trim()
+}
+
 android {
     namespace = "com.nenosafari.app"
     compileSdk = rootProject.ext.compileSdkVersion
@@ -16,9 +32,23 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    signingConfigs {
+        if (hasReleaseSigning) {
+            release {
+                storeFile rootProject.file(releaseStoreFile)
+                storePassword releaseStorePassword
+                keyAlias releaseKeyAlias
+                keyPassword releaseKeyPassword
+            }
+        }
+    }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
+            if (hasReleaseSigning) {
+                signingConfig signingConfigs.release
+            }
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

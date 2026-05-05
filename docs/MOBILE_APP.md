@@ -56,6 +56,7 @@ npm run android:open
 - Android SDK installed through Android Studio
 - Java/JDK supported by the installed Android Gradle plugin
 - A real Android phone with USB debugging or an Android emulator
+- Local release signing setup before uploading to Google Play
 
 ## Android Testing Flow
 
@@ -73,6 +74,14 @@ npm run android:open
    - Daily Puzzle
    - Offline restart after airplane mode
    - High contrast and reduced motion settings
+
+## Production Build Defaults
+
+- `compileSdkVersion` is set to 36 for the installed Android 16 SDK toolchain.
+- `targetSdkVersion` is set to 35 for the first Play Store path.
+- Release builds enable minification and resource shrinking.
+- Release signing reads from local `android/keystore.properties` or `NENO_SAFARI_UPLOAD_*` environment variables.
+- Keystores and signing passwords must never be committed.
 
 ## iOS Path
 

@@ -71,8 +71,16 @@ The production mobile path now lives in:
 
 - `docs/MOBILE_APP.md`
 - `docs/ANDROID_BETA.md`
+- `docs/ANDROID_SIGNING.md`
 
 Use those docs for Capacitor build commands, Android beta testing, and store submission readiness.
+
+## Android Build Notes
+
+- Release builds use minification and resource shrinking.
+- Release signing is configured through local-only files or environment variables.
+- The first Play Store target SDK is Android 15 / API 35.
+- The project can compile with Android 16 / API 36 when the local SDK is installed.
 
 ## Release Notes Template
 

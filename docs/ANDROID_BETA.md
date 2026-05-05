@@ -9,6 +9,7 @@ Use this checklist before sending Neno Safari to Google Play internal testing.
 - Run `npm run cap:sync`.
 - Confirm app version and release notes.
 - Confirm no API keys are committed.
+- Confirm `android/keystore.properties` exists locally or release signing environment variables are set before building a store release.
 - Confirm `audio/` files are present locally if the build should include recorded pronunciation.
 
 ## Device QA
@@ -38,6 +39,18 @@ Use this checklist before sending Neno Safari to Google Play internal testing.
 - Complete content rating questionnaire.
 - Create an internal testing release.
 - Add tester emails or tester group.
+
+## Release Build
+
+For Play Console internal testing, prefer an Android App Bundle:
+
+```powershell
+npm run cap:sync
+cd android
+.\gradlew.bat bundleRelease
+```
+
+Release signing setup is documented in `docs/ANDROID_SIGNING.md`.
 
 ## Beta Release Notes
 

@@ -72,6 +72,7 @@ http://127.0.0.1:5177/index.html?v=16
     +-- AUDIO.md
     +-- MOBILE_APP.md
     +-- ANDROID_BETA.md
+    +-- ANDROID_SIGNING.md
 ```
 
 ## Important Files
@@ -97,6 +98,7 @@ http://127.0.0.1:5177/index.html?v=16
 - [docs/AUDIO.md](./docs/AUDIO.md): recorded pronunciation audio plan and content format.
 - [docs/MOBILE_APP.md](./docs/MOBILE_APP.md): Capacitor Android/iOS build path and device QA flow.
 - [docs/ANDROID_BETA.md](./docs/ANDROID_BETA.md): Google Play internal testing checklist.
+- [docs/ANDROID_SIGNING.md](./docs/ANDROID_SIGNING.md): release signing setup without committing secrets.
 - [scripts/validate-content.mjs](./scripts/validate-content.mjs): checks vocabulary entries for basic quality issues.
 - [scripts/test-puzzle-engine.mjs](./scripts/test-puzzle-engine.mjs): smoke tests for deterministic puzzle generation and placement rules.
 - [scripts/test-storage.mjs](./scripts/test-storage.mjs): checks local progress save/load behavior.
@@ -161,6 +163,13 @@ Create or sync the Android wrapper:
 ```powershell
 npm run android:add
 npm run cap:sync
+```
+
+Build a Play Store release bundle after local signing is configured:
+
+```powershell
+cd android
+.\gradlew.bat bundleRelease
 ```
 
 ## Status
