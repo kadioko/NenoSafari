@@ -11,6 +11,9 @@
     "test:packs": "node ./scripts/test-offline-packs.mjs",
     "test:puzzle": "node ./scripts/test-puzzle-engine.mjs",
     "test:storage": "node ./scripts/test-storage.mjs",
-    "audio:elevenlabs": "node ./scripts/generate-elevenlabs-audio.mjs"
+    "test:browser": "node ./scripts/test-browser-flow.mjs",
+    "audio:check": "node ./scripts/check-audio.mjs",
+    "audio:elevenlabs": "node ./scripts/generate-elevenlabs-audio.mjs",
+    "screenshots:store": "node ./scripts/capture-store-screenshots.mjs"
   }
 }

@@ -1520,6 +1520,7 @@
 <script src="js/storage.js?v=16"></script>
 <script src="js/offline-packs.js?v=16"></script>
 <script src="js/accessibility.js?v=16"></script>
+<script src="js/ui-utils.js?v=16"></script>
 <script>
 // ============================================================
 // DATA: CATEGORIES & WORDS
@@ -1588,6 +1589,13 @@ let state = {
 const { UI_TEXT } = window.NenoSafariI18n;
 const storage = window.NenoSafariStorage;
 const accessibility = window.NenoSafariAccessibility;
+const {
+  audioFileForWord,
+  dailyKey,
+  displayWord,
+  getPronunciation,
+  previousDailyKey,
+} = window.NenoSafariUiUtils;
 
 function saveProgress() {
   storage.saveProgress(state);
@@ -1623,12 +1631,6 @@ function updateHomeStats() {
   renderDailyBadge();
 }
 
-function displayWord(wordObj) {
-  if (wordObj.display) return wordObj.display;
-  if (Array.isArray(wordObj.parts) && wordObj.parts.length) return wordObj.parts.join(' ');
-  return wordObj.sw;
-}
-
 function categoryForWord(wordObj) {
   return CATEGORIES.find(category => category.words.some(word => word.sw === wordObj.sw))?.id || state.currentCategory?.id || '';
 }
@@ -1652,17 +1654,6 @@ function getAdaptiveRecommendation() {
     return { category, stats, signals, score: weakness + progressGap };
   }).sort((a, b) => b.score - a.score);
   return scored[0];
-}
-
-function dailyKey(date = new Date()) {
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-}
-
-function previousDailyKey(key) {
-  const [year, month, day] = key.split('-').map(Number);
-  const date = new Date(year, month - 1, day);
-  date.setDate(date.getDate() - 1);
-  return dailyKey(date);
 }
 
 function getCategoryStats(catId) {
@@ -2019,32 +2010,6 @@ function toggleTranslations() {
   saveProgress();
   const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
   showToast(state.showTranslations ? copy.englishOn : copy.englishOff);
-}
-
-function getPronunciation(word) {
-  const manual = {
-    UGALI: 'oo-GAH-lee',
-    PILAU: 'pee-LAU',
-    SAMAKI: 'sah-MAH-kee',
-    KACHUMBARI: 'kah-choom-BAH-ree',
-    KARIBU: 'kah-REE-boo',
-    ASANTE: 'ah-SAHN-teh',
-    SHIKAMOO: 'shee-kah-MOH',
-    KWAHERI: 'kwah-HEH-ree',
-    DALADALA: 'dah-lah-DAH-lah',
-    BAJAJI: 'bah-JAH-jee',
-    KILIMANJARO: 'kee-lee-mahn-JAH-roh',
-    ZANZIBAR: 'zahn-zee-BAHR',
-    PUNDAMILIA: 'poon-dah-MEE-lee-ah',
-  };
-  const key = word.replace(/\s+/g, '').toUpperCase();
-  if (manual[key]) return manual[key];
-  return key.toLowerCase()
-    .replace(/a/g, 'ah')
-    .replace(/e/g, 'eh')
-    .replace(/i/g, 'ee')
-    .replace(/o/g, 'oh')
-    .replace(/u/g, 'oo');
 }
 
 function enrichVocabulary() {
@@ -2412,7 +2377,7 @@ function saveCurrentWord() {
 
 function speakCurrentWord() {
   if (!state.currentWordObj || state.settings?.sound === false) return;
-  const audioPath = state.currentWordObj.audio || `audio/${state.currentWordObj.sw.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.mp3`;
+  const audioPath = state.currentWordObj.audio || audioFileForWord(state.currentWordObj);
   if ('Audio' in window) {
     const audio = new Audio(audioPath);
     audio.play().catch(() => speakWordWithBrowserVoice());

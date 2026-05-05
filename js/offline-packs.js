@@ -1,11 +1,12 @@
 (function () {
   const PACKS = [
-    { id: 'starter', name: 'Starter Pack', categories: ['chakula', 'salamu', 'wanyama', 'familia'], installed: true },
-    { id: 'travel', name: 'Tanzania Travel Pack', categories: ['miji', 'usafiri', 'biashara', 'mazingira'], installed: false },
-    { id: 'culture', name: 'Culture Pack', categories: ['utamaduni', 'historia'], installed: false },
-    { id: 'daily', name: 'Daily Tanzania Pack', categories: ['daily'], installed: true },
+    { id: 'starter', name: 'Starter Pack', categories: ['chakula', 'salamu', 'wanyama', 'familia'], installed: true, assets: ['js/content.js?v=16'] },
+    { id: 'travel', name: 'Tanzania Travel Pack', categories: ['miji', 'usafiri', 'biashara', 'mazingira'], installed: false, assets: ['js/content.js?v=16'] },
+    { id: 'culture', name: 'Culture Pack', categories: ['utamaduni', 'historia'], installed: false, assets: ['js/content.js?v=16'] },
+    { id: 'daily', name: 'Daily Tanzania Pack', categories: ['daily'], installed: true, assets: ['js/daily-puzzles.js?v=16'] },
   ];
   const KEY = 'neno_installed_packs';
+  const CACHE = 'neno-safari-packs-v1';
 
   function getInstalledPacks() {
     try {
@@ -17,19 +18,31 @@
     }
   }
 
-  function installPack(id) {
+  async function cachePackAssets(pack) {
+    if (!pack?.assets?.length || !('caches' in window)) return;
+    const cache = await caches.open(CACHE);
+    await cache.addAll(pack.assets);
+  }
+
+  async function installPack(id) {
     const installed = getInstalledPacks();
-    if (!PACKS.some(pack => pack.id === id)) return installed;
+    const pack = PACKS.find(entry => entry.id === id);
+    if (!pack) return installed;
     if (!installed.includes(id)) installed.push(id);
     localStorage.setItem(KEY, JSON.stringify(installed));
+    await cachePackAssets(pack);
     return installed;
   }
 
-  function uninstallPack(id) {
+  async function uninstallPack(id) {
     const pack = PACKS.find(entry => entry.id === id);
     if (!pack || pack.installed) return getInstalledPacks();
     const installed = getInstalledPacks().filter(packId => packId !== id);
     localStorage.setItem(KEY, JSON.stringify(installed));
+    if ('caches' in window) {
+      const cache = await caches.open(CACHE);
+      await Promise.all((pack.assets || []).map(asset => cache.delete(asset)));
+    }
     return installed;
   }
 

@@ -96,6 +96,9 @@ http://127.0.0.1:5177/index.html?v=16
 - [scripts/test-storage.mjs](./scripts/test-storage.mjs): checks local progress save/load behavior.
 - [scripts/test-offline-packs.mjs](./scripts/test-offline-packs.mjs): checks offline puzzle pack install state.
 - [scripts/test-app-boot.mjs](./scripts/test-app-boot.mjs): dependency-free app boot and screen navigation smoke test.
+- [scripts/test-browser-flow.mjs](./scripts/test-browser-flow.mjs): optional Playwright browser flow test.
+- [scripts/capture-store-screenshots.mjs](./scripts/capture-store-screenshots.mjs): optional Playwright store screenshot capture.
+- [scripts/check-audio.mjs](./scripts/check-audio.mjs): verifies generated MP3 pronunciation files.
 
 ## Development Notes
 
@@ -127,6 +130,18 @@ Generate ElevenLabs pronunciation files with:
 $env:ELEVENLABS_API_KEY="your-key"
 $env:ELEVENLABS_VOICE_ID="your-voice-id"
 npm run audio:elevenlabs
+```
+
+Check generated audio coverage with:
+
+```powershell
+npm run audio:check
+```
+
+Capture real app-store screenshot files when Playwright is installed:
+
+```powershell
+npm run screenshots:store
 ```
 
 ## Status

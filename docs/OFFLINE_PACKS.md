@@ -57,3 +57,6 @@ Future pack files can use this shape:
 - Audio packs should be optional because they can be large.
 - The app should show which packs are installed.
 
+## Current Implementation
+
+`js/offline-packs.js` tracks installed packs in local storage and can cache pack assets through the Cache API when available. Current packs are metadata-first, but the helper is ready for remote JSON/audio pack files later.

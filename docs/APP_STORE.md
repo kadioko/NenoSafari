@@ -45,6 +45,14 @@ Placeholder planning assets live in:
 
 Replace these with real device screenshots before store submission.
 
+When Playwright is installed, generate browser-based draft screenshots with:
+
+```powershell
+npm run screenshots:store
+```
+
+Final Android/iOS store screenshots should still be captured on real or emulated devices before submission.
+
 ## Store Assets Needed
 
 - 512x512 app icon

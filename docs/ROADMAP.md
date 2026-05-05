@@ -54,6 +54,9 @@
 - Offline puzzle pack metadata and install-state helpers
 - App store screenshot placeholder assets
 - Deeper app boot smoke tests for progress, rewards, and accessibility
+- Focused UI utility split
+- Audio coverage checker for generated pronunciation MP3s
+- Optional Playwright browser flow and store screenshot scripts
 
 ## Version 0.2
 
@@ -66,9 +69,9 @@
 ## Version 0.4
 
 - Continue splitting UI code into focused files
-- Replace placeholder screenshots with real Android/iOS captures
-- Expand offline pack downloads beyond metadata
-- Add real browser automation when Playwright or browser runtime is available in CI
+- Replace placeholder screenshots with final real Android/iOS captures
+- Add remote hosted pack downloads when a content server exists
+- Install Playwright in CI to activate browser automation and screenshot capture
 
 ## Mobile App Path
 

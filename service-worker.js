@@ -10,7 +10,8 @@ const ASSETS = [
   './js/i18n.js?v=16',
   './js/storage.js?v=16',
   './js/offline-packs.js?v=16',
-  './js/accessibility.js?v=16'
+  './js/accessibility.js?v=16',
+  './js/ui-utils.js?v=16'
 ];
 
 self.addEventListener('install', event => {
