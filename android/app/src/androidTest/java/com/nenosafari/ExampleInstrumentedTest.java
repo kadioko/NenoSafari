@@ -1,4 +1,4 @@
-package com.nenosafari.app;
+package com.nenosafari;
 
 import static org.junit.Assert.assertEquals;
 
@@ -15,6 +15,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.nenosafari.app", appContext.getPackageName());
+        assertEquals("com.nenosafari", appContext.getPackageName());
     }
 }

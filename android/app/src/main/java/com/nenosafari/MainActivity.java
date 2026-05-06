@@ -1,4 +1,4 @@
-package com.nenosafari.app;
+package com.nenosafari;
 
 import com.getcapacitor.BridgeActivity;
 
