@@ -8,6 +8,7 @@ const requiredEntries = [
   'index.html',
   'manifest.json',
   'app-icon.svg',
+  'privacy-policy.html',
   'service-worker.js',
   'js',
   'assets'
