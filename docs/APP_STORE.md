@@ -65,6 +65,11 @@ Final Android/iOS store screenshots should still be captured on real or emulated
 - Category: Educational / Word / Puzzle
 - Content rating questionnaire
 
+Google Play listing copy and generated draft assets live in:
+
+- `docs/PLAY_STORE_LISTING.md`
+- `assets/play-store/`
+
 ## Mobile Build Docs
 
 The production mobile path now lives in:
