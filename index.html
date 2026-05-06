@@ -549,6 +549,7 @@
     box-shadow: 0 2px 10px var(--shadow);
     padding: 16px;
   }
+  .cheat-card.locked { display: none; }
   .cheat-card h3 {
     color: var(--green-dark);
     font-size: 0.98rem;
@@ -584,19 +585,11 @@
     font-weight: 900;
     cursor: pointer;
   }
-  .cheat-code-list {
-    display: grid;
-    gap: 6px;
-    padding-left: 0;
-    list-style: none;
-  }
-  .cheat-code-list code {
-    color: var(--green-dark);
-    background: rgba(255,255,255,0.75);
-    border: 1px solid rgba(46,125,50,0.18);
-    border-radius: 6px;
-    padding: 2px 6px;
-    font-weight: 900;
+  .cheat-hint {
+    margin-top: 8px;
+    color: #666;
+    font-size: 0.72rem;
+    font-weight: 700;
   }
   .toggle.on::after { transform: translateX(24px); }
   .saved-word-card {
@@ -1471,22 +1464,17 @@
       <button class="toggle" id="motion-toggle" onclick="toggleSetting('motion')"></button>
     </div>
     <div class="settings-row">
-      <div><strong data-i18n="contrastSetting">Rangi zenye utofauti</strong><span data-i18n="contrastSettingDesc">Ongeza utofauti wa rangi kwa kusomeka.</span></div>
+      <div><strong id="developer-unlock-label" data-i18n="contrastSetting" onclick="handleDeveloperUnlockTap()">Rangi zenye utofauti</strong><span data-i18n="contrastSettingDesc">Ongeza utofauti wa rangi kwa kusomeka.</span></div>
       <button class="toggle" id="contrast-toggle" onclick="toggleSetting('contrast')"></button>
     </div>
-    <div class="cheat-card">
-      <h3 data-i18n="cheatTitle">Menyu ya cheat</h3>
-      <p data-i18n="cheatDesc">Kwa majaribio ya beta na QA. Ingiza code kisha bonyeza Tumia.</p>
+    <div class="cheat-card locked" id="cheat-card">
+      <h3 data-i18n="cheatTitle">Zana za majaribio</h3>
+      <p data-i18n="cheatDesc">Kwa developer/QA tu. Ingiza code uliyohifadhi kisha bonyeza Tumia.</p>
       <div class="cheat-input-row">
         <input id="cheat-code-input" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" data-i18n-placeholder="cheatPlaceholder" placeholder="Ingiza code" onkeydown="if(event.key === 'Enter') applyCheatCode()">
         <button onclick="applyCheatCode()" data-i18n="cheatApply">Tumia</button>
       </div>
-      <ul class="cheat-code-list">
-        <li><code>NENOCOINS</code> <span data-i18n="cheatCoins">ongeza sarafu 500.</span></li>
-        <li><code>SAFARI100</code> <span data-i18n="cheatSmallCoins">ongeza sarafu 100.</span></li>
-        <li><code>DAILYDONE</code> <span data-i18n="cheatDaily">weka fumbo la leo kama limekamilika.</span></li>
-        <li><code>UNLOCKSHOP</code> <span data-i18n="cheatShop">fungua vipengele vya duka.</span></li>
-      </ul>
+      <p class="cheat-hint" data-i18n="cheatHiddenHint">Codes zimehifadhiwa kwenye developer notes za local machine.</p>
     </div>
   </div>
 </div>
@@ -1697,14 +1685,14 @@
   <button class="v-btn sec" onclick="showScreen('home-screen')">🏠 Nyumbani</button>
 </div>
 
-<script src="js/content.js?v=20"></script>
-<script src="js/daily-puzzles.js?v=20"></script>
-<script src="js/puzzle-engine.js?v=20"></script>
-<script src="js/i18n.js?v=20"></script>
-<script src="js/storage.js?v=20"></script>
-<script src="js/offline-packs.js?v=20"></script>
-<script src="js/accessibility.js?v=20"></script>
-<script src="js/ui-utils.js?v=20"></script>
+<script src="js/content.js?v=21"></script>
+<script src="js/daily-puzzles.js?v=21"></script>
+<script src="js/puzzle-engine.js?v=21"></script>
+<script src="js/i18n.js?v=21"></script>
+<script src="js/storage.js?v=21"></script>
+<script src="js/offline-packs.js?v=21"></script>
+<script src="js/accessibility.js?v=21"></script>
+<script src="js/ui-utils.js?v=21"></script>
 <script>
 // ============================================================
 // DATA: CATEGORIES & WORDS
@@ -1780,6 +1768,8 @@ const {
   getPronunciation,
   previousDailyKey,
 } = window.NenoSafariUiUtils;
+let developerUnlockTaps = 0;
+let developerUnlockTimer = null;
 
 function saveProgress() {
   storage.saveProgress(state);
@@ -1875,6 +1865,8 @@ function renderSettings() {
   if (sound) sound.classList.toggle('on', Boolean(settings.sound));
   if (motion) motion.classList.toggle('on', settings.motion === false);
   if (contrast) contrast.classList.toggle('on', Boolean(settings.contrast));
+  const cheatCard = document.getElementById('cheat-card');
+  if (cheatCard) cheatCard.classList.toggle('locked', !state.developerToolsUnlocked);
 }
 
 function toggleSetting(key) {
@@ -1888,6 +1880,23 @@ function toggleSetting(key) {
   showToast((state.settings[key] === false ? copy.settingOff : copy.settingOn));
 }
 
+function handleDeveloperUnlockTap() {
+  clearTimeout(developerUnlockTimer);
+  developerUnlockTaps += 1;
+  developerUnlockTimer = setTimeout(() => {
+    developerUnlockTaps = 0;
+  }, 1800);
+
+  if (developerUnlockTaps >= 7) {
+    developerUnlockTaps = 0;
+    state.developerToolsUnlocked = !state.developerToolsUnlocked;
+    renderSettings();
+    showToast(state.developerToolsUnlocked
+      ? (state.appLanguage === 'en' ? 'Testing tools unlocked.' : 'Zana za majaribio zimefunguliwa.')
+      : (state.appLanguage === 'en' ? 'Testing tools hidden.' : 'Zana za majaribio zimefichwa.'));
+  }
+}
+
 function addCheatCoins(amount) {
   state.coins = (state.coins || 0) + amount;
   saveProgress();
@@ -1897,7 +1906,14 @@ function addCheatCoins(amount) {
   showToast(copy.cheatCoinsToast.replace('{coins}', amount));
 }
 
-function applyCheatCode() {
+async function hashDeveloperCode(code) {
+  if (!window.crypto?.subtle) return '';
+  const data = new TextEncoder().encode(code);
+  const hash = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(hash)).map(byte => byte.toString(16).padStart(2, '0')).join('');
+}
+
+async function applyCheatCode() {
   const input = document.getElementById('cheat-code-input');
   const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
   const code = (input?.value || '').trim().toUpperCase().replace(/\s+/g, '');
@@ -1906,17 +1922,25 @@ function applyCheatCode() {
     return;
   }
 
-  if (code === 'NENOCOINS') {
+  const codeHash = await hashDeveloperCode(code);
+  const codes = {
+    coinsLarge: '88957491bbe21a62b56fa871cee25f7d1c27763cec7ce27a9e370448b344363f',
+    coinsSmall: '5d82724de27e5d7693f89d19a0e197a1b96c1da808c403a2711e54bfddd5f321',
+    dailyComplete: '5e99507e02ed18d010918efede58fa7baa918bfc75ea920b6a464659a5d2ee37',
+    shopUnlock: 'd77ba7e7031c7e04e12fccfe081b72600170e1a61c97e587676ec4df2b0ce8a5',
+  };
+
+  if (codeHash === codes.coinsLarge) {
     addCheatCoins(500);
-  } else if (code === 'SAFARI100') {
+  } else if (codeHash === codes.coinsSmall) {
     addCheatCoins(100);
-  } else if (code === 'DAILYDONE') {
+  } else if (codeHash === codes.dailyComplete) {
     updateDailyStreak(dailyKey());
     saveProgress();
     updateHomeStats();
     renderProgressDashboard();
     showToast(copy.cheatDailyToast);
-  } else if (code === 'UNLOCKSHOP') {
+  } else if (codeHash === codes.shopUnlock) {
     state.ownedItems = [...new Set([...(state.ownedItems || []), ...SHOP_ITEMS.map(item => item.id)])];
     saveProgress();
     renderRewards();
