@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Serengeti savanna">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#ffcc80"/>
+      <stop offset="1" stop-color="#fff8e1"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#sky)"/>
+  <circle cx="236" cy="196" r="92" fill="#f9a825"/>
+  <path d="M0 540c140-80 294-74 456-30 140 39 260 29 402-34 118-52 234-64 342-16v440H0z" fill="#c0a13f"/>
+  <path d="M0 684c204-42 414-21 613 18 218 43 411 35 587-31v229H0z" fill="#7cb342"/>
+  <path d="M894 500c18-111 54-186 115-243 8 89 13 172 61 243" fill="none" stroke="#4e342e" stroke-width="24" stroke-linecap="round"/>
+  <path d="M1008 263c-78 13-147 50-204 109 94-20 175-11 246 24" fill="#33691e"/>
+  <path d="M1009 263c85 37 145 91 182 166-97-42-181-48-257-20" fill="#558b2f"/>
+  <path d="M196 654h114l38 45h-84l-31 54h-54l31-54h-52z" fill="#5d4037" opacity=".84"/>
+  <circle cx="325" cy="620" r="38" fill="#5d4037" opacity=".84"/>
+</svg>

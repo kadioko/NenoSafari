@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Tanzanian coast and ocean">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#8ad7ff"/>
+      <stop offset="1" stop-color="#e3f7ff"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0288d1"/>
+      <stop offset="1" stop-color="#00acc1"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#sky)"/>
+  <circle cx="960" cy="170" r="74" fill="#ffd54f"/>
+  <path d="M0 486c138-44 249-18 367 6 119 24 244 46 387 0 161-52 301-41 446 18v390H0z" fill="url(#sea)"/>
+  <path d="M0 694c159-41 307-28 452 8 165 42 311 46 469-12 95-35 189-43 279-27v237H0z" fill="#00695c" opacity=".36"/>
+  <path d="M0 746c185 25 345 14 506-26 156-39 309-35 460 15 79 26 156 37 234 31v134H0z" fill="#fff8e1"/>
+  <path d="M156 461c27-117 64-182 119-242-7 91-3 173 28 249" fill="none" stroke="#4e342e" stroke-width="20" stroke-linecap="round"/>
+  <path d="M272 218c-79 15-138 54-181 115 86-19 151-10 212 19" fill="#2e7d32"/>
+  <path d="M276 216c64 49 107 107 134 175-78-49-139-65-210-53" fill="#43a047"/>
+</svg>

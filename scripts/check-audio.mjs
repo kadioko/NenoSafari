@@ -5,9 +5,16 @@ import vm from 'node:vm';
 const sandbox = { window: {} };
 vm.runInNewContext(await fs.readFile('js/content.js', 'utf8'), sandbox, { filename: 'js/content.js' });
 
+const { CATEGORIES, EXTRA_WORDS, ADVANCED_WORDS } = sandbox.window.NenoSafariContent;
 const expected = new Set();
-for (const category of sandbox.window.NenoSafariContent.CATEGORIES) {
+for (const category of CATEGORIES) {
   for (const word of category.words) {
+    expected.add(`${word.sw.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.mp3`);
+  }
+  for (const word of EXTRA_WORDS[category.id] || []) {
+    expected.add(`${word.sw.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.mp3`);
+  }
+  for (const word of ADVANCED_WORDS[category.id] || []) {
     expected.add(`${word.sw.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.mp3`);
   }
 }

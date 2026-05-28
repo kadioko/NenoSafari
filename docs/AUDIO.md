@@ -30,10 +30,32 @@ $env:ELEVENLABS_VOICE_ID="your-voice-id"
 npm run audio:elevenlabs
 ```
 
+Check missing audio across all core, extra, and advanced vocabulary:
+
+```powershell
+npm run audio:missing
+```
+
+Generate only the next few missing words:
+
+```powershell
+$env:NENO_AUDIO_LIMIT="10"
+npm run audio:elevenlabs
+```
+
+Generate a specific comma-separated set:
+
+```powershell
+$env:NENO_AUDIO_WORDS="MBOGA,KARANGA,VITUMBUA"
+npm run audio:elevenlabs
+```
+
 Optional settings:
 
 - `ELEVENLABS_MODEL_ID`, default `eleven_multilingual_v2`
 - `ELEVENLABS_OUTPUT_FORMAT`, default `mp3_44100_128`
 - `NENO_AUDIO_DIR`, default `audio`
+- `NENO_AUDIO_LIMIT`, default unset; limits newly generated files
+- `NENO_AUDIO_WORDS`, default unset; comma-separated Swahili words to generate
 
 Do not put the ElevenLabs API key into `index.html` or any public frontend file.

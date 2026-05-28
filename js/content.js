@@ -343,11 +343,11 @@ const BADGE_DEFS = [
 ];
 
 const SHOP_ITEMS = [
-  { id: 'theme-ocean', type: 'theme', cost: 80, sw: 'Mandhari ya Bahari', en: 'Ocean Theme', descSw: 'Rangi ya bluu ya pwani.', descEn: 'A coastal blue accent theme.' },
-  { id: 'theme-savanna', type: 'theme', cost: 80, sw: 'Mandhari ya Savana', en: 'Savanna Theme', descSw: 'Rangi ya njano ya savana.', descEn: 'A warm savanna accent theme.' },
-  { id: 'theme-kilimanjaro', type: 'theme', cost: 120, sw: 'Mandhari ya Kilimanjaro', en: 'Kilimanjaro Theme', descSw: 'Rangi safi za mlima na anga.', descEn: 'Cool mountain and sky colors.' },
-  { id: 'theme-zanzibar', type: 'theme', cost: 120, sw: 'Mandhari ya Zanzibar', en: 'Zanzibar Theme', descSw: 'Rangi za pwani, viungo, na jua.', descEn: 'Coastal spice-island colors.' },
-  { id: 'theme-dar', type: 'theme', cost: 140, sw: 'Mandhari ya Dar', en: 'Dar Theme', descSw: 'Rangi za jiji na usiku wa pwani.', descEn: 'City-night coastal colors.' },
+  { id: 'theme-ocean', type: 'theme', cost: 80, sw: 'Mandhari ya Bahari', en: 'Ocean Theme', descSw: 'Picha ya pwani, bahari, na mnazi.', descEn: 'Coastline artwork with ocean and palms.' },
+  { id: 'theme-savanna', type: 'theme', cost: 80, sw: 'Mandhari ya Savana', en: 'Savanna Theme', descSw: 'Picha ya savana na mti wa mbugani.', descEn: 'Savanna artwork with warm grassland scenery.' },
+  { id: 'theme-kilimanjaro', type: 'theme', cost: 120, sw: 'Mandhari ya Kilimanjaro', en: 'Kilimanjaro Theme', descSw: 'Picha ya mlima, theluji, na anga safi.', descEn: 'Mountain artwork with snow and bright sky.' },
+  { id: 'theme-zanzibar', type: 'theme', cost: 120, sw: 'Mandhari ya Zanzibar', en: 'Zanzibar Theme', descSw: 'Picha ya pwani, jahazi, na jua la visiwani.', descEn: 'Island artwork with beach, dhow, and sun.' },
+  { id: 'theme-dar', type: 'theme', cost: 140, sw: 'Mandhari ya Dar', en: 'Dar Theme', descSw: 'Picha ya majengo ya jiji na bahari usiku.', descEn: 'City skyline artwork with coastal night colors.' },
   { id: 'badge-gold', type: 'badge', cost: 60, sw: 'Fremu ya Dhahabu', en: 'Gold Badge Frame', descSw: 'Pamba beji zako kwa dhahabu.', descEn: 'Dress your badges with a gold frame.' },
   { id: 'badge-kanga', type: 'badge', cost: 90, sw: 'Fremu ya Kanga', en: 'Kanga Badge Frame', descSw: 'Mwonekano wa kanga kwa beji.', descEn: 'A kanga-style badge frame.' },
   { id: 'trail-spark', type: 'effect', cost: 110, sw: 'Mwangaza wa Neno', en: 'Word Spark Trail', descSw: 'Mwangaza mdogo ukipata neno.', descEn: 'A small spark effect when finding words.' },

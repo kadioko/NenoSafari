@@ -17,13 +17,28 @@ if (!apiKey || !voiceId) {
 const sandbox = { window: {} };
 vm.runInNewContext(await fs.readFile('js/content.js', 'utf8'), sandbox, { filename: 'js/content.js' });
 
-const { CATEGORIES } = sandbox.window.NenoSafariContent;
+const { CATEGORIES, EXTRA_WORDS, ADVANCED_WORDS } = sandbox.window.NenoSafariContent;
 const words = new Map();
 for (const category of CATEGORIES) {
   for (const word of category.words) {
     words.set(word.sw, word);
   }
+  for (const word of EXTRA_WORDS[category.id] || []) {
+    words.set(word.sw, word);
+  }
+  for (const word of ADVANCED_WORDS[category.id] || []) {
+    words.set(word.sw, word);
+  }
 }
+
+const requestedWords = (process.env.NENO_AUDIO_WORDS || '')
+  .split(',')
+  .map(word => word.trim().toUpperCase())
+  .filter(Boolean);
+const limit = parseInt(process.env.NENO_AUDIO_LIMIT || '0', 10);
+const queue = requestedWords.length
+  ? [...words.values()].filter(word => requestedWords.includes(word.sw.toUpperCase()))
+  : [...words.values()];
 
 await fs.mkdir(outDir, { recursive: true });
 
@@ -37,11 +52,15 @@ function audioName(word) {
   return `${word.sw.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.mp3`;
 }
 
-for (const word of words.values()) {
+let generated = 0;
+let skipped = 0;
+for (const word of queue) {
+  if (limit > 0 && generated >= limit) break;
   const filePath = path.join(outDir, audioName(word));
   try {
     await fs.access(filePath);
     console.log(`Skip existing ${filePath}`);
+    skipped += 1;
     continue;
   } catch {}
 
@@ -71,7 +90,8 @@ for (const word of words.values()) {
 
   const buffer = Buffer.from(await response.arrayBuffer());
   await fs.writeFile(filePath, buffer);
+  generated += 1;
   console.log(`Wrote ${filePath}`);
 }
 
-console.log(`Generated pronunciation audio for ${words.size} entries.`);
+console.log(`Generated ${generated} pronunciation audio files. Skipped ${skipped} existing files. Total vocabulary entries: ${words.size}.`);

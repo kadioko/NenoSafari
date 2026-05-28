@@ -13,6 +13,7 @@
     "test:storage": "node ./scripts/test-storage.mjs",
     "test:browser": "node ./scripts/test-browser-flow.mjs",
     "audio:check": "node ./scripts/check-audio.mjs",
+    "audio:missing": "node ./scripts/list-missing-audio.mjs",
     "audio:elevenlabs": "node ./scripts/generate-elevenlabs-audio.mjs",
     "screenshots:store": "node ./scripts/capture-store-screenshots.mjs",
     "mobile:build": "node ./scripts/build-mobile.mjs",
@@ -24,6 +25,7 @@
   },
   "dependencies": {
     "@capacitor/android": "^8.3.1",
+    "@capacitor/app": "^8.1.0",
     "@capacitor/cli": "^8.3.1",
     "@capacitor/core": "^8.3.1",
     "@capacitor/ios": "^8.3.1"

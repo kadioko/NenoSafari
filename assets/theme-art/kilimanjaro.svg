@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Mount Kilimanjaro">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#b3e5fc"/>
+      <stop offset=".72" stop-color="#eceff1"/>
+      <stop offset="1" stop-color="#cfd8dc"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#sky)"/>
+  <path d="M0 682c188-78 373-116 556-111 242 8 448 68 644 18v311H0z" fill="#90a4ae"/>
+  <path d="M132 672 548 222l520 450z" fill="#607d8b"/>
+  <path d="M548 222 402 472l115-35 95 93 72-82 133 46z" fill="#ffffff"/>
+  <path d="M0 740c208-53 394-47 566-4 203 51 410 54 634-14v178H0z" fill="#455a64"/>
+  <path d="M110 785h980" stroke="#ffffff" stroke-width="10" opacity=".35" stroke-linecap="round"/>
+</svg>

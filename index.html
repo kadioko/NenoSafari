@@ -28,6 +28,8 @@
     --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
     --radius: 12px;
     --cell-size: min(9.5vw, 38px);
+    --theme-art: url('assets/theme-art/savanna.svg');
+    --theme-art-opacity: 0.12;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -38,8 +40,10 @@
     color: var(--black);
     min-height: 100vh;
     overflow-x: hidden;
+    overscroll-behavior: none;
     user-select: none;
     -webkit-user-select: none;
+    -webkit-font-smoothing: antialiased;
   }
   body.theme-ocean {
     --green-dark: #01579B;
@@ -47,6 +51,8 @@
     --green-light: #4FC3F7;
     --yellow: #FBC02D;
     --bg: #E1F5FE;
+    --theme-art: url('assets/theme-art/ocean.svg');
+    --theme-art-opacity: 0.22;
   }
   body.theme-savanna {
     --green-dark: #4E342E;
@@ -54,6 +60,8 @@
     --green-light: #AED581;
     --yellow: #F9A825;
     --bg: #FFF8E1;
+    --theme-art: url('assets/theme-art/savanna.svg');
+    --theme-art-opacity: 0.18;
   }
   body.theme-kilimanjaro {
     --green-dark: #263238;
@@ -61,6 +69,8 @@
     --green-light: #90A4AE;
     --yellow: #80DEEA;
     --bg: #ECEFF1;
+    --theme-art: url('assets/theme-art/kilimanjaro.svg');
+    --theme-art-opacity: 0.18;
   }
   body.theme-zanzibar {
     --green-dark: #00695C;
@@ -68,6 +78,8 @@
     --green-light: #4DB6AC;
     --yellow: #FFB300;
     --bg: #FFF3E0;
+    --theme-art: url('assets/theme-art/zanzibar.svg');
+    --theme-art-opacity: 0.20;
   }
   body.theme-dar {
     --green-dark: #102A43;
@@ -75,15 +87,26 @@
     --green-light: #64B5F6;
     --yellow: #FFCA28;
     --bg: #E8EAF6;
+    --theme-art: url('assets/theme-art/dar.svg');
+    --theme-art-opacity: 0.20;
   }
 
   /* ===== SCREENS ===== */
   .screen { display: none; flex-direction: column; min-height: 100vh; }
-  .screen.active { display: flex; }
+  .screen.active { display: flex; animation: screenIn 180ms ease-out both; }
+  @keyframes screenIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
   /* ===== SPLASH / HOME ===== */
   #home-screen {
-    background: linear-gradient(160deg, var(--green-dark) 0%, var(--green) 40%, var(--blue) 100%);
+    background-image:
+      linear-gradient(160deg, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.18) 46%, rgba(0,0,0,0.56) 100%),
+      var(--theme-art),
+      linear-gradient(160deg, var(--green-dark) 0%, var(--green) 40%, var(--blue) 100%);
+    background-size: cover;
+    background-position: center;
     align-items: center;
     justify-content: flex-start;
     padding: 18px 16px 24px;
@@ -94,18 +117,19 @@
   #home-screen::before {
     content: '';
     position: absolute;
-    top: -60px; right: -60px;
-    width: 220px; height: 220px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 50%;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 42px 42px;
+    opacity: 0.24;
   }
   #home-screen::after {
     content: '';
     position: absolute;
-    bottom: -80px; left: -40px;
-    width: 280px; height: 280px;
-    background: rgba(255,255,255,0.04);
-    border-radius: 50%;
+    inset: auto 0 0;
+    height: 34%;
+    background: linear-gradient(180deg, transparent, rgba(0,0,0,0.28));
   }
   .home-logo {
     font-size: 56px;
@@ -197,6 +221,7 @@
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+  body.reduce-motion .screen.active { animation: none; }
 
   .word-of-day {
     background: rgba(255,255,255,0.1);
@@ -353,6 +378,25 @@
   .panel-screen {
     background: var(--bg);
     padding-bottom: 24px;
+    position: relative;
+    overflow: hidden auto;
+  }
+  .panel-screen::before,
+  #game-screen::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.76)), var(--theme-art);
+    background-size: cover;
+    background-position: center;
+    opacity: var(--theme-art-opacity);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .panel-screen > *,
+  #game-screen > * {
+    position: relative;
+    z-index: 1;
   }
   .panel-content {
     padding: 16px 20px 24px;
@@ -518,6 +562,26 @@
   .shop-actions button { margin-top: 0; }
   .shop-actions .equip-btn { background: var(--blue); }
   .shop-card.equipped { border-color: var(--green); background: #F1F8E9; }
+  .shop-card[class*="shop-theme-"] {
+    position: relative;
+    overflow: hidden;
+    padding-top: 82px;
+  }
+  .shop-card[class*="shop-theme-"]::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 70px;
+    background-size: cover;
+    background-position: center;
+  }
+  .shop-theme-ocean::before { background-image: url('assets/theme-art/ocean.svg'); }
+  .shop-theme-savanna::before { background-image: url('assets/theme-art/savanna.svg'); }
+  .shop-theme-kilimanjaro::before { background-image: url('assets/theme-art/kilimanjaro.svg'); }
+  .shop-theme-zanzibar::before { background-image: url('assets/theme-art/zanzibar.svg'); }
+  .shop-theme-dar::before { background-image: url('assets/theme-art/dar.svg'); }
   body.badge-gold .badge-card.unlocked { border-color: #F9A825; box-shadow: 0 0 0 2px rgba(249,168,37,0.2), 0 2px 10px var(--shadow); }
   body.badge-kanga .badge-card.unlocked { border-color: #AB47BC; background: linear-gradient(135deg, #FFFDE7, #F3E5F5); }
   .toggle {
@@ -867,6 +931,13 @@
     color: var(--black);
     background: var(--card);
     letter-spacing: 0;
+  }
+  .cell:active,
+  .menu-btn:active,
+  .hint-btn:active,
+  .shop-card button:active,
+  .v-btn:active {
+    transform: scale(0.98);
   }
   .cell.selecting { background: var(--select-color); color: var(--black); }
   .cell.found { background: var(--found-color); color: var(--green-dark); }
@@ -1690,14 +1761,14 @@
   <button class="v-btn sec" onclick="showScreen('home-screen')">🏠 Nyumbani</button>
 </div>
 
-<script src="js/content.js?v=22"></script>
-<script src="js/daily-puzzles.js?v=22"></script>
-<script src="js/puzzle-engine.js?v=22"></script>
-<script src="js/i18n.js?v=22"></script>
-<script src="js/storage.js?v=22"></script>
-<script src="js/offline-packs.js?v=22"></script>
-<script src="js/accessibility.js?v=22"></script>
-<script src="js/ui-utils.js?v=22"></script>
+<script src="js/content.js?v=24"></script>
+<script src="js/daily-puzzles.js?v=24"></script>
+<script src="js/puzzle-engine.js?v=24"></script>
+<script src="js/i18n.js?v=24"></script>
+<script src="js/storage.js?v=24"></script>
+<script src="js/offline-packs.js?v=24"></script>
+<script src="js/accessibility.js?v=24"></script>
+<script src="js/ui-utils.js?v=24"></script>
 <script>
 // ============================================================
 // DATA: CATEGORIES & WORDS
@@ -1775,6 +1846,11 @@ const {
 } = window.NenoSafariUiUtils;
 let developerUnlockTaps = 0;
 let developerUnlockTimer = null;
+let activeScreenId = 'home-screen';
+let screenStack = [];
+let navigationReady = false;
+let lastHomeBackAt = 0;
+const missingAudioCache = new Set();
 
 function saveProgress() {
   storage.saveProgress(state);
@@ -1787,9 +1863,40 @@ function loadProgress() {
 // ============================================================
 // SCREEN MANAGEMENT
 // ============================================================
-function showScreen(id) {
+function getActiveScreenId() {
+  return document.querySelector('.screen.active')?.id || activeScreenId || 'home-screen';
+}
+
+function rememberScreenNavigation(id, options = {}) {
+  const previous = getActiveScreenId();
+  if (!options.fromHistory && !options.replace && previous && previous !== id) {
+    screenStack.push(previous);
+    screenStack = screenStack.slice(-24);
+  }
+}
+
+function writeNavigationState(id, options = {}) {
+  if (!navigationReady || options.fromHistory || !window.history) return;
+  const entry = { screen: id, stack: screenStack.slice(-24) };
+  if (options.replace) {
+    window.history.replaceState(entry, '', window.location.href);
+  } else {
+    window.history.pushState(entry, '', window.location.href);
+  }
+}
+
+function showScreen(id, options = {}) {
+  const target = document.getElementById(id);
+  if (!target) return;
+  rememberScreenNavigation(id, options);
+  const previous = getActiveScreenId();
+  if (previous === 'game-screen' && id !== 'game-screen' && state.timerInterval) {
+    clearInterval(state.timerInterval);
+    state.timerInterval = null;
+  }
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  target.classList.add('active');
+  activeScreenId = id;
   if (id === 'category-screen') renderCategories();
   if (id === 'home-screen') updateHomeStats();
   if (id === 'saved-screen') renderSavedWords();
@@ -1798,6 +1905,59 @@ function showScreen(id) {
   if (id === 'settings-screen') renderSettings();
   applyAppLanguage();
   accessibility.applyAccessibilityLabels(state.appLanguage);
+  writeNavigationState(id, options);
+}
+
+function goBackInApp() {
+  const modal = document.getElementById('word-modal');
+  if (modal?.classList.contains('open')) {
+    closeModal();
+    return true;
+  }
+
+  const current = getActiveScreenId();
+  if (current === 'home-screen') {
+    const now = Date.now();
+    const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+    if (now - lastHomeBackAt > 1800) {
+      lastHomeBackAt = now;
+      showToast(copy.backHomeToast || 'Uko mwanzo. Bonyeza tena ukitaka kufunga.');
+    }
+    return true;
+  }
+
+  const previous = screenStack.pop() || 'home-screen';
+  showScreen(previous, { fromHistory: true });
+  if (window.history?.replaceState) {
+    window.history.replaceState({ screen: previous, stack: screenStack.slice(-24) }, '', window.location.href);
+  }
+  return true;
+}
+
+function initNavigation() {
+  if (window.history?.replaceState) {
+    window.history.replaceState({ screen: activeScreenId, stack: [] }, '', window.location.href);
+    navigationReady = true;
+  }
+
+  window.addEventListener('popstate', event => {
+    const modal = document.getElementById('word-modal');
+    if (modal?.classList.contains('open')) {
+      closeModal();
+      window.history?.pushState?.({ screen: activeScreenId, stack: screenStack.slice(-24) }, '', window.location.href);
+      return;
+    }
+    const nextScreen = event.state?.screen || screenStack.pop() || 'home-screen';
+    screenStack = Array.isArray(event.state?.stack) ? event.state.stack : screenStack;
+    showScreen(nextScreen, { fromHistory: true });
+  });
+
+  const capacitorApp = window.Capacitor?.Plugins?.App;
+  if (capacitorApp?.addListener) {
+    capacitorApp.addListener('backButton', () => {
+      goBackInApp();
+    });
+  }
 }
 
 function updateHomeStats() {
@@ -2055,7 +2215,7 @@ function renderRewards() {
     const owned = state.ownedItems?.includes(item.id);
     const equipped = state.equippedItems?.includes(item.id);
     const card = document.createElement('div');
-    card.className = `shop-card ${equipped ? 'equipped' : ''}`;
+    card.className = `shop-card shop-${item.id} ${equipped ? 'equipped' : ''}`;
     card.innerHTML = `
       <strong>${state.appLanguage === 'en' ? item.en : item.sw}</strong>
       <span>${state.appLanguage === 'en' ? item.descEn : item.descSw}</span>
@@ -2520,6 +2680,7 @@ function checkWord(path) {
 }
 
 function shakeSelection(path) {
+  if ('vibrate' in navigator) navigator.vibrate(18);
   path.forEach(([r, c]) => {
     const cell = getCell(r, c);
     if (cell) {
@@ -2535,6 +2696,7 @@ function shakeSelection(path) {
 // ============================================================
 function wordFound(placement) {
   state.foundWords.push(placement.word);
+  if ('vibrate' in navigator) navigator.vibrate([12, 24, 12]);
 
   // Highlight cells
   placement.cells.forEach(([r, c], i) => {
@@ -2636,15 +2798,20 @@ function saveCurrentWord() {
 function speakCurrentWord() {
   if (!state.currentWordObj || state.settings?.sound === false) return;
   const audioPath = state.currentWordObj.audio || audioFileForWord(state.currentWordObj);
-  if ('Audio' in window) {
+  if ('Audio' in window && !missingAudioCache.has(audioPath)) {
     const audio = new Audio(audioPath);
-    audio.play().catch(() => speakWordWithBrowserVoice());
+    audio.preload = 'auto';
+    audio.addEventListener('error', () => {
+      missingAudioCache.add(audioPath);
+      speakWordWithBrowserVoice({ fallback: true });
+    }, { once: true });
+    audio.play().catch(() => speakWordWithBrowserVoice({ fallback: true }));
     return;
   }
-  speakWordWithBrowserVoice();
+  speakWordWithBrowserVoice({ fallback: missingAudioCache.has(audioPath) });
 }
 
-function speakWordWithBrowserVoice() {
+function speakWordWithBrowserVoice(options = {}) {
   if (!('speechSynthesis' in window)) {
     showToast(state.appLanguage === 'en' ? 'Speech is not available here.' : 'Sauti haipatikani hapa.');
     return;
@@ -2652,8 +2819,14 @@ function speakWordWithBrowserVoice() {
   const utterance = new SpeechSynthesisUtterance(displayWord(state.currentWordObj));
   utterance.lang = 'sw-TZ';
   utterance.rate = 0.86;
+  utterance.pitch = 1;
   window.speechSynthesis.cancel();
   window.speechSynthesis.speak(utterance);
+  if (options.fallback) {
+    showToast(state.appLanguage === 'en'
+      ? 'Using device pronunciation voice.'
+      : 'Tunatumia sauti ya kifaa kwa sasa.');
+  }
 }
 
 function closeModal() {
@@ -3043,6 +3216,7 @@ function init() {
   setWordOfDay();
   applyAppLanguage();
   accessibility.applyAccessibilityLabels(state.appLanguage);
+  initNavigation();
   // Set default difficulty buttons
   document.querySelectorAll('.diff-btn').forEach((b, i) => {
     if (i === 1) b.classList.add('active');

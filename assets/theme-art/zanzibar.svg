@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Zanzibar beach and dhow">
+  <rect width="1200" height="900" fill="#fff3e0"/>
+  <circle cx="980" cy="170" r="82" fill="#ffb300"/>
+  <path d="M0 420c150 38 305 45 462 16 168-31 335-29 505 12 82 20 159 27 233 21v431H0z" fill="#4db6ac"/>
+  <path d="M0 596c175 25 339 17 493-19 190-45 356-32 536 20 62 18 119 25 171 20v283H0z" fill="#00897b"/>
+  <path d="M0 733c228-18 433-8 616 30 184 39 380 34 584-16v153H0z" fill="#ffe0b2"/>
+  <path d="M516 496c87 68 207 92 349 56-101 91-236 111-404 58z" fill="#4e342e"/>
+  <path d="M594 312v222" stroke="#4e342e" stroke-width="14" stroke-linecap="round"/>
+  <path d="M610 326c126 38 207 109 249 212-92-47-176-50-249-9z" fill="#ffffff"/>
+  <path d="M590 344c-83 43-141 107-174 192 72-31 132-30 174-2z" fill="#f9a825"/>
+</svg>
