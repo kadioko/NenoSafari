@@ -60,6 +60,66 @@
         { sw: 'LUGHA', en: 'Language', ex: 'Kiswahili ni lugha ya taifa.' },
       ],
     },
+    {
+      id: 'sokoni',
+      name: 'Sokoni na Biashara',
+      words: [
+        { sw: 'SOKO', en: 'Market', ex: 'Mama anaenda sokoni kununua mboga.' },
+        { sw: 'BEI', en: 'Price', ex: 'Bei ya ndizi ni nzuri leo.' },
+        { sw: 'PESA', en: 'Money', ex: 'Nina pesa za kununua matunda.' },
+        { sw: 'MTEJA', en: 'Customer', ex: 'Mteja anauliza bei ya mchele.' },
+        { sw: 'DUKA', en: 'Shop', ex: 'Duka limefunguliwa asubuhi.' },
+        { sw: 'FAIDA', en: 'Profit / benefit', ex: 'Mfanyabiashara anapata faida.' },
+      ],
+    },
+    {
+      id: 'usafiri',
+      name: 'Usafiri wa Kila Siku',
+      words: [
+        { sw: 'GARI', en: 'Car', ex: 'Gari linaenda mjini.' },
+        { sw: 'BASI', en: 'Bus', ex: 'Basi limesimama kituoni.' },
+        { sw: 'BODA', en: 'Motorbike taxi', ex: 'Boda inafika haraka.' },
+        { sw: 'TRENI', en: 'Train', ex: 'Treni inaondoka stesheni.' },
+        { sw: 'NAULI', en: 'Fare', ex: 'Nauli ya basi ni shilingi ngapi?' },
+        { sw: 'SAFARI', en: 'Journey', ex: 'Safari ya leo ni fupi.' },
+      ],
+    },
+    {
+      id: 'mazungumzo',
+      name: 'Salamu na Mazungumzo',
+      words: [
+        { sw: 'HABARI', en: 'News / hello', ex: 'Habari za asubuhi?' },
+        { sw: 'MAMBO', en: 'How are things?', ex: 'Mambo vipi rafiki?' },
+        { sw: 'POA', en: 'Cool / fine', ex: 'Mimi niko poa.' },
+        { sw: 'ASANTE', en: 'Thank you', ex: 'Asante kwa msaada wako.' },
+        { sw: 'KARIBU', en: 'Welcome', ex: 'Karibu Tanzania.' },
+        { sw: 'KWAHERI', en: 'Goodbye', ex: 'Kwaheri, tutaonana kesho.' },
+      ],
+    },
+    {
+      id: 'hali-ya-hewa',
+      name: 'Hali ya Hewa',
+      words: [
+        { sw: 'JUA', en: 'Sun', ex: 'Jua linawaka mchana.' },
+        { sw: 'MVUA', en: 'Rain', ex: 'Mvua imenyesha usiku.' },
+        { sw: 'UPEPO', en: 'Wind', ex: 'Upepo unatoka baharini.' },
+        { sw: 'BARIDI', en: 'Cold', ex: 'Leo kuna baridi kidogo.' },
+        { sw: 'JOTO', en: 'Heat', ex: 'Dar es Salaam kuna joto.' },
+        { sw: 'MAWINGU', en: 'Clouds', ex: 'Mawingu yamefunika anga.' },
+      ],
+    },
+    {
+      id: 'utamaduni',
+      name: 'Utamaduni wa Nyumbani',
+      words: [
+        { sw: 'KANGA', en: 'Printed cloth', ex: 'Mama amevaa kanga nzuri.' },
+        { sw: 'NGOMA', en: 'Dance / drum', ex: 'Ngoma inapigwa kwenye sherehe.' },
+        { sw: 'HARUSI', en: 'Wedding', ex: 'Harusi ina wageni wengi.' },
+        { sw: 'MILA', en: 'Customs', ex: 'Mila nzuri huheshimiwa.' },
+        { sw: 'LUGHA', en: 'Language', ex: 'Lugha hutuweka pamoja.' },
+        { sw: 'SHEREHE', en: 'Celebration', ex: 'Sherehe imeanza jioni.' },
+      ],
+    },
   ];
 
   window.NenoSafariDaily = { DAILY_PUZZLE_SETS };

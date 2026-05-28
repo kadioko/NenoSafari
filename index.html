@@ -549,6 +549,32 @@
   }
   .settings-row strong { color: var(--green-dark); font-size: 0.95rem; }
   .settings-row span { display: block; color: #666; font-size: 0.76rem; margin-top: 3px; }
+  .pack-grid {
+    display: grid;
+    gap: 10px;
+  }
+  .pack-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 10px var(--shadow);
+    padding: 14px;
+    border: 2px solid rgba(0,0,0,0.06);
+  }
+  .pack-card.installed { border-color: var(--green-light); }
+  .pack-card strong { color: var(--green-dark); display: block; font-size: 0.95rem; }
+  .pack-card span { color: #666; display: block; font-size: 0.76rem; margin-top: 4px; line-height: 1.28; }
+  .pack-card button {
+    margin-top: 10px;
+    width: 100%;
+    border: 0;
+    border-radius: 8px;
+    background: var(--green);
+    color: #fff;
+    padding: 10px;
+    font-weight: 900;
+    cursor: pointer;
+  }
+  .pack-card button.secondary { background: #757575; }
   .recommendation-card {
     background: linear-gradient(135deg, #E8F5E9, #E3F2FD);
     border-radius: var(--radius);
@@ -1590,6 +1616,11 @@
       <div><strong id="developer-unlock-label" data-i18n="contrastSetting" onclick="handleDeveloperUnlockTap()">Rangi zenye utofauti</strong><span data-i18n="contrastSettingDesc">Ongeza utofauti wa rangi kwa kusomeka.</span></div>
       <button class="toggle" id="contrast-toggle" onclick="toggleSetting('contrast')"></button>
     </div>
+    <div class="info-card">
+      <h3 data-i18n="offlinePacksTitle">Offline Packs</h3>
+      <p data-i18n="offlinePacksDesc">Pakua au ondoa pakiti za mada ili app ibaki tayari hata bila intaneti.</p>
+      <div class="pack-grid" id="offline-pack-list"></div>
+    </div>
     <div class="cheat-card locked" id="cheat-card">
       <h3 data-i18n="cheatTitle">Zana za majaribio</h3>
       <p data-i18n="cheatDesc">Kwa developer/QA tu. Ingiza code uliyohifadhi kisha bonyeza Tumia.</p>
@@ -1813,14 +1844,14 @@
   <button class="v-btn sec" onclick="showScreen('home-screen')">🏠 Nyumbani</button>
 </div>
 
-<script src="js/content.js?v=25"></script>
-<script src="js/daily-puzzles.js?v=25"></script>
-<script src="js/puzzle-engine.js?v=25"></script>
-<script src="js/i18n.js?v=25"></script>
-<script src="js/storage.js?v=25"></script>
-<script src="js/offline-packs.js?v=25"></script>
-<script src="js/accessibility.js?v=25"></script>
-<script src="js/ui-utils.js?v=25"></script>
+<script src="js/content.js?v=26"></script>
+<script src="js/daily-puzzles.js?v=26"></script>
+<script src="js/puzzle-engine.js?v=26"></script>
+<script src="js/i18n.js?v=26"></script>
+<script src="js/storage.js?v=26"></script>
+<script src="js/offline-packs.js?v=26"></script>
+<script src="js/accessibility.js?v=26"></script>
+<script src="js/ui-utils.js?v=26"></script>
 <script>
 // ============================================================
 // DATA: CATEGORIES & WORDS
@@ -1891,6 +1922,7 @@ let state = {
 const { UI_TEXT } = window.NenoSafariI18n;
 const storage = window.NenoSafariStorage;
 const accessibility = window.NenoSafariAccessibility;
+const packs = window.NenoSafariPacks;
 const {
   audioFileForWord,
   dailyKey,
@@ -2146,6 +2178,48 @@ function renderSettings() {
   if (contrast) contrast.classList.toggle('on', Boolean(settings.contrast));
   const cheatCard = document.getElementById('cheat-card');
   if (cheatCard) cheatCard.classList.toggle('locked', !state.developerToolsUnlocked);
+  renderOfflinePacks();
+}
+
+function renderOfflinePacks() {
+  const list = document.getElementById('offline-pack-list');
+  if (!list || !packs) return;
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  const installed = packs.getInstalledPacks();
+  list.innerHTML = '';
+  packs.PACKS.forEach(pack => {
+    const isInstalled = installed.includes(pack.id);
+    const locked = Boolean(pack.installed);
+    const card = document.createElement('div');
+    card.className = `pack-card ${isInstalled ? 'installed' : ''}`;
+    card.innerHTML = `
+      <strong>${pack.name}</strong>
+      <span>${copy.offlinePackCategories}: ${pack.categories.join(', ')}</span>
+      <span>${isInstalled ? copy.offlinePackInstalled : copy.offlinePackAvailable}</span>
+      <button class="${isInstalled && !locked ? 'secondary' : ''}" ${locked ? 'disabled' : ''} onclick="toggleOfflinePack('${pack.id}')">
+        ${locked ? copy.offlinePackCore : (isInstalled ? copy.offlinePackRemove : copy.offlinePackInstall)}
+      </button>
+    `;
+    list.appendChild(card);
+  });
+}
+
+async function toggleOfflinePack(id) {
+  if (!packs) return;
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  const installed = packs.getInstalledPacks();
+  try {
+    if (installed.includes(id)) {
+      await packs.uninstallPack(id);
+      showToast(copy.offlinePackRemoved);
+    } else {
+      await packs.installPack(id);
+      showToast(copy.offlinePackSaved);
+    }
+  } catch {
+    showToast(copy.offlinePackFailed);
+  }
+  renderOfflinePacks();
 }
 
 function toggleSetting(key) {

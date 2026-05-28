@@ -1,9 +1,9 @@
 (function () {
   const PACKS = [
-    { id: 'starter', name: 'Starter Pack', categories: ['chakula', 'salamu', 'wanyama', 'familia'], installed: true, assets: ['js/content.js?v=16'] },
-    { id: 'travel', name: 'Tanzania Travel Pack', categories: ['miji', 'usafiri', 'biashara', 'mazingira'], installed: false, assets: ['js/content.js?v=16'] },
-    { id: 'culture', name: 'Culture Pack', categories: ['utamaduni', 'historia'], installed: false, assets: ['js/content.js?v=16'] },
-    { id: 'daily', name: 'Daily Tanzania Pack', categories: ['daily'], installed: true, assets: ['js/daily-puzzles.js?v=16'] },
+    { id: 'starter', name: 'Starter Pack', categories: ['chakula', 'salamu', 'wanyama', 'familia'], installed: true, assets: ['js/content.js?v=26', 'assets/theme-art/savanna.svg'] },
+    { id: 'travel', name: 'Tanzania Travel Pack', categories: ['miji', 'usafiri', 'biashara', 'mazingira'], installed: false, assets: ['js/content.js?v=26', 'assets/theme-art/ocean.svg', 'assets/theme-art/dar.svg'] },
+    { id: 'culture', name: 'Culture Pack', categories: ['utamaduni', 'historia'], installed: false, assets: ['js/content.js?v=26', 'assets/theme-art/zanzibar.svg'] },
+    { id: 'daily', name: 'Daily Tanzania Pack', categories: ['daily'], installed: true, assets: ['js/daily-puzzles.js?v=26', 'assets/theme-art/kilimanjaro.svg'] },
   ];
   const KEY = 'neno_installed_packs';
   const CACHE = 'neno-safari-packs-v1';
