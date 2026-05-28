@@ -806,6 +806,47 @@
     padding: 13px;
     border: 1px solid #E0E0E0;
   }
+  .saved-study-card {
+    background: linear-gradient(135deg, #E3F2FD, #E8F5E9);
+    border-radius: var(--radius);
+    border: 2px solid rgba(30,136,229,0.16);
+    box-shadow: 0 3px 14px var(--shadow);
+    padding: 14px;
+    margin-bottom: 12px;
+    display: grid;
+    gap: 8px;
+  }
+  .saved-study-card strong {
+    color: var(--green-dark);
+    font-size: 1rem;
+  }
+  .saved-study-card .study-word {
+    color: var(--green-dark);
+    font-size: 1.35rem;
+    font-weight: 900;
+  }
+  .saved-study-card .study-answer {
+    color: var(--blue);
+    font-weight: 800;
+    min-height: 20px;
+  }
+  .saved-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .saved-actions button,
+  .saved-pron-btn {
+    border: 0;
+    border-radius: 8px;
+    padding: 8px;
+    background: var(--green);
+    color: #fff;
+    font-weight: 900;
+    min-height: 38px;
+  }
+  .saved-actions button.secondary,
+  .saved-pron-btn { background: var(--blue); }
   .saved-word-card strong {
     color: var(--green-dark);
     font-size: 1rem;
@@ -830,6 +871,13 @@
     margin-top: 9px;
     color: #777;
     font-size: 0.74rem;
+  }
+  .saved-meta-actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
   }
   .saved-review-btn {
     border: 0;
@@ -1939,14 +1987,14 @@
   <button class="v-btn sec" onclick="showScreen('home-screen')">🏠 Nyumbani</button>
 </div>
 
-<script src="js/content.js?v=28"></script>
-<script src="js/daily-puzzles.js?v=28"></script>
-<script src="js/puzzle-engine.js?v=28"></script>
-<script src="js/i18n.js?v=28"></script>
-<script src="js/storage.js?v=28"></script>
-<script src="js/offline-packs.js?v=28"></script>
-<script src="js/accessibility.js?v=28"></script>
-<script src="js/ui-utils.js?v=28"></script>
+<script src="js/content.js?v=29"></script>
+<script src="js/daily-puzzles.js?v=29"></script>
+<script src="js/puzzle-engine.js?v=29"></script>
+<script src="js/i18n.js?v=29"></script>
+<script src="js/storage.js?v=29"></script>
+<script src="js/offline-packs.js?v=29"></script>
+<script src="js/accessibility.js?v=29"></script>
+<script src="js/ui-utils.js?v=29"></script>
 <script>
 // ============================================================
 // DATA: CATEGORIES & WORDS
@@ -2003,6 +2051,8 @@ let state = {
   settings: { sound: true, motion: true, contrast: false },
   savedWords: [],
   savedFilter: 'all',
+  savedStudyKey: '',
+  savedStudyRevealed: false,
   dailyStats: { streak: 0, lastDate: '', completedDates: [] },
   dailyGoal: { date: '', words: 0, puzzles: 0, reviews: 0, claimed: false },
   onboardingDismissed: false,
@@ -2694,6 +2744,9 @@ function renderSavedWords() {
     list.appendChild(empty);
     return;
   }
+
+  list.appendChild(renderSavedStudyDeck());
+
   const filtered = state.savedFilter === 'all'
     ? state.savedWords
     : state.savedWords.filter(word => word.category === state.savedFilter);
@@ -2712,20 +2765,72 @@ function renderSavedWords() {
       <div class="meaning">${word.en}</div>
       <div class="example">${word.ex || ''}</div>
       <div class="saved-meta">
-        <span>${copy.reviewedLabel}: ${word.reviewed || 0}</span>
-        <button class="saved-review-btn" onclick="markWordReviewed('${word.key || word.sw}')">${copy.reviewWord}</button>
+        <span>${copy.reviewedLabel}: ${word.reviewed || 0} - ${(word.reviewed || 0) > 0 ? copy.savedPracticed : copy.savedNeedsPractice}</span>
+        <span class="saved-meta-actions">
+          <button class="saved-pron-btn" onclick="speakSavedWord('${word.key || word.sw}')">${copy.savedPronounce}</button>
+          <button class="saved-review-btn" onclick="markWordReviewed('${word.key || word.sw}')">${copy.reviewWord}</button>
+        </span>
       </div>
     `;
     list.appendChild(card);
   });
 }
 
+function savedWordKey(word) {
+  return word?.key || word?.sw || '';
+}
+
+function savedWordByKey(key) {
+  return (state.savedWords || []).find(item => savedWordKey(item) === key);
+}
+
+function chooseSavedStudyWord() {
+  const words = [...(state.savedWords || [])];
+  if (!words.length) return null;
+  const current = savedWordByKey(state.savedStudyKey);
+  if (current) return current;
+  words.sort((a, b) => {
+    const reviewDiff = (a.reviewed || 0) - (b.reviewed || 0);
+    if (reviewDiff !== 0) return reviewDiff;
+    return String(a.lastReviewed || '').localeCompare(String(b.lastReviewed || ''));
+  });
+  state.savedStudyKey = savedWordKey(words[0]);
+  return words[0];
+}
+
+function renderSavedStudyDeck() {
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  const word = chooseSavedStudyWord();
+  const card = document.createElement('div');
+  card.className = 'saved-study-card';
+  if (!word) {
+    card.textContent = copy.savedStudyEmpty;
+    return card;
+  }
+  const key = savedWordKey(word);
+  const answer = state.savedStudyRevealed ? word.en : '...';
+  card.innerHTML = `
+    <strong>${copy.reviewDeckTitle}</strong>
+    <span>${copy.reviewDeckCopy}</span>
+    <div class="study-word">${word.sw}</div>
+    <div class="study-answer">${answer}</div>
+    <div class="saved-actions">
+      <button onclick="revealSavedStudyMeaning()">${copy.revealMeaning}</button>
+      <button class="secondary" onclick="speakSavedWord('${key}')">${copy.savedPronounce}</button>
+      <button onclick="nextSavedStudyWord()">${copy.nextStudyWord}</button>
+    </div>
+    <button class="saved-review-btn" onclick="markWordReviewed('${key}')">${copy.reviewWord}</button>
+  `;
+  return card;
+}
+
 function markWordReviewed(key) {
   const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
-  const word = state.savedWords.find(item => (item.key || item.sw) === key);
+  const word = savedWordByKey(key);
   if (!word) return;
   word.reviewed = (word.reviewed || 0) + 1;
   word.lastReviewed = new Date().toISOString();
+  state.savedStudyRevealed = false;
   ensureDailyGoal();
   state.dailyGoal.reviews = (state.dailyGoal.reviews || 0) + 1;
   if ((state.savedWords?.length || 0) >= 5) awardBadge('saved-5');
@@ -2733,6 +2838,32 @@ function markWordReviewed(key) {
   renderSavedWords();
   renderDailyGoal();
   showToast(copy.wordReviewed);
+}
+
+function revealSavedStudyMeaning() {
+  state.savedStudyRevealed = true;
+  renderSavedWords();
+}
+
+function nextSavedStudyWord() {
+  const words = [...(state.savedWords || [])];
+  if (words.length <= 1) return;
+  const currentIndex = words.findIndex(word => savedWordKey(word) === state.savedStudyKey);
+  const next = words[(currentIndex + 1 + words.length) % words.length];
+  state.savedStudyKey = savedWordKey(next);
+  state.savedStudyRevealed = false;
+  renderSavedWords();
+}
+
+function speakSavedWord(key) {
+  const saved = savedWordByKey(key);
+  if (!saved || state.settings?.sound === false) return;
+  speakWordObject({
+    sw: saved.key || String(saved.sw || '').replace(/\s+/g, '').toUpperCase(),
+    display: saved.sw,
+    en: saved.en,
+    ex: saved.ex || '',
+  });
 }
 
 function setSavedFilter(value) {
@@ -3182,26 +3313,31 @@ function saveCurrentWord() {
 
 function speakCurrentWord() {
   if (!state.currentWordObj || state.settings?.sound === false) return;
-  const audioPath = state.currentWordObj.audio || audioFileForWord(state.currentWordObj);
+  speakWordObject(state.currentWordObj);
+}
+
+function speakWordObject(wordObj) {
+  if (!wordObj || state.settings?.sound === false) return;
+  const audioPath = wordObj.audio || audioFileForWord(wordObj);
   if ('Audio' in window && !missingAudioCache.has(audioPath)) {
     const audio = new Audio(audioPath);
     audio.preload = 'auto';
     audio.addEventListener('error', () => {
       missingAudioCache.add(audioPath);
-      speakWordWithBrowserVoice({ fallback: true });
+      speakWordWithBrowserVoice(wordObj, { fallback: true });
     }, { once: true });
-    audio.play().catch(() => speakWordWithBrowserVoice({ fallback: true }));
+    audio.play().catch(() => speakWordWithBrowserVoice(wordObj, { fallback: true }));
     return;
   }
-  speakWordWithBrowserVoice({ fallback: missingAudioCache.has(audioPath) });
+  speakWordWithBrowserVoice(wordObj, { fallback: missingAudioCache.has(audioPath) });
 }
 
-function speakWordWithBrowserVoice(options = {}) {
+function speakWordWithBrowserVoice(wordObj, options = {}) {
   if (!('speechSynthesis' in window)) {
     showToast(state.appLanguage === 'en' ? 'Speech is not available here.' : 'Sauti haipatikani hapa.');
     return;
   }
-  const utterance = new SpeechSynthesisUtterance(displayWord(state.currentWordObj));
+  const utterance = new SpeechSynthesisUtterance(displayWord(wordObj));
   utterance.lang = 'sw-TZ';
   utterance.rate = 0.86;
   utterance.pitch = 1;

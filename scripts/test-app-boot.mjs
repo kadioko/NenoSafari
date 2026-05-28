@@ -115,6 +115,9 @@ const victoryButtons = [createElement(), createElement(), createElement()];
 const vocabHeading = createElement();
 const listeners = {};
 const store = new Map();
+store.set('neno_saved_words', JSON.stringify([
+  { sw: 'UGALI', key: 'UGALI', en: 'Maize porridge / staple meal', ex: 'Ninakula ugali na samaki.', category: 'Vyakula vya Tanzania', reviewed: 0 },
+]));
 
 const document = {
   documentElement: { lang: 'sw' },
@@ -209,5 +212,9 @@ assert(elements.get('progress-categories').innerHTML.includes('progress-chart-gr
 
 sandbox.showScreen('rewards-screen');
 assert(elements.get('coin-shop').children.length > 2, 'Rewards screen should render expanded shop cards');
+
+sandbox.showScreen('saved-screen');
+assert(elements.get('saved-words-list').children.length > 2, 'Saved words screen should render controls, review deck, and saved cards');
+assert(elements.get('saved-words-list').children.some(child => child.className === 'saved-study-card'), 'Saved words screen should render review deck');
 
 console.log('App boot smoke test OK');
