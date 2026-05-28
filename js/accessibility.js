@@ -8,6 +8,8 @@
     'sound-toggle': ['Washa au zima sauti', 'Turn pronunciation sound on or off'],
     'motion-toggle': ['Punguza au ruhusu mwendo', 'Reduce or allow motion'],
     'contrast-toggle': ['Washa au zima rangi zenye utofauti', 'Turn high contrast colors on or off'],
+    'smart-practice-start': ['Anza mada inayopendekezwa', 'Start the recommended topic'],
+    'smart-practice-review': ['Fungua maneno yaliyohifadhiwa', 'Open saved words for review'],
   };
 
   function labelFor(id, language) {

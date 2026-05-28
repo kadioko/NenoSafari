@@ -79,6 +79,11 @@ const ids = [
   'stat-coins',
   'stat-badges',
   'daily-badge',
+  'smart-practice-card',
+  'smart-practice-title',
+  'smart-practice-copy',
+  'smart-practice-start',
+  'smart-practice-review',
   'wod-word',
   'wod-meaning',
   'lang-sw',
@@ -189,6 +194,7 @@ for (const callback of listeners.DOMContentLoaded || []) {
 
 assert(elements.get('loading').style.display === 'none', 'Loading screen should hide after init');
 assert(elements.get('wod-word').textContent, 'Word of the day should render');
+assert(elements.get('smart-practice-title').textContent, 'Smart practice card should render');
 assert(victoryLabels[0].textContent, 'Language copy should apply to victory labels');
 assert(elements.get('home-screen').classList.contains('active'), 'Home screen should start active');
 assert(elements.get('toast').getAttribute('role') === 'status', 'Toast should be a screen-reader status region');

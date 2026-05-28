@@ -31,6 +31,7 @@
 - Settings screen
 - Accessibility settings for reduced motion and high contrast
 - Progress recommendations
+- Home screen Smart Practice recommendations
 - Badge gallery and coin shop
 - Advanced vocabulary pack
 - Content validation script
