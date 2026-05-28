@@ -505,6 +505,54 @@
     gap: 10px;
     margin: 12px 0;
   }
+  .streak-week-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 10px var(--shadow);
+    padding: 14px;
+    margin-top: 12px;
+    border: 2px solid rgba(30,136,229,0.14);
+  }
+  .streak-week-card strong {
+    color: var(--green-dark);
+    display: block;
+    font-size: 0.98rem;
+    margin-bottom: 5px;
+  }
+  .streak-week-card p {
+    color: #555;
+    font-size: 0.82rem;
+    line-height: 1.35;
+    margin: 0 0 10px;
+  }
+  .streak-days {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 6px;
+  }
+  .streak-day {
+    min-height: 58px;
+    border-radius: 8px;
+    background: #F5F5F5;
+    border: 2px solid #E0E0E0;
+    display: grid;
+    place-items: center;
+    gap: 2px;
+    padding: 6px 2px;
+    color: #616161;
+    font-weight: 900;
+    font-size: 0.7rem;
+  }
+  .streak-day .mark { font-size: 1rem; line-height: 1; }
+  .streak-day.done {
+    color: var(--green-dark);
+    background: #E8F5E9;
+    border-color: var(--green-light);
+  }
+  .streak-day.today {
+    border-color: var(--yellow);
+    box-shadow: inset 0 0 0 2px rgba(255,214,0,0.25);
+  }
   .chart-tile {
     background: var(--card);
     border-radius: var(--radius);
@@ -1891,14 +1939,14 @@
   <button class="v-btn sec" onclick="showScreen('home-screen')">🏠 Nyumbani</button>
 </div>
 
-<script src="js/content.js?v=27"></script>
-<script src="js/daily-puzzles.js?v=27"></script>
-<script src="js/puzzle-engine.js?v=27"></script>
-<script src="js/i18n.js?v=27"></script>
-<script src="js/storage.js?v=27"></script>
-<script src="js/offline-packs.js?v=27"></script>
-<script src="js/accessibility.js?v=27"></script>
-<script src="js/ui-utils.js?v=27"></script>
+<script src="js/content.js?v=28"></script>
+<script src="js/daily-puzzles.js?v=28"></script>
+<script src="js/puzzle-engine.js?v=28"></script>
+<script src="js/i18n.js?v=28"></script>
+<script src="js/storage.js?v=28"></script>
+<script src="js/offline-packs.js?v=28"></script>
+<script src="js/accessibility.js?v=28"></script>
+<script src="js/ui-utils.js?v=28"></script>
 <script>
 // ============================================================
 // DATA: CATEGORIES & WORDS
@@ -2246,6 +2294,28 @@ function isTodayDailyComplete() {
   return Boolean(state.dailyStats?.completedDates?.includes(dailyKey()));
 }
 
+function weekDailyKeys(baseDate = new Date()) {
+  const start = new Date(baseDate);
+  start.setHours(0, 0, 0, 0);
+  start.setDate(start.getDate() - 6);
+  return Array.from({ length: 7 }, (_, index) => {
+    const date = new Date(start);
+    date.setDate(start.getDate() + index);
+    return {
+      key: dailyKey(date),
+      label: date.toLocaleDateString(state.appLanguage === 'en' ? 'en-US' : 'sw-TZ', { weekday: 'short' }),
+      isToday: dailyKey(date) === dailyKey(baseDate),
+    };
+  });
+}
+
+function nextStreakReward(copy) {
+  const streak = state.dailyStats?.streak || 0;
+  if (streak < 3) return copy.streakRewardThree;
+  if (streak < 7) return copy.streakRewardSeven;
+  return copy.streakRewardKeep;
+}
+
 function renderDailyBadge() {
   const badge = document.getElementById('daily-badge');
   if (!badge) return;
@@ -2447,6 +2517,7 @@ function renderProgressDashboard() {
         </div>
       </div>
     </div>
+    ${renderStreakWeekMarkup(copy)}
     <div class="word-list-title" style="margin: 14px 0 10px;">${copy.progressCategories}</div>
   `;
   CATEGORIES.forEach(cat => {
@@ -2463,6 +2534,29 @@ function renderProgressDashboard() {
     `;
     categories.appendChild(card);
   });
+}
+
+function renderStreakWeekMarkup(copy) {
+  const completedDates = new Set(state.dailyStats?.completedDates || []);
+  const days = weekDailyKeys();
+  const doneCount = days.filter(day => completedDates.has(day.key)).length;
+  const reward = copy.streakNextReward.replace('{reward}', nextStreakReward(copy));
+  return `
+    <div class="streak-week-card" id="streak-week-card" aria-label="${copy.streakWeekTitle}">
+      <strong>${copy.streakWeekTitle}</strong>
+      <p>${copy.streakWeekCopy}</p>
+      <div class="streak-days" aria-label="${copy.streakWeekDone}: ${doneCount}/7">
+        ${days.map(day => {
+          const done = completedDates.has(day.key);
+          return `<div class="streak-day ${done ? 'done' : ''} ${day.isToday ? 'today' : ''}" title="${day.key}">
+            <span>${day.label}</span>
+            <span class="mark">${done ? 'OK' : day.isToday ? 'LEO' : '-'}</span>
+          </div>`;
+        }).join('')}
+      </div>
+      <p>${copy.streakWeekDone}: ${doneCount}/7 - ${reward}</p>
+    </div>
+  `;
 }
 
 function renderRewards() {
