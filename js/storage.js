@@ -7,7 +7,9 @@
     learningSignals: {},
     savedWords: [],
     dailyStats: { streak: 0, lastDate: '', completedDates: [] },
+    dailyGoal: { date: '', words: 0, puzzles: 0, reviews: 0, claimed: false },
     settings: { sound: true, motion: true, contrast: false },
+    onboardingDismissed: false,
   };
 
   function saveProgress(state) {
@@ -23,9 +25,11 @@
       localStorage.setItem('neno_learning_signals', JSON.stringify(state.learningSignals || {}));
       localStorage.setItem('neno_saved_words', JSON.stringify(state.savedWords || []));
       localStorage.setItem('neno_daily_stats', JSON.stringify(state.dailyStats || defaults.dailyStats));
+      localStorage.setItem('neno_daily_goal', JSON.stringify(state.dailyGoal || defaults.dailyGoal));
       localStorage.setItem('neno_show_translations', state.showTranslations ? '1' : '0');
       localStorage.setItem('neno_app_language', state.appLanguage);
       localStorage.setItem('neno_settings', JSON.stringify(state.settings || defaults.settings));
+      localStorage.setItem('neno_onboarding_dismissed', state.onboardingDismissed ? '1' : '0');
     } catch (error) {
       // Storage can fail in private browsing or restricted webviews.
     }
@@ -44,18 +48,22 @@
       state.learningSignals = JSON.parse(localStorage.getItem('neno_learning_signals') || '{}');
       state.savedWords = JSON.parse(localStorage.getItem('neno_saved_words') || '[]');
       state.dailyStats = JSON.parse(localStorage.getItem('neno_daily_stats') || JSON.stringify(defaults.dailyStats));
+      state.dailyGoal = JSON.parse(localStorage.getItem('neno_daily_goal') || JSON.stringify(defaults.dailyGoal));
       state.showTranslations = localStorage.getItem('neno_show_translations') !== '0';
       state.appLanguage = localStorage.getItem('neno_app_language') || 'sw';
       state.settings = JSON.parse(localStorage.getItem('neno_settings') || JSON.stringify(defaults.settings));
+      state.onboardingDismissed = localStorage.getItem('neno_onboarding_dismissed') === '1';
     } catch (error) {
       state.catProgress = {};
       state.savedWords = [];
       state.dailyStats = { ...defaults.dailyStats };
+      state.dailyGoal = { ...defaults.dailyGoal };
       state.badges = [];
       state.ownedItems = [];
       state.equippedItems = [];
       state.learningSignals = {};
       state.settings = { ...defaults.settings };
+      state.onboardingDismissed = false;
     }
   }
 

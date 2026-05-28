@@ -338,8 +338,12 @@ const ADVANCED_WORDS = {
 const BADGE_DEFS = [
   { id: 'first-puzzle', icon: '🏆', sw: 'Fumbo la Kwanza', en: 'First Puzzle', descSw: 'Kamilisha fumbo lako la kwanza.', descEn: 'Complete your first puzzle.' },
   { id: 'words-10', icon: '📚', sw: 'Maneno 10', en: '10 Words', descSw: 'Pata maneno 10.', descEn: 'Find 10 words.' },
+  { id: 'words-50', icon: '📖', sw: 'Maneno 50', en: '50 Words', descSw: 'Pata maneno 50 kwenye mafumbo.', descEn: 'Find 50 words across puzzles.' },
   { id: 'daily-3', icon: '☀️', sw: 'Siku 3', en: '3 Day Streak', descSw: 'Kamilisha fumbo la leo siku 3.', descEn: 'Complete daily puzzles for 3 days.' },
+  { id: 'daily-7', icon: '🔥', sw: 'Wiki ya Safari', en: '7 Day Streak', descSw: 'Fikisha streak ya siku 7.', descEn: 'Reach a 7 day streak.' },
   { id: 'three-star', icon: '⭐', sw: 'Nyota Tatu', en: 'Three Star', descSw: 'Pata nyota 3 kwenye mada yoyote.', descEn: 'Earn 3 stars in any category.' },
+  { id: 'saved-5', icon: '🔖', sw: 'Mkusanyaji', en: 'Collector', descSw: 'Hifadhi maneno 5 kwa marudio.', descEn: 'Save 5 words for revision.' },
+  { id: 'daily-goal', icon: '🎯', sw: 'Lengo la Leo', en: 'Daily Goal', descSw: 'Dai zawadi ya lengo la siku.', descEn: 'Claim a daily goal reward.' },
 ];
 
 const SHOP_ITEMS = [

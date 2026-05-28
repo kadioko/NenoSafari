@@ -237,6 +237,35 @@
   .wod-label { font-size: 0.7rem; color: var(--yellow-light); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
   .wod-word { font-size: 1.28rem; font-weight: 900; color: #fff; }
   .wod-meaning { font-size: 0.85rem; color: rgba(255,255,255,0.8); margin-top: 2px; }
+  .daily-goal-card,
+  .quick-tip-card {
+    width: 100%;
+    max-width: 360px;
+    background: rgba(255,255,255,0.13);
+    border: 1px solid rgba(255,255,255,0.24);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    color: #fff;
+    backdrop-filter: blur(4px);
+    position: relative;
+    z-index: 1;
+  }
+  .daily-goal-card { display: grid; gap: 8px; }
+  .goal-head { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+  .goal-title { font-size: 0.82rem; font-weight: 900; color: var(--yellow-light); }
+  .goal-reward { font-size: 0.76rem; font-weight: 900; opacity: 0.9; }
+  .goal-copy { font-size: 0.78rem; color: rgba(255,255,255,0.78); line-height: 1.28; }
+  .goal-track { height: 8px; background: rgba(0,0,0,0.22); border-radius: 999px; overflow: hidden; }
+  .goal-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--yellow), var(--yellow-light)); border-radius: inherit; transition: width 0.25s ease; }
+  .goal-actions { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; }
+  .goal-status { font-size: 0.76rem; color: rgba(255,255,255,0.78); }
+  .goal-claim { border: 0; border-radius: 8px; background: var(--yellow); color: var(--green-dark); font-size: 0.75rem; font-weight: 900; padding: 8px 10px; cursor: pointer; }
+  .goal-claim:disabled { opacity: 0.58; cursor: default; }
+  .quick-tip-card { display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; align-items: center; }
+  .quick-tip-card.locked { display: none; }
+  .quick-tip-card strong { color: var(--yellow-light); font-size: 0.82rem; }
+  .quick-tip-card span { display: block; margin-top: 2px; font-size: 0.76rem; color: rgba(255,255,255,0.78); line-height: 1.25; }
+  .quick-tip-card button { border: 1px solid rgba(255,255,255,0.4); background: rgba(255,255,255,0.14); color: #fff; border-radius: 8px; padding: 8px 10px; font-weight: 900; cursor: pointer; }
   .home-controls,
   .updates-card {
     width: 100%;
@@ -314,6 +343,8 @@
   #home-screen > .flag-stripe,
   #home-screen > .brand-credit,
   #home-screen > .word-of-day,
+  #home-screen > .daily-goal-card,
+  #home-screen > .quick-tip-card,
   #home-screen > .home-controls,
   #home-screen > .daily-badge,
   #home-screen > .home-stats,
@@ -1418,6 +1449,27 @@
     <div class="wod-meaning" id="wod-meaning">Welcome — "Karibu Tanzania!"</div>
   </div>
 
+  <div class="daily-goal-card" id="daily-goal-card">
+    <div class="goal-head">
+      <div class="goal-title" data-i18n="dailyGoalTitle">Lengo la Leo</div>
+      <div class="goal-reward">+25</div>
+    </div>
+    <div class="goal-copy" id="daily-goal-copy"></div>
+    <div class="goal-track"><div class="goal-fill" id="daily-goal-fill"></div></div>
+    <div class="goal-actions">
+      <div class="goal-status" id="daily-goal-status"></div>
+      <button class="goal-claim" id="daily-goal-claim" onclick="claimDailyGoal()">Dai</button>
+    </div>
+  </div>
+
+  <div class="quick-tip-card" id="quick-tip-card">
+    <div>
+      <strong data-i18n="tipTitle">Kidokezo cha haraka</strong>
+      <span data-i18n="tipCopy">Buruta herufi kwa mstari mmoja. Ukikwama, tumia Maana au Matamshi kama msaada.</span>
+    </div>
+    <button onclick="dismissQuickTip()" data-i18n="tipDismiss">Sawa</button>
+  </div>
+
   <div class="home-controls">
     <div class="language-card">
       <span class="control-label" data-i18n="languageLabel">Lugha ya menyu</span>
@@ -1761,14 +1813,14 @@
   <button class="v-btn sec" onclick="showScreen('home-screen')">🏠 Nyumbani</button>
 </div>
 
-<script src="js/content.js?v=24"></script>
-<script src="js/daily-puzzles.js?v=24"></script>
-<script src="js/puzzle-engine.js?v=24"></script>
-<script src="js/i18n.js?v=24"></script>
-<script src="js/storage.js?v=24"></script>
-<script src="js/offline-packs.js?v=24"></script>
-<script src="js/accessibility.js?v=24"></script>
-<script src="js/ui-utils.js?v=24"></script>
+<script src="js/content.js?v=25"></script>
+<script src="js/daily-puzzles.js?v=25"></script>
+<script src="js/puzzle-engine.js?v=25"></script>
+<script src="js/i18n.js?v=25"></script>
+<script src="js/storage.js?v=25"></script>
+<script src="js/offline-packs.js?v=25"></script>
+<script src="js/accessibility.js?v=25"></script>
+<script src="js/ui-utils.js?v=25"></script>
 <script>
 // ============================================================
 // DATA: CATEGORIES & WORDS
@@ -1826,6 +1878,8 @@ let state = {
   savedWords: [],
   savedFilter: 'all',
   dailyStats: { streak: 0, lastDate: '', completedDates: [] },
+  dailyGoal: { date: '', words: 0, puzzles: 0, reviews: 0, claimed: false },
+  onboardingDismissed: false,
   currentDailyKey: '',
   isDailyPuzzle: false,
   quizQuestions: [],
@@ -1961,6 +2015,7 @@ function initNavigation() {
 }
 
 function updateHomeStats() {
+  ensureDailyGoal();
   document.getElementById('stat-score').textContent = state.totalScore;
   document.getElementById('stat-puzzles').textContent = state.puzzlesDone;
   document.getElementById('stat-words').textContent = state.wordsFound;
@@ -1968,6 +2023,65 @@ function updateHomeStats() {
   document.getElementById('stat-coins').textContent = state.coins || 0;
   document.getElementById('stat-badges').textContent = state.badges?.length || 0;
   renderDailyBadge();
+  renderDailyGoal();
+  renderQuickTip();
+}
+
+function ensureDailyGoal() {
+  const today = dailyKey();
+  if (!state.dailyGoal || state.dailyGoal.date !== today) {
+    state.dailyGoal = { date: today, words: 0, puzzles: 0, reviews: 0, claimed: false };
+    saveProgress();
+  }
+}
+
+function dailyGoalProgress() {
+  ensureDailyGoal();
+  return Math.min(5, (state.dailyGoal.words || 0) + ((state.dailyGoal.puzzles || 0) * 2) + (state.dailyGoal.reviews || 0));
+}
+
+function renderDailyGoal() {
+  const card = document.getElementById('daily-goal-card');
+  const copyEl = document.getElementById('daily-goal-copy');
+  const statusEl = document.getElementById('daily-goal-status');
+  const fillEl = document.getElementById('daily-goal-fill');
+  const claimBtn = document.getElementById('daily-goal-claim');
+  if (!card || !copyEl || !statusEl || !fillEl || !claimBtn) return;
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  const progress = dailyGoalProgress();
+  const complete = progress >= 5;
+  copyEl.textContent = copy.dailyGoalCopy;
+  statusEl.textContent = state.dailyGoal.claimed
+    ? copy.dailyGoalClaimed
+    : copy.dailyGoalStatus.replace('{progress}', progress).replace('{target}', 5);
+  fillEl.style.width = `${Math.round((progress / 5) * 100)}%`;
+  claimBtn.textContent = copy.dailyGoalClaim;
+  claimBtn.disabled = !complete || state.dailyGoal.claimed;
+}
+
+function claimDailyGoal() {
+  ensureDailyGoal();
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  if (state.dailyGoal.claimed || dailyGoalProgress() < 5) return;
+  state.dailyGoal.claimed = true;
+  state.coins = (state.coins || 0) + 25;
+  awardBadge('daily-goal');
+  saveProgress();
+  updateHomeStats();
+  renderRewards();
+  showToast(copy.dailyGoalReward);
+}
+
+function renderQuickTip() {
+  const tip = document.getElementById('quick-tip-card');
+  if (!tip) return;
+  tip.classList.toggle('locked', Boolean(state.onboardingDismissed));
+}
+
+function dismissQuickTip() {
+  state.onboardingDismissed = true;
+  saveProgress();
+  renderQuickTip();
 }
 
 function categoryForWord(wordObj) {
@@ -2284,8 +2398,11 @@ function applyRewards({ completed, stars, found }) {
   state.coins = (state.coins || 0) + coins;
 
   if (state.wordsFound >= 10 && awardBadge('words-10')) unlocked.push('10 Words');
+  if (state.wordsFound >= 50 && awardBadge('words-50')) unlocked.push('50 Words');
   if (state.puzzlesDone >= 1 && awardBadge('first-puzzle')) unlocked.push('First Puzzle');
   if ((state.dailyStats?.streak || 0) >= 3 && awardBadge('daily-3')) unlocked.push('3 Day Streak');
+  if ((state.dailyStats?.streak || 0) >= 7 && awardBadge('daily-7')) unlocked.push('7 Day Streak');
+  if ((state.savedWords?.length || 0) >= 5 && awardBadge('saved-5')) unlocked.push('Collector');
   if (stars >= 3 && awardBadge(`three-star-${state.currentCategory.id}`)) unlocked.push('3 Star Category');
 
   return { coins, badges: unlocked };
@@ -2348,8 +2465,12 @@ function markWordReviewed(key) {
   if (!word) return;
   word.reviewed = (word.reviewed || 0) + 1;
   word.lastReviewed = new Date().toISOString();
+  ensureDailyGoal();
+  state.dailyGoal.reviews = (state.dailyGoal.reviews || 0) + 1;
+  if ((state.savedWords?.length || 0) >= 5) awardBadge('saved-5');
   saveProgress();
   renderSavedWords();
+  renderDailyGoal();
   showToast(copy.wordReviewed);
 }
 
@@ -2697,6 +2818,9 @@ function shakeSelection(path) {
 function wordFound(placement) {
   state.foundWords.push(placement.word);
   if ('vibrate' in navigator) navigator.vibrate([12, 24, 12]);
+  ensureDailyGoal();
+  state.dailyGoal.words = (state.dailyGoal.words || 0) + 1;
+  renderDailyGoal();
 
   // Highlight cells
   placement.cells.forEach(([r, c], i) => {
@@ -2959,6 +3083,8 @@ function endGame(completed) {
     const timeBonus = Math.max(0, 300 - elapsed) * 2;
     state.score += timeBonus;
     state.puzzlesDone++;
+    ensureDailyGoal();
+    state.dailyGoal.puzzles = (state.dailyGoal.puzzles || 0) + 1;
   }
   state.totalScore += state.score;
 
