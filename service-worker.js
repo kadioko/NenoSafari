@@ -1,4 +1,4 @@
-const CACHE_NAME = 'neno-safari-v29';
+const CACHE_NAME = 'neno-safari-v30';
 const ASSETS = [
   './',
   './index.html',
@@ -10,14 +10,14 @@ const ASSETS = [
   './assets/theme-art/kilimanjaro.svg',
   './assets/theme-art/zanzibar.svg',
   './assets/theme-art/dar.svg',
-  './js/content.js?v=29',
-  './js/daily-puzzles.js?v=29',
-  './js/puzzle-engine.js?v=29',
-  './js/i18n.js?v=29',
-  './js/storage.js?v=29',
-  './js/offline-packs.js?v=29',
-  './js/accessibility.js?v=29',
-  './js/ui-utils.js?v=29'
+  './js/content.js?v=30',
+  './js/daily-puzzles.js?v=30',
+  './js/puzzle-engine.js?v=30',
+  './js/i18n.js?v=30',
+  './js/storage.js?v=30',
+  './js/offline-packs.js?v=30',
+  './js/accessibility.js?v=30',
+  './js/ui-utils.js?v=30'
 ];
 
 self.addEventListener('install', event => {

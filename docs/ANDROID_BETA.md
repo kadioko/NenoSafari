@@ -54,6 +54,12 @@ Release signing setup is documented in `docs/ANDROID_SIGNING.md`.
 
 ## Beta Release Notes
 
+### Version 1.0.10
+
+- Added in-app release notes on the Upgrades screen.
+- Added clearer tester-facing history for recent Android builds.
+- Prepared release note copy for internal testing updates.
+
 ```text
 Neno Safari beta is ready for first Android testing.
 
