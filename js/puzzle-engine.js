@@ -38,54 +38,71 @@
     return DIRECTIONS;
   }
 
-  function generateGrid(words, size, difficulty = 'kati', rng = Math.random) {
-    const grid = Array.from({ length: size }, () => Array(size).fill(''));
-    const placements = [];
-    const dirs = allowedDirections(difficulty);
-    const sortedWords = [...words].sort((a, b) => b.sw.length - a.sw.length);
+  function wordsThatFit(words, size) {
+    const limit = Math.max(0, Number(size) || 0);
+    return (words || []).filter(word => String(word?.sw || '').replace(/\s+/g, '').length <= limit);
+  }
 
-    for (const wordObj of sortedWords) {
-      const word = wordObj.sw.replace(/\s+/g, '');
-      let placed = false;
-
-      for (let attempt = 0; attempt < 200 && !placed; attempt++) {
-        const [dr, dc] = dirs[Math.floor(rng() * dirs.length)];
-        const len = word.length;
-        const rowStart = dr === 1 ? 0 : (dr === -1 ? len - 1 : 0);
-        const rowEnd = dr === 1 ? size - len : (dr === -1 ? size - 1 : size - 1);
-        const colStart = dc === 1 ? 0 : (dc === -1 ? len - 1 : 0);
-        const colEnd = dc === 1 ? size - len : (dc === -1 ? size - 1 : size - 1);
-
-        if (rowStart > rowEnd || colStart > colEnd) continue;
-
-        const r = rowStart + Math.floor(rng() * (rowEnd - rowStart + 1));
-        const c = colStart + Math.floor(rng() * (colEnd - colStart + 1));
-        const cells = [];
-        let valid = true;
-
-        for (let i = 0; i < len; i++) {
-          const nr = r + i * dr;
-          const nc = c + i * dc;
-          if (nr < 0 || nr >= size || nc < 0 || nc >= size) {
-            valid = false;
-            break;
+  function placementCandidates(grid, word, directions) {
+    const size = grid.length;
+    const candidates = [];
+    for (const [dr, dc] of directions) {
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+          let overlap = 0;
+          const cells = [];
+          let valid = true;
+          for (let i = 0; i < word.length; i++) {
+            const nr = r + i * dr;
+            const nc = c + i * dc;
+            if (nr < 0 || nr >= size || nc < 0 || nc >= size) {
+              valid = false;
+              break;
+            }
+            const current = grid[nr][nc];
+            if (current && current !== word[i]) {
+              valid = false;
+              break;
+            }
+            if (current === word[i]) overlap++;
+            cells.push([nr, nc]);
           }
-          if (grid[nr][nc] !== '' && grid[nr][nc] !== word[i]) {
-            valid = false;
-            break;
-          }
-          cells.push([nr, nc]);
-        }
-
-        if (valid) {
-          cells.forEach(([nr, nc], i) => {
-            grid[nr][nc] = word[i];
-          });
-          placements.push({ word, wordObj, cells, direction: [dr, dc] });
-          placed = true;
+          if (valid) candidates.push({ cells, direction: [dr, dc], overlap });
         }
       }
     }
+    return candidates;
+  }
+
+  function placeWords(words, size, directions, rng) {
+    const grid = Array.from({ length: size }, () => Array(size).fill(''));
+    const placements = [];
+    for (const wordObj of words) {
+      const word = wordObj.sw.replace(/\s+/g, '');
+      const candidates = placementCandidates(grid, word, directions);
+      if (!candidates.length) continue;
+      const bestOverlap = Math.max(...candidates.map(candidate => candidate.overlap));
+      const preferred = candidates.filter(candidate => candidate.overlap === bestOverlap);
+      const selected = preferred[Math.floor(rng() * preferred.length)];
+      selected.cells.forEach(([r, c], index) => {
+        grid[r][c] = word[index];
+      });
+      placements.push({ word, wordObj, cells: selected.cells, direction: selected.direction });
+    }
+    return { grid, placements };
+  }
+
+  function generateGrid(words, size, difficulty = 'kati', rng = Math.random) {
+    const dirs = allowedDirections(difficulty);
+    const sortedWords = [...words].sort((a, b) => b.sw.length - a.sw.length);
+    let best = { grid: [], placements: [] };
+    for (let attempt = 0; attempt < 10; attempt++) {
+      const candidate = placeWords(sortedWords, size, dirs, rng);
+      if (attempt === 0 || candidate.placements.length > best.placements.length) best = candidate;
+      if (best.placements.length === sortedWords.length) break;
+    }
+
+    const { grid, placements } = best;
 
     for (let r = 0; r < size; r++) {
       for (let c = 0; c < size; c++) {
@@ -104,5 +121,6 @@
     shuffleWithRng,
     allowedDirections,
     generateGrid,
+    wordsThatFit,
   };
 })();

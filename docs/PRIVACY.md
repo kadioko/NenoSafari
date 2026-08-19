@@ -1,8 +1,10 @@
 # Privacy Policy
 
-Effective date: May 6, 2026
+> Product behavior reviewed for Neno Safari 2.13.0 on August 19, 2026.
 
-Neno Safari is a Swahili vocabulary word search game made by NECUVA GROUP LIMITED. This policy explains how the app handles information for Android beta testing, the PWA, and future store releases.
+Effective date: August 9, 2026
+
+Neno Safari is a Swahili vocabulary word search game made by NECUVA GROUP LIMITED. This policy explains how the app handles information for the live Android app on Google Play, the PWA, and future store releases.
 
 ## Summary
 
@@ -17,9 +19,11 @@ The app stores game progress locally on the player's device using app/browser st
 - puzzles completed
 - category progress
 - saved words
+- saved-word review level, last-review time, and next-review time
+- whether the daily review reward was already claimed
 - daily puzzle streak
 - coins, badges, and owned cosmetic items
-- settings such as language, sound, motion, and contrast preferences
+- settings such as language, translations, sound, automatic pronunciation, haptics, motion, and contrast preferences
 
 This information stays on the device and is used only to run the game experience.
 
@@ -55,6 +59,8 @@ The current app does not share player data with third-party analytics, advertisi
 ## Future Changes
 
 If analytics, cloud saves, ads, purchases, accounts, or online features are added later, this policy will be updated before release.
+
+Live content updates that only add vocabulary, puzzles, audio files, rewards, or offline packs do not change the current data collection behavior.
 
 ## Contact
 

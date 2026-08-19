@@ -1,6 +1,14 @@
 # Android Release Signing
 
+> Signing workflow for Neno Safari 2.13.0, Android build 38.
+
 Neno Safari supports release signing without committing secrets.
+
+## Live Release Reminder
+
+The app is live on Google Play, so keep the upload key safe and do not rotate signing settings unless Play Console requires it. Before every live build, run the release checklist in `docs/ANDROID_BETA.md`.
+
+After signing is configured, follow `docs/ANDROID_RELEASE_BUILD.md` for the complete sync, build, verification, and Play Console upload workflow.
 
 ## Local File Option
 
@@ -50,6 +58,8 @@ npm run cap:sync
 cd android
 .\gradlew.bat bundleRelease
 ```
+
+For the current release, verify that Play Console reports package `com.nenosafari`, version `2.13.0`, version code `38`, and target API `36` before rollout.
 
 The release bundle is created at:
 

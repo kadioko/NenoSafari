@@ -1,4 +1,6 @@
 (function () {
+  const DAY_MS = 24 * 60 * 60 * 1000;
+
   function displayWord(wordObj) {
     if (wordObj.display) return wordObj.display;
     if (Array.isArray(wordObj.parts) && wordObj.parts.length) return wordObj.parts.join(' ');
@@ -14,6 +16,82 @@
     const date = new Date(year, month - 1, day);
     date.setDate(date.getDate() - 1);
     return dailyKey(date);
+  }
+
+  function activeDailyStreak(dailyStats, date = new Date()) {
+    const streak = Math.max(0, Number(dailyStats?.streak) || 0);
+    const lastDate = dailyStats?.lastDate || '';
+    if (!streak || !lastDate) return 0;
+    const today = dailyKey(date);
+    return lastDate === today || lastDate === previousDailyKey(today) ? streak : 0;
+  }
+
+  function dailyRewardIndex(streak, rewardCount = 7) {
+    const count = Math.max(1, Math.floor(Number(rewardCount) || 1));
+    const day = Math.max(1, Math.floor(Number(streak) || 1));
+    return (day - 1) % count;
+  }
+
+  function isoWeekKey(date = new Date()) {
+    const target = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+    const weekday = target.getUTCDay() || 7;
+    target.setUTCDate(target.getUTCDate() + 4 - weekday);
+    const isoYear = target.getUTCFullYear();
+    const yearStart = new Date(Date.UTC(isoYear, 0, 1));
+    const week = Math.ceil((((target - yearStart) / DAY_MS) + 1) / 7);
+    return `${isoYear}-W${String(week).padStart(2, '0')}`;
+  }
+
+  function wordOfDayIndex(date = new Date(), count = 0) {
+    if (!Number.isFinite(count) || count <= 0) return 0;
+    const ordinal = Math.floor(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) / DAY_MS);
+    return ((ordinal % count) + count) % count;
+  }
+
+  function weeklyRotationIndex(date = new Date(), count = 0) {
+    if (!Number.isFinite(count) || count <= 0) return 0;
+    const dayOrdinal = Math.floor(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) / DAY_MS);
+    const weekOrdinal = Math.floor((dayOrdinal + 3) / 7);
+    return ((weekOrdinal % count) + count) % count;
+  }
+
+  function formatDuration(seconds) {
+    const safeSeconds = Math.max(0, Math.floor(Number(seconds) || 0));
+    const minutes = Math.floor(safeSeconds / 60);
+    const remainder = String(safeSeconds % 60).padStart(2, '0');
+    return minutes ? `${minutes}:${remainder}` : `${safeSeconds}s`;
+  }
+
+  function bestTimeResult(previousSeconds, elapsedSeconds, completed = true) {
+    const previous = Number(previousSeconds);
+    const elapsed = Number(elapsedSeconds);
+    const existing = Number.isFinite(previous) && previous > 0 ? Math.floor(previous) : 0;
+    if (!completed || !Number.isFinite(elapsed) || elapsed < 0) {
+      return { bestTime: existing, isNewRecord: false };
+    }
+    const candidate = Math.max(1, Math.floor(elapsed));
+    const isNewRecord = !existing || candidate < existing;
+    return { bestTime: isNewRecord ? candidate : existing, isNewRecord };
+  }
+
+  function buildVictoryShareText(result = {}, language = 'sw') {
+    const found = Math.max(0, Number(result.found) || 0);
+    const total = Math.max(found, Number(result.total) || 0);
+    const stars = Math.max(0, Math.min(3, Number(result.stars) || 0));
+    const streak = Math.max(0, Number(result.streak) || 0);
+    const starLine = `${'★'.repeat(stars)}${'☆'.repeat(3 - stars)}`;
+    const label = result.kind === 'daily'
+      ? (language === 'en' ? 'Daily Puzzle' : 'Fumbo la Leo')
+      : result.kind === 'weekly'
+        ? (language === 'en' ? 'Weekly Challenge' : 'Changamoto ya Wiki')
+        : (result.category || (language === 'en' ? 'Word Search' : 'Fumbo la Maneno'));
+    const lines = language === 'en'
+      ? ['NENO SAFARI', `${label}: ${found}/${total} words · ${starLine}`, `Time: ${formatDuration(result.elapsed)}`]
+      : ['NENO SAFARI', `${label}: maneno ${found}/${total} · ${starLine}`, `Muda: ${formatDuration(result.elapsed)}`];
+    if (streak) lines.push(language === 'en' ? `Streak: ${streak} days` : `Streak: siku ${streak}`);
+    lines.push(language === 'en' ? 'Learn Swahili by playing!' : 'Jifunze Kiswahili kwa kucheza!');
+    if (result.url) lines.push(result.url);
+    return lines.join('\n');
   }
 
   function audioFileForWord(wordObj) {
@@ -193,10 +271,18 @@
   }
 
   window.NenoSafariUiUtils = {
+    activeDailyStreak,
     audioFileForWord,
+    bestTimeResult,
+    buildVictoryShareText,
+    dailyRewardIndex,
     dailyKey,
     displayWord,
+    formatDuration,
     getPronunciation,
+    isoWeekKey,
     previousDailyKey,
+    weeklyRotationIndex,
+    wordOfDayIndex,
   };
 })();

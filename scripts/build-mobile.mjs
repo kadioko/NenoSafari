@@ -11,7 +11,7 @@ const requiredEntries = [
   'privacy-policy.html',
   'service-worker.js',
   'js',
-  'assets'
+  'assets/theme-art'
 ];
 
 const optionalEntries = [

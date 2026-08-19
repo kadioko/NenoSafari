@@ -1,5 +1,21 @@
 # App Store Preparation
 
+> Next release: Neno Safari 2.13.0, Android build 38, updated August 19, 2026.
+
+## Current Status
+
+Neno Safari is live on Google Play as `com.nenosafari`.
+
+Public listing: `https://play.google.com/store/apps/details?id=com.nenosafari`
+
+Use this document for future store refreshes, iOS preparation, and screenshot/listing updates after live product changes.
+
+## Current Android Release
+
+**Version 2.13.0 (version code 38)**
+
+This update makes rewards, replays, resumed puzzles, weekly rotation, and saved progress more reliable. It continues to target Android 16 / API 36.
+
 ## Working App Name
 
 Neno Safari
@@ -10,7 +26,7 @@ Learn Tanzanian Swahili through fun word search puzzles.
 
 ## Longer Description
 
-Neno Safari is a mobile-friendly Swahili vocabulary game inspired by Tanzania. Search for hidden Swahili words in themed puzzles about food, animals, cities, greetings, family, markets, transport, weather, culture, and national life. After each word, learn the English meaning, pronunciation, and a simple Swahili example sentence.
+Neno Safari is a mobile-friendly Swahili vocabulary game inspired by Tanzania. Search for hidden Swahili words in themed puzzles about food, animals, cities, greetings, family, markets, transport, weather, culture, and national life. Learn meanings, pronunciation, and example sentences, then save useful words for focused review sprints.
 
 ## Key Features
 
@@ -18,7 +34,9 @@ Neno Safari is a mobile-friendly Swahili vocabulary game inspired by Tanzania. S
 - Optional English menu and translations
 - Tanzania-themed word search puzzles
 - Daily Puzzle and streak tracking
-- Saved words for revision
+- Saved words with due-only spaced-review sprints
+- Memory strength, recall ratings, and daily review rewards
+- Recorded pronunciation for all 432 puzzle and Word-of-Day entries
 - Mini quizzes after puzzles
 - Coins, badges, and progress tracking
 - Offline-friendly PWA
@@ -37,13 +55,13 @@ Capture these screens on a small Android phone and a larger phone:
 - Rewards screen
 - Settings screen
 
-Placeholder planning assets live in:
+Legacy planning assets live in:
 
 - `assets/screenshots/home.svg`
 - `assets/screenshots/puzzle.svg`
 - `assets/screenshots/progress.svg`
 
-Replace these with real device screenshots before store submission.
+Do not upload the legacy SVG planning assets to a store. Use real Android captures or the generated PNG drafts as a review step before final device capture.
 
 When Playwright is installed, generate browser-based draft screenshots with:
 
@@ -64,6 +82,7 @@ Final Android/iOS store screenshots should still be captured on real or emulated
 - Support email
 - Category: Educational / Word / Puzzle
 - Content rating questionnaire
+- Public Google Play URL for launch posts and QR codes
 
 Google Play listing copy and generated draft assets live in:
 
@@ -77,6 +96,7 @@ The production mobile path now lives in:
 - `docs/MOBILE_APP.md`
 - `docs/ANDROID_BETA.md`
 - `docs/ANDROID_SIGNING.md`
+- `docs/ANDROID_RELEASE_BUILD.md`
 
 Use those docs for Capacitor build commands, Android beta testing, and store submission readiness.
 
@@ -84,16 +104,19 @@ Use those docs for Capacitor build commands, Android beta testing, and store sub
 
 - Release builds use minification and resource shrinking.
 - Release signing is configured through local-only files or environment variables.
-- The first Play Store target SDK is Android 15 / API 35.
-- The project can compile with Android 16 / API 36 when the local SDK is installed.
+- Version `2.13.0` uses version code `38`.
+- `compileSdkVersion` and `targetSdkVersion` are both Android 16 / API 36.
+- The verified upload bundle is `android/app/build/outputs/bundle/release/app-release.aab`.
 
 ## Release Notes Template
 
-Version:
+Version: 2.13.0 (38)
 
 What's new:
 
-- Added new Tanzania-themed vocabulary.
-- Improved Swahili learning flow.
-- Added progress and rewards.
-- Improved offline play.
+- Added focused due-only review sprints for saved words.
+- Added memory strength and honest recall actions.
+- Added a protected daily reward for clearing due reviews.
+- Improved bilingual review guidance and automated coverage.
+
+For the next live update, use only changes that actually shipped and keep Play Console notes under the platform character limit.

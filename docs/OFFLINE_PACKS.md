@@ -1,6 +1,18 @@
 # Offline Puzzle Packs
 
-Offline packs are groups of puzzle content that can ship with the app. The current MVP already caches the app shell with a service worker. These packs define how vocabulary can be organized for future releases.
+> Current implementation baseline: bundled content packs, Cache API storage, and service-worker cache v58.
+
+Offline packs are bundled groups of puzzle content and theme assets. The current app caches the shell with a service worker and can explicitly install or remove optional pack assets through the Cache API.
+
+## Live Content Packaging
+
+Because Neno Safari is now live, content packs should support retention without requiring a backend. Prefer small bundled updates first:
+
+- Daily refresh pack: more Daily Puzzle and Word of the Day entries.
+- Category depth pack: extra and advanced words for the current 14 categories.
+- Challenge pack: weekly themed puzzle sets assembled from existing words.
+
+Add brand-new category packs only after the daily and category-depth pools feel large enough.
 
 ## Starter Pack
 
@@ -38,6 +50,14 @@ For intermediate players:
 - sentence completion quizzes
 - topic review challenges
 
+## Future Pack Expansion
+
+The first category candidates are already live. Future packs should create a distinct learning reason, such as:
+
+- school/classroom vocabulary reviewed with educators
+- regional travel and geography vocabulary
+- advanced conversation or proverb practice with cultural review
+
 ## Pack Data Shape
 
 Future pack files can use this shape:
@@ -59,4 +79,4 @@ Future pack files can use this shape:
 
 ## Current Implementation
 
-`js/offline-packs.js` tracks installed packs in local storage and can cache pack assets through the Cache API when available. Current packs are metadata-first, but the helper is ready for remote JSON/audio pack files later.
+`js/offline-packs.js` defines Starter, Travel, Culture, and Daily packs, tracks install state in local storage, and caches each pack's bundled content/theme assets through the Cache API. The service worker uses cache v58. Remote JSON/audio downloads remain deferred until a trusted content server, integrity/version rules, and failure recovery are designed.

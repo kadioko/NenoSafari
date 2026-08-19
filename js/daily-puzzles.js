@@ -3,6 +3,7 @@
     {
       id: 'kilimanjaro',
       name: 'Kilimanjaro na Kaskazini',
+      nameEn: 'Kilimanjaro & the North',
       words: [
         { sw: 'KILELE', en: 'Peak / summit', ex: 'Kilele cha Kilimanjaro ni juu sana.', note: 'Kilimanjaro ni mlima mrefu zaidi Afrika.' },
         { sw: 'MOSHI', en: 'Town near Kilimanjaro', ex: 'Moshi iko chini ya Mlima Kilimanjaro.' },
@@ -15,6 +16,7 @@
     {
       id: 'zanzibar',
       name: 'Zanzibar na Pwani',
+      nameEn: 'Zanzibar & the Coast',
       words: [
         { sw: 'ZANZIBAR', en: 'Island famous for spices', ex: 'Zanzibar ina pwani nzuri.' },
         { sw: 'BAHARI', en: 'Ocean / sea', ex: 'Bahari ya Hindi ni kubwa.' },
@@ -27,6 +29,7 @@
     {
       id: 'serengeti',
       name: 'Serengeti na Wanyama',
+      nameEn: 'Serengeti & Wildlife',
       words: [
         { sw: 'SERENGETI', en: 'Famous national park', ex: 'Serengeti ina wanyama wengi.' },
         { sw: 'SIMBA', en: 'Lion', ex: 'Simba anaishi mbugani.' },
@@ -39,6 +42,7 @@
     {
       id: 'dar',
       name: 'Dar es Salaam',
+      nameEn: 'Dar es Salaam',
       words: [
         { sw: 'DARESSALAAM', display: 'Dar es Salaam', en: 'Tanzania largest city', ex: 'Dar es Salaam ni jiji la biashara.' },
         { sw: 'BANDARI', en: 'Port / harbour', ex: 'Bandari ya Dar es Salaam ni kubwa.' },
@@ -49,8 +53,22 @@
       ],
     },
     {
+      id: 'mji-wetu',
+      name: 'Mji Wetu',
+      nameEn: 'Our Town',
+      words: [
+        { sw: 'KIJIJI', en: 'Village', ex: 'Kijiji chetu ni tulivu.' },
+        { sw: 'KITONGOJI', en: 'Neighbourhood', ex: 'Kitongoji kiko karibu na barabara.' },
+        { sw: 'MITAA', en: 'Streets / neighbourhoods', ex: 'Mitaa ina shughuli nyingi.' },
+        { sw: 'KUSINI', en: 'South', ex: 'Tunasafiri kuelekea kusini.' },
+        { sw: 'MASHARIKI', en: 'East', ex: 'Jua huchomoza mashariki.' },
+        { sw: 'MAGHARIBI', en: 'West', ex: 'Jua huzama magharibi.' },
+      ],
+    },
+    {
       id: 'taifa',
       name: 'Taifa na Historia',
+      nameEn: 'Nation & History',
       words: [
         { sw: 'UHURU', en: 'Independence / freedom', ex: 'Uhuru ni jambo muhimu.' },
         { sw: 'MUUNGANO', en: 'Union', ex: 'Muungano ulianza mwaka 1964.' },
@@ -63,6 +81,7 @@
     {
       id: 'sokoni',
       name: 'Sokoni na Biashara',
+      nameEn: 'Markets & Business',
       words: [
         { sw: 'SOKO', en: 'Market', ex: 'Mama anaenda sokoni kununua mboga.' },
         { sw: 'BEI', en: 'Price', ex: 'Bei ya ndizi ni nzuri leo.' },
@@ -73,8 +92,22 @@
       ],
     },
     {
+      id: 'chakula-sokoni',
+      name: 'Chakula Sokoni',
+      nameEn: 'Food at the Market',
+      words: [
+        { sw: 'MATUNDA', en: 'Fruit', ex: 'Matunda yapo sokoni.' },
+        { sw: 'NYANYA', en: 'Tomato', ex: 'Nyanya ni nyekundu na mbichi.' },
+        { sw: 'KITUNGUU', en: 'Onion', ex: 'Kitunguu kina ladha kali.' },
+        { sw: 'LIMAU', en: 'Lemon / lime', ex: 'Limau ni nzuri kwenye samaki.' },
+        { sw: 'MAYAI', en: 'Eggs', ex: 'Mayai yako kwenye kikapu.' },
+        { sw: 'MCHUZI', en: 'Sauce / gravy', ex: 'Mchuzi wa maharage ni mtamu.' },
+      ],
+    },
+    {
       id: 'usafiri',
       name: 'Usafiri wa Kila Siku',
+      nameEn: 'Everyday Travel',
       words: [
         { sw: 'GARI', en: 'Car', ex: 'Gari linaenda mjini.' },
         { sw: 'BASI', en: 'Bus', ex: 'Basi limesimama kituoni.' },
@@ -87,6 +120,7 @@
     {
       id: 'mazungumzo',
       name: 'Salamu na Mazungumzo',
+      nameEn: 'Greetings & Conversation',
       words: [
         { sw: 'HABARI', en: 'News / hello', ex: 'Habari za asubuhi?' },
         { sw: 'MAMBO', en: 'How are things?', ex: 'Mambo vipi rafiki?' },
@@ -97,8 +131,22 @@
       ],
     },
     {
+      id: 'vitendo-kila-siku',
+      name: 'Vitendo vya Kila Siku',
+      nameEn: 'Everyday Actions',
+      words: [
+        { sw: 'ANZA', en: 'Start', ex: 'Anza siku kwa furaha.' },
+        { sw: 'JIFUNZE', en: 'Learn', ex: 'Jifunze neno jipya leo.' },
+        { sw: 'SIKILIZA', en: 'Listen', ex: 'Sikiliza kwa makini.' },
+        { sw: 'ULIZA', en: 'Ask', ex: 'Uliza swali moja.' },
+        { sw: 'CHEZA', en: 'Play', ex: 'Cheza na ujifunze.' },
+        { sw: 'RUDI', en: 'Return', ex: 'Rudi kesho kwa fumbo jingine.' },
+      ],
+    },
+    {
       id: 'hali-ya-hewa',
       name: 'Hali ya Hewa',
+      nameEn: 'Weather',
       words: [
         { sw: 'JUA', en: 'Sun', ex: 'Jua linawaka mchana.' },
         { sw: 'MVUA', en: 'Rain', ex: 'Mvua imenyesha usiku.' },
@@ -109,8 +157,35 @@
       ],
     },
     {
+      id: 'ratiba-ya-leo',
+      name: 'Ratiba ya Leo',
+      nameEn: 'Today\'s Routine',
+      words: [
+        { sw: 'LEO', en: 'Today', ex: 'Leo ninaanza mapema.' },
+        { sw: 'DAKIKA', en: 'Minute', ex: 'Dakika chache zinatosha.' },
+        { sw: 'MCHANA', en: 'Afternoon', ex: 'Mchana kuna joto.' },
+        { sw: 'JIONI', en: 'Evening', ex: 'Jioni tunapumzika.' },
+        { sw: 'KALENDA', en: 'Calendar', ex: 'Kalenda inaonyesha tarehe.' },
+        { sw: 'MIADI', en: 'Appointment', ex: 'Miadi yangu ni kesho.' },
+      ],
+    },
+    {
+      id: 'anga-na-asili',
+      name: 'Anga na Asili',
+      nameEn: 'Sky & Nature',
+      words: [
+        { sw: 'MWEZI', en: 'Moon', ex: 'Mwezi unaangaza usiku.' },
+        { sw: 'ANGA', en: 'Sky', ex: 'Anga lina mawingu meupe.' },
+        { sw: 'NYOTA', en: 'Star', ex: 'Nyota zinaonekana usiku.' },
+        { sw: 'MIMEA', en: 'Plants', ex: 'Mimea hukua baada ya mvua.' },
+        { sw: 'MAUA', en: 'Flowers', ex: 'Maua yana rangi nzuri.' },
+        { sw: 'UKAME', en: 'Drought', ex: 'Ukame hupunguza maji.' },
+      ],
+    },
+    {
       id: 'utamaduni',
       name: 'Utamaduni wa Nyumbani',
+      nameEn: 'Culture at Home',
       words: [
         { sw: 'KANGA', en: 'Printed cloth', ex: 'Mama amevaa kanga nzuri.' },
         { sw: 'NGOMA', en: 'Dance / drum', ex: 'Ngoma inapigwa kwenye sherehe.' },

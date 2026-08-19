@@ -1,5 +1,25 @@
 # Content Guide
 
+> Current inventory baseline: 14 categories and 372 category vocabulary entries.
+
+## Live Content Strategy
+
+The live app should prioritize vocabulary depth before broad category expansion.
+
+Current target:
+
+- Keep the 14 live categories strong.
+- Maintain at least 20 reviewed words per category and deepen high-demand topics carefully.
+- Expand Daily Puzzle and Word of the Day first because they create return visits.
+- Add new categories only when they are clearly useful and have enough reviewed words.
+
+Recently added category groups that must stay maintained:
+
+- Maneno ya Kila Siku: everyday objects, home, school, and simple verbs.
+- Safari na Hifadhi: national parks, tourism, landscapes, and safari vocabulary.
+- Vitendo na Vitenzi: useful verbs and actions.
+- Muda na Ratiba: time, planning, and daily routines.
+
 ## Voice
 
 The game should use friendly Tanzanian Swahili. Keep the language natural, respectful, and useful for learners.
@@ -80,13 +100,17 @@ Examples:
 
 ## Category Guidelines
 
-Each category should contain at least 12 words so higher difficulties can pick enough words.
+Each category should contain at least 20 reviewed words across base, extra, and advanced pools so higher difficulties can vary the selection. The current app has 372 category entries across 14 categories.
 
 Recommended mix:
 
-- 6 very common words
-- 4 medium words
-- 2 slightly advanced words
+- 10-12 very common words
+- 6-8 medium words
+- 4 slightly advanced words
+
+Daily Puzzle and Word of the Day pools should grow faster than the category list because they make the app feel active after launch.
+
+Every playable word must also have a matching pronunciation file before release. Run `npm run audio:check`; the current baseline is 405 of 405 MP3 files.
 
 ## Review Checklist
 
@@ -98,4 +122,5 @@ Before adding new vocabulary:
 - Is the sentence grammatically simple?
 - Is the note respectful and accurate?
 - Can the word fit on the target difficulty grid?
-
+- Does `npm run test:content` pass?
+- Does `npm run audio:check` still report complete playable-word coverage?

@@ -185,6 +185,24 @@
   .menu-btn.primary { background: var(--yellow); color: var(--green-dark); box-shadow: 0 4px 20px rgba(249,168,37,0.4); }
   .menu-btn.secondary { background: rgba(255,255,255,0.15); color: #fff; border: 2px solid rgba(255,255,255,0.3); backdrop-filter: blur(4px); }
   .menu-btn.secondary:hover { background: rgba(255,255,255,0.25); }
+  .menu-count {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    background: var(--yellow);
+    color: var(--green-dark);
+    border: 2px solid rgba(255,255,255,0.8);
+    font-size: 0.68rem;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .menu-count[hidden] { display: none; }
 
   .home-stats {
     display: grid;
@@ -233,11 +251,31 @@
     margin-bottom: 12px;
     position: relative;
     z-index: 1;
+    padding-right: 58px;
   }
   .wod-label { font-size: 0.7rem; color: var(--yellow-light); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
   .wod-word { font-size: 1.28rem; font-weight: 900; color: #fff; }
   .wod-meaning { font-size: 0.85rem; color: rgba(255,255,255,0.8); margin-top: 2px; }
+  .wod-audio {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(255,255,255,0.32);
+    border-radius: 50%;
+    background: rgba(255,255,255,0.14);
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .wod-audio:active { transform: translateY(-50%) scale(0.94); }
   .daily-goal-card,
+  .daily-reward-card,
+  .weekly-challenge-card,
+  .level-card,
+  .today-mission-card,
   .quick-tip-card {
     width: 100%;
     max-width: 360px;
@@ -251,6 +289,48 @@
     z-index: 1;
   }
   .daily-goal-card { display: grid; gap: 8px; }
+  .daily-reward-card,
+  .weekly-challenge-card,
+  .level-card,
+  .today-mission-card { display: grid; gap: 8px; }
+  .today-mission-card {
+    background: linear-gradient(135deg, rgba(251,192,45,0.22), rgba(2,119,189,0.26));
+    border-color: rgba(255,235,59,0.65);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  }
+  .mission-kicker { color: var(--yellow-light); font-size: 0.7rem; font-weight: 900; letter-spacing: 0; text-transform: uppercase; }
+  .mission-title { color: #fff; font-size: 1rem; font-weight: 900; }
+  .mission-copy { color: rgba(255,255,255,0.86); font-size: 0.8rem; line-height: 1.3; }
+  .mission-track { height: 7px; border-radius: 999px; overflow: hidden; background: rgba(0,0,0,0.25); }
+  .mission-fill { height: 100%; width: 0; border-radius: inherit; background: var(--yellow-light); transition: width 0.25s ease; }
+  .mission-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .mission-status { color: rgba(255,255,255,0.8); font-size: 0.72rem; }
+  .mission-button { border: 0; border-radius: 8px; background: var(--yellow); color: var(--green-dark); font-size: 0.8rem; font-weight: 900; padding: 10px 12px; cursor: pointer; white-space: nowrap; }
+  .reward-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+  .reward-day { border: 1px solid rgba(255,255,255,0.22); border-radius: 8px; padding: 6px 4px; text-align: center; font-size: 0.62rem; color: rgba(255,255,255,0.78); background: rgba(0,0,0,0.14); min-width: 0; }
+  .reward-day.today { border-color: var(--yellow-light); color: var(--yellow-light); }
+  .reward-day.claimed { background: rgba(76,175,80,0.35); color: #fff; }
+  .reward-day strong { display: block; font-size: 0.72rem; color: #fff; }
+  .challenge-actions { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; }
+  .challenge-title { font-weight: 900; color: var(--yellow-light); font-size: 0.86rem; }
+  .challenge-copy,
+  .level-copy { font-size: 0.76rem; color: rgba(255,255,255,0.78); line-height: 1.25; }
+  .level-track { height: 8px; border-radius: 999px; overflow: hidden; background: rgba(0,0,0,0.22); }
+  .level-fill { height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, var(--green-light), var(--yellow-light)); }
+  .share-card {
+    width: 100%;
+    max-width: 340px;
+    margin-bottom: 16px;
+    padding: 12px;
+    border-radius: var(--radius);
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.16);
+    color: rgba(255,255,255,0.9);
+    font-size: 0.82rem;
+    text-align: left;
+  }
+  .share-card button { margin-top: 8px; border: 0; border-radius: 8px; padding: 9px 10px; font-weight: 900; color: var(--green-dark); background: var(--yellow); cursor: pointer; }
+  #share-copy { white-space: pre-line; line-height: 1.45; }
   .goal-head { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
   .goal-title { font-size: 0.82rem; font-weight: 900; color: var(--yellow-light); }
   .goal-reward { font-size: 0.76rem; font-weight: 900; opacity: 0.9; }
@@ -343,7 +423,11 @@
   #home-screen > .flag-stripe,
   #home-screen > .brand-credit,
   #home-screen > .word-of-day,
+  #home-screen > .today-mission-card,
   #home-screen > .daily-goal-card,
+  #home-screen > .daily-reward-card,
+  #home-screen > .weekly-challenge-card,
+  #home-screen > .level-card,
   #home-screen > .quick-tip-card,
   #home-screen > .smart-practice-card,
   #home-screen > .home-controls,
@@ -703,6 +787,7 @@
     min-height: 42px;
   }
   .smart-actions button.secondary { background: var(--blue); }
+  .smart-actions button:disabled { background: #9E9E9E; cursor: default; opacity: 0.72; }
   .badge-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -782,6 +867,7 @@
     transition: transform 0.2s;
   }
   .toggle.on { background: var(--green); }
+  .toggle:disabled { cursor: not-allowed; opacity: 0.45; }
   .cheat-card {
     background: linear-gradient(135deg, #FFFDE7, #E8F5E9);
     border: 2px dashed rgba(46,125,50,0.35);
@@ -865,8 +951,43 @@
   }
   .saved-actions {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 8px;
+  }
+  .review-rating-actions { grid-template-columns: repeat(3, 1fr); }
+  .review-rating-actions button { padding-inline: 5px; font-size: 0.78rem; }
+  .study-due {
+    width: fit-content;
+    border-radius: 999px;
+    padding: 4px 8px;
+    background: rgba(30,136,229,0.12);
+    color: #155A8A;
+    font-size: 0.72rem;
+    font-weight: 900;
+  }
+  .review-progress-track,
+  .memory-track {
+    height: 7px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(16,42,67,0.12);
+  }
+  .review-progress-fill,
+  .memory-fill {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--green);
+  }
+  .review-complete {
+    text-align: center;
+    justify-items: center;
+    padding-block: 22px;
+  }
+  .review-complete .study-word { font-size: 1.12rem; }
+  .review-reward {
+    color: var(--green-dark);
+    font-weight: 900;
   }
   .saved-actions button,
   .saved-pron-btn {
@@ -921,6 +1042,19 @@
     font-weight: 800;
     cursor: pointer;
   }
+  .saved-review-btn:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+  .memory-strength {
+    display: grid;
+    gap: 4px;
+    margin-top: 9px;
+    color: var(--green-dark);
+    font-size: 0.72rem;
+    font-weight: 800;
+  }
+  .memory-track { height: 5px; }
   .saved-controls {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -995,15 +1129,14 @@
   .top-bar h2 { font-size: 1.1rem; font-weight: 700; flex: 1; }
 
   .difficulty-row {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
     padding: 16px 20px 8px;
-    overflow-x: auto;
-    scrollbar-width: none;
   }
-  .difficulty-row::-webkit-scrollbar { display: none; }
   .diff-btn {
-    padding: 8px 18px;
+    min-width: 0;
+    padding: 9px 8px;
     border-radius: 20px;
     border: 2px solid var(--green-light);
     background: #fff;
@@ -1013,7 +1146,6 @@
     cursor: pointer;
     white-space: nowrap;
     transition: all 0.15s;
-    flex-shrink: 0;
   }
   .diff-btn.active { background: var(--green); color: #fff; border-color: var(--green); }
 
@@ -1091,6 +1223,9 @@
     gap: 12px;
     align-items: center;
   }
+  .score-pill.combo { display: none; background: var(--yellow-light); color: var(--green-dark); }
+  .score-pill.combo.active { display: inline-flex; animation: comboPulse 320ms ease; }
+  @keyframes comboPulse { 50% { transform: scale(1.12); } }
   .score-pill {
     background: rgba(255,255,255,0.15);
     border-radius: 20px;
@@ -1100,6 +1235,17 @@
     display: flex;
     align-items: center;
     gap: 5px;
+  }
+  .timer-control {
+    border: 0;
+    color: inherit;
+    font-family: inherit;
+    cursor: pointer;
+    min-height: 38px;
+  }
+  .timer-control:focus-visible {
+    outline: 3px solid var(--yellow-light);
+    outline-offset: 2px;
   }
 
   .timer-bar {
@@ -1111,6 +1257,60 @@
     height: 100%;
     background: var(--yellow-light);
     transition: width 1s linear;
+  }
+  .score-pill.paused { background: var(--yellow-light); color: var(--green-dark); }
+  .timer-state { font-size: 0.68rem; font-weight: 900; }
+  .timer-toggle { font-size: 0.72rem; font-weight: 900; margin-left: 2px; }
+
+  .game-pause-overlay {
+    position: fixed !important;
+    inset: 0;
+    z-index: 500 !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 28px;
+    text-align: center;
+    background: var(--green-dark);
+    color: #fff;
+  }
+  .game-pause-overlay[hidden] { display: none; }
+  .pause-symbol {
+    width: 72px;
+    height: 72px;
+    display: grid;
+    place-items: center;
+    border: 2px solid rgba(255,255,255,0.42);
+    border-radius: 50%;
+    color: var(--yellow-light);
+    font-size: 2rem;
+    font-weight: 900;
+  }
+  .pause-title { color: var(--yellow-light); font-size: 1.6rem; font-weight: 900; }
+  .pause-copy { max-width: 320px; color: rgba(255,255,255,0.82); font-size: 0.9rem; line-height: 1.45; }
+  .pause-time { font-size: 1.05rem; font-weight: 900; }
+  .pause-resume {
+    min-width: 190px;
+    border: 0;
+    border-radius: 8px;
+    padding: 13px 18px;
+    background: var(--yellow);
+    color: var(--green-dark);
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 900;
+    cursor: pointer;
+  }
+  .pause-resume:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+  @media (max-width: 420px) {
+    .game-top { padding: 10px 8px; gap: 6px; }
+    .game-cat-name { display: none; }
+    .game-title { font-size: 0.9rem; line-height: 1.15; }
+    .score-area { gap: 5px; }
+    .score-pill { padding: 5px 8px; font-size: 0.78rem; }
   }
 
   .game-body {
@@ -1222,6 +1422,17 @@
     flex-wrap: wrap;
     gap: 8px;
   }
+  .hint-counter {
+    flex: 1 0 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 24px;
+    color: var(--green-dark);
+    font-size: 0.74rem;
+    font-weight: 900;
+  }
+  .hint-counter strong { color: var(--blue); }
   .hint-btn {
     flex: 1 1 calc(50% - 8px);
     padding: 10px;
@@ -1239,6 +1450,7 @@
     transition: all 0.15s;
   }
   .hint-btn:active { background: var(--yellow-light); }
+  .hint-btn:disabled { border-color: #BDBDBD; background: #EEEEEE; color: #757575; cursor: default; }
 
   /* ===== WORD REVEAL MODAL ===== */
   .modal-overlay {
@@ -1389,6 +1601,17 @@
   @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-12px); } }
   .victory-title { font-size: 2.2rem; font-weight: 900; color: var(--yellow-light); margin-top: 12px; }
   .victory-msg { font-size: 1rem; color: rgba(255,255,255,0.85); margin-top: 6px; }
+  .victory-record {
+    margin-top: 10px;
+    padding: 7px 10px;
+    border-radius: 8px;
+    background: rgba(255,235,59,0.16);
+    border: 1px solid rgba(255,235,59,0.5);
+    color: var(--yellow-light);
+    font-size: 0.78rem;
+    font-weight: 900;
+  }
+  .victory-record[hidden] { display: none; }
   .stars-row { display: flex; justify-content: center; gap: 12px; margin: 20px 0; font-size: 2.5rem; }
   .star { opacity: 0; transform: scale(0); animation: starIn 0.4s ease forwards; }
   .star:nth-child(1) { animation-delay: 0.3s; }
@@ -1562,6 +1785,63 @@
     text-align: center;
   }
   .toast.show { transform: translateX(-50%) translateY(0); }
+  body.quick-learning .toast { display: none; }
+
+  .quick-learn {
+    position: fixed;
+    left: 50%;
+    bottom: max(14px, env(safe-area-inset-bottom));
+    width: min(calc(100% - 24px), 430px);
+    min-height: 124px;
+    transform: translate(-50%, calc(100% + 32px));
+    opacity: 0;
+    z-index: 350;
+    background: var(--card);
+    color: var(--black);
+    border: 2px solid var(--green);
+    border-radius: 8px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.24);
+    padding: 13px 96px 13px 15px;
+    transition: transform 220ms ease, opacity 180ms ease;
+    pointer-events: none;
+  }
+  .quick-learn.show { transform: translate(-50%, 0); opacity: 1; pointer-events: auto; }
+  .quick-learn-word { color: var(--green-dark); font-size: 1.16rem; font-weight: 900; }
+  .quick-learn-meaning { color: var(--blue); font-size: 0.82rem; font-weight: 800; margin-top: 2px; }
+  .quick-learn-example {
+    color: #555;
+    font-size: 0.78rem;
+    line-height: 1.35;
+    margin-top: 6px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .quick-learn-actions {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 34px);
+    gap: 7px;
+  }
+  .quick-learn-actions button {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.12);
+    background: #F5F7F5;
+    color: var(--green-dark);
+    font-size: 1rem;
+    font-weight: 900;
+    cursor: pointer;
+  }
+  .quick-learn-actions button.saved {
+    background: var(--green);
+    color: #fff;
+  }
+  body.hide-translations .quick-learn-meaning { display: none; }
 
   /* Loading overlay */
   .loading-overlay {
@@ -1599,6 +1879,19 @@
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
+
+<!-- NON-BLOCKING WORD LEARNING -->
+<div class="quick-learn" id="quick-learn" role="region" aria-live="polite" aria-atomic="true" tabindex="0" onclick="openQuickLearnDetails()" onkeydown="if(event.key === 'Enter' || event.key === ' ') openQuickLearnDetails()">
+  <div class="quick-learn-word" id="quick-learn-word"></div>
+  <div class="quick-learn-meaning" id="quick-learn-meaning"></div>
+  <div class="quick-learn-example" id="quick-learn-example"></div>
+  <div class="quick-learn-actions">
+    <button id="quick-learn-audio" onclick="event.stopPropagation(); speakCurrentWord()" aria-label="Sikia matamshi">🔊</button>
+    <button id="quick-learn-save" onclick="event.stopPropagation(); saveCurrentWord()" aria-label="Hifadhi neno">🔖</button>
+    <button id="quick-learn-details" onclick="event.stopPropagation(); openQuickLearnDetails()" aria-label="Fungua maelezo">i</button>
+    <button id="quick-learn-close" onclick="event.stopPropagation(); hideQuickLearn()" aria-label="Funga">×</button>
+  </div>
+</div>
 
 <!-- WORD REVEAL MODAL -->
 <div class="modal-overlay" id="word-modal">
@@ -1640,6 +1933,18 @@
     <div class="wod-label" data-i18n="wordOfDay">🌟 Neno la Leo</div>
     <div class="wod-word" id="wod-word">Karibu</div>
     <div class="wod-meaning" id="wod-meaning">Welcome — "Karibu Tanzania!"</div>
+    <button class="wod-audio" id="wod-audio" onclick="speakWordOfDay()" aria-label="Sikia Neno la Leo" title="Sikia Neno la Leo">🔊</button>
+  </div>
+
+  <div class="today-mission-card" id="today-mission-card" aria-live="polite">
+    <div class="mission-kicker" id="mission-kicker">Safari ya Leo</div>
+    <div class="mission-title" id="mission-title">Fumbo la Leo linakusubiri</div>
+    <div class="mission-copy" id="mission-copy"></div>
+    <div class="mission-track"><div class="mission-fill" id="mission-fill"></div></div>
+    <div class="mission-actions">
+      <div class="mission-status" id="mission-status"></div>
+      <button class="mission-button" id="mission-button" onclick="runTodayMission()">Cheza</button>
+    </div>
   </div>
 
   <div class="daily-goal-card" id="daily-goal-card">
@@ -1653,6 +1958,36 @@
       <div class="goal-status" id="daily-goal-status"></div>
       <button class="goal-claim" id="daily-goal-claim" onclick="claimDailyGoal()">Dai</button>
     </div>
+  </div>
+
+  <div class="weekly-challenge-card" id="weekly-challenge-card">
+    <div class="challenge-title" id="weekly-challenge-title"></div>
+    <div class="challenge-copy" id="weekly-challenge-copy"></div>
+    <div class="challenge-actions">
+      <div class="goal-status" id="weekly-challenge-status"></div>
+      <button class="goal-claim" id="weekly-challenge-btn" onclick="startWeeklyChallenge()">Cheza</button>
+    </div>
+  </div>
+
+  <div class="daily-reward-card" id="daily-reward-card">
+    <div class="goal-head">
+      <div class="goal-title" data-i18n="dailyRewardTitle">Zawadi za Siku 7</div>
+      <div class="goal-reward" id="daily-reward-streak"></div>
+    </div>
+    <div class="reward-days" id="daily-reward-days"></div>
+    <div class="goal-actions">
+      <div class="goal-status" id="daily-reward-status"></div>
+      <button class="goal-claim" id="daily-reward-claim" onclick="claimDailyReward()">Dai</button>
+    </div>
+  </div>
+
+  <div class="level-card" id="level-card">
+    <div class="goal-head">
+      <div class="goal-title" id="level-title"></div>
+      <div class="goal-reward" id="level-xp"></div>
+    </div>
+    <div class="level-track"><div class="level-fill" id="level-fill"></div></div>
+    <div class="level-copy" id="level-copy"></div>
   </div>
 
   <div class="quick-tip-card" id="quick-tip-card">
@@ -1695,9 +2030,10 @@
     <span data-i18n="dailyPuzzle">Fumbo la Leo</span>
   </button>
   <div class="daily-badge" id="daily-badge">Fumbo la leo bado</div>
-  <button class="menu-btn secondary" onclick="showScreen('saved-screen')">
+  <button class="menu-btn secondary" id="saved-words-menu" onclick="showScreen('saved-screen')">
     <span class="btn-icon">🔖</span>
     <span data-i18n="savedWordsBtn">Maneno Yangu</span>
+    <span class="menu-count" id="saved-due-count" hidden></span>
   </button>
   <button class="menu-btn secondary" onclick="showScreen('progress-screen')">
     <span class="btn-icon">📈</span>
@@ -1783,6 +2119,14 @@
     <div class="settings-row">
       <div><strong data-i18n="soundSetting">Sauti za matamshi</strong><span data-i18n="soundSettingDesc">Washa au zima kusoma matamshi.</span></div>
       <button class="toggle" id="sound-toggle" onclick="toggleSetting('sound')"></button>
+    </div>
+    <div class="settings-row">
+      <div><strong data-i18n="autoPronounceSetting">Matamshi ya moja kwa moja</strong><span data-i18n="autoPronounceSettingDesc">Sikia neno mara tu unapolipata.</span></div>
+      <button class="toggle" id="auto-pronounce-toggle" onclick="toggleSetting('autoPronounce')"></button>
+    </div>
+    <div class="settings-row">
+      <div><strong data-i18n="hapticsSetting">Mtetemo wa mguso</strong><span data-i18n="hapticsSettingDesc">Pata ishara ndogo unapopata neno au zawadi.</span></div>
+      <button class="toggle" id="haptics-toggle" onclick="toggleSetting('haptics')"></button>
     </div>
     <div class="settings-row">
       <div><strong data-i18n="motionSetting">Punguza mwendo</strong><span data-i18n="motionSettingDesc">Punguza animation kwa utulivu.</span></div>
@@ -1877,24 +2221,24 @@
     <div class="info-card">
       <h3 data-i18n="upgradeNowTitle">Tayari sasa</h3>
       <ul>
-        <li data-i18n="upgradeNowOne">Android APK na AAB zimejengwa kwa majaribio.</li>
-        <li data-i18n="upgradeNowTwo">Release signing, minification, na resource shrinking zimewashwa.</li>
-        <li data-i18n="upgradeNowThree">Sauti, zawadi, maendeleo, Daily Puzzle, na Kuhusu zipo kwenye app.</li>
+        <li data-i18n="upgradeNowOne">App ipo live Google Play na build 38 imeandaliwa.</li>
+        <li data-i18n="upgradeNowTwo">Sauti 432, zawadi, na maendeleo yamehakikiwa.</li>
+        <li data-i18n="upgradeNowThree">Majaribio ya simu na lugha zote mbili yanapita.</li>
       </ul>
     </div>
     <div class="info-card">
       <h3 data-i18n="upgradeNextTitle">Kinachofuata</h3>
       <ul>
-        <li data-i18n="upgradeNextOne">Fanya testing kwenye Pixel 8 na simu ndogo za Android.</li>
-        <li data-i18n="upgradeNextTwo">Piga screenshots halisi za Play Store kutoka emulator au simu.</li>
-        <li data-i18n="upgradeNextThree">Kamilisha Play Console: privacy policy, Data Safety, rating, na internal testing.</li>
+        <li data-i18n="upgradeNextOne">Pakia AAB iliyosainiwa kwa staged rollout.</li>
+        <li data-i18n="upgradeNextTwo">Tumia screenshots mpya za simu kwenye Play Store.</li>
+        <li data-i18n="upgradeNextThree">Fuatilia crashes, ANRs, retention, na maoni ya wachezaji.</li>
       </ul>
     </div>
     <div class="info-card">
       <h3 data-i18n="upgradeMobileTitle">Njia ya simu</h3>
       <ul>
-        <li data-i18n="upgradeMobileOne">Android beta ndiyo njia ya kwanza ya uzalishaji.</li>
-        <li data-i18n="upgradeMobileTwo">iOS ifuate baada ya Android beta kuwa thabiti.</li>
+        <li data-i18n="upgradeMobileOne">Android ndiyo bidhaa ya kwanza iliyo live.</li>
+        <li data-i18n="upgradeMobileTwo">iOS ifuate baada ya ukuaji wa Android kuthibitishwa.</li>
         <li data-i18n="upgradeMobileThree">Web/PC ibaki kama PWA kwa majaribio, shule, na desktop.</li>
       </ul>
     </div>
@@ -1966,7 +2310,13 @@
     </div>
     <div class="score-area">
       <div class="score-pill">⭐ <span id="score-display">0</span></div>
-      <div class="score-pill" id="timer-pill" style="display:none">⏱ <span id="timer-display">60</span></div>
+      <div class="score-pill combo" id="combo-pill" aria-live="polite"><span id="combo-display">x2</span></div>
+      <button class="score-pill timer-control" id="timer-pill" style="display:none" onclick="toggleTimedPause()" type="button">
+        <span aria-hidden="true">⏱</span>
+        <span id="timer-display">60</span>
+        <span class="timer-state" id="timer-state"></span>
+        <span class="timer-toggle" id="timer-toggle" aria-hidden="true">Ⅱ</span>
+      </button>
     </div>
   </div>
   <div class="timer-bar" id="timer-bar" style="display:none">
@@ -1979,10 +2329,11 @@
       </div>
     </div>
     <div class="hint-section">
-      <button class="hint-btn" onclick="useHint('letter')">💡 Herufi ya Kwanza</button>
-      <button class="hint-btn" onclick="useHint('highlight')">🔦 Onyesha Neno</button>
-      <button class="hint-btn" onclick="useHint('meaning')">🇬🇧 Maana</button>
-      <button class="hint-btn" onclick="useHint('pron')">🔊 Matamshi</button>
+      <div class="hint-counter"><span data-i18n="hintsTitle">Msaada wa Fumbo</span><strong id="hint-counter"></strong></div>
+      <button class="hint-btn hint-action" id="hint-letter" onclick="useHint('letter')" data-i18n="hintLetter">💡 Herufi ya Kwanza</button>
+      <button class="hint-btn hint-action" id="hint-highlight" onclick="useHint('highlight')" data-i18n="hintHighlight">🔦 Onyesha Neno</button>
+      <button class="hint-btn hint-action" id="hint-meaning" onclick="useHint('meaning')" data-i18n="hintMeaning">🇬🇧 Maana</button>
+      <button class="hint-btn hint-action" id="hint-pron" onclick="useHint('pron')" data-i18n="hintPronunciation">🔊 Matamshi</button>
       <button class="hint-btn" onclick="toggleTranslations()" id="translation-toggle">Ficha Kiingereza</button>
     </div>
     <div class="word-list-section">
@@ -1993,6 +2344,13 @@
       <div class="words-grid" id="words-list"></div>
     </div>
   </div>
+  <div class="game-pause-overlay" id="game-pause-overlay" role="dialog" aria-modal="true" aria-labelledby="pause-title" aria-describedby="pause-copy" hidden>
+    <div class="pause-symbol" aria-hidden="true">Ⅱ</div>
+    <h2 class="pause-title" id="pause-title" data-i18n="pauseTitle">Mchezo Umesimama</h2>
+    <p class="pause-copy" id="pause-copy" data-i18n="pauseCopy">Fumbo limefichwa. Endelea ukiwa tayari.</p>
+    <div class="pause-time" id="pause-time">60s</div>
+    <button class="pause-resume" id="pause-resume" onclick="resumeTimedGame()" type="button"><span aria-hidden="true">▶</span> <span data-i18n="resumeGame">Endelea</span></button>
+  </div>
 </div>
 
 <!-- ===== VICTORY SCREEN ===== -->
@@ -2000,6 +2358,7 @@
   <div class="victory-emoji">🏆</div>
   <div class="victory-title" id="v-title">Hongera!</div>
   <div class="victory-msg" id="v-msg">Umefanikiwa!</div>
+  <div class="victory-record" id="v-record" hidden></div>
   <div class="stars-row" id="stars-row">
     <span class="star">⭐</span>
     <span class="star">⭐</span>
@@ -2014,6 +2373,10 @@
     <h3>📚 Maneno Uliyojifunza</h3>
     <div id="vocab-list"></div>
   </div>
+  <div class="share-card" id="share-card">
+    <div id="share-copy"></div>
+    <button id="share-victory-btn" onclick="shareVictoryCard()" data-i18n="shareVictoryBtn">↗ Shiriki Matokeo</button>
+  </div>
   <div class="quiz-card" id="quiz-card">
     <h3 data-i18n="miniQuizTitle">Jaribio Fupi</h3>
     <div class="quiz-progress" id="quiz-progress"></div>
@@ -2025,14 +2388,16 @@
   <button class="v-btn sec" onclick="showScreen('home-screen')">🏠 Nyumbani</button>
 </div>
 
-<script src="js/content.js?v=30"></script>
-<script src="js/daily-puzzles.js?v=30"></script>
-<script src="js/puzzle-engine.js?v=30"></script>
-<script src="js/i18n.js?v=30"></script>
-<script src="js/storage.js?v=30"></script>
-<script src="js/offline-packs.js?v=30"></script>
-<script src="js/accessibility.js?v=30"></script>
-<script src="js/ui-utils.js?v=30"></script>
+<script src="js/content.js?v=57"></script>
+<script src="js/daily-puzzles.js?v=57"></script>
+<script src="js/puzzle-engine.js?v=57"></script>
+<script src="js/i18n.js?v=57"></script>
+<script src="js/storage.js?v=57"></script>
+<script src="js/review-scheduler.js?v=57"></script>
+<script src="js/offline-packs.js?v=57"></script>
+<script src="js/accessibility.js?v=57"></script>
+<script src="js/ui-utils.js?v=57"></script>
+<script src="js/haptics.js?v=57"></script>
 <script>
 // ============================================================
 // DATA: CATEGORIES & WORDS
@@ -2053,6 +2418,7 @@ const {
   dateSeed,
   shuffleWithRng,
   generateGrid: generateWordSearchGrid,
+  wordsThatFit,
 } = window.NenoSafariEngine;
 const { DAILY_PUZZLE_SETS } = window.NenoSafariDaily;
 
@@ -2077,44 +2443,451 @@ let state = {
   puzzlesDone: 0,
   wordsFound: 0,
   startTime: null,
+  elapsedActiveMs: 0,
+  activeClockStartedAt: null,
   timerInterval: null,
   timerSeconds: 60,
   timerRemaining: 60,
+  timerPaused: false,
+  completionTimer: null,
+  gameEnded: false,
+  quickLearnTimer: null,
   selecting: false,
   selectionPath: [],
   selectionStart: null,
   hintCount: 3,
+  hintTargetWord: '',
   showTranslations: true,
   appLanguage: 'sw',
-  settings: { sound: true, motion: true, contrast: false },
+  settings: { sound: true, autoPronounce: false, haptics: true, motion: true, contrast: false },
   savedWords: [],
+  categoryWordsFound: {},
+  masteryRewards: {},
+  activeSession: null,
+  hardWords: {},
+  weeklyChallenges: {},
+  dailyRewards: { cycle: '', claimed: [], claimedDates: [] },
+  comebackGifts: [],
   savedFilter: 'all',
   savedStudyKey: '',
   savedStudyRevealed: false,
+  reviewSession: { active: false, completed: false, startingDue: 0, reviewed: 0, correct: 0, reward: 0 },
+  reviewRewardDate: '',
+  lastVictory: null,
   dailyStats: { streak: 0, lastDate: '', completedDates: [] },
   dailyGoal: { date: '', words: 0, puzzles: 0, reviews: 0, claimed: false },
   onboardingDismissed: false,
   currentDailyKey: '',
   isDailyPuzzle: false,
+  isDailyReplay: false,
+  isWeeklyChallenge: false,
+  isWeeklyReplay: false,
   quizQuestions: [],
   quizIndex: 0,
   quizScore: 0,
+  quizRewarded: false,
+  findCombo: 0,
+  maxFindCombo: 0,
+  lastWordFoundAt: 0,
   currentWordObj: null,
+  currentWordOfDay: null,
 };
 
 const { UI_TEXT } = window.NenoSafariI18n;
 const storage = window.NenoSafariStorage;
+const reviewScheduler = window.NenoSafariReviewScheduler;
 const accessibility = window.NenoSafariAccessibility;
 const packs = window.NenoSafariPacks;
 const {
+  activeDailyStreak,
   audioFileForWord,
+  bestTimeResult,
+  buildVictoryShareText,
+  dailyRewardIndex,
   dailyKey,
   displayWord,
+  formatDuration,
   getPronunciation,
+  isoWeekKey,
   previousDailyKey,
+  weeklyRotationIndex,
+  wordOfDayIndex,
 } = window.NenoSafariUiUtils;
-const APP_VERSION = '1.0.10';
+const APP_VERSION = '2.13.0';
+const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.nenosafari';
 const RELEASE_NOTES = [
+  {
+    version: '2.13.0',
+    date: '2026-08-19',
+    sw: [
+      'Zawadi za Daily na Weekly sasa hutolewa mara moja tu, hata ukicheza tena.',
+      'Mchezo uliorudishwa sasa huonyesha maneno na herufi ulizopata tayari.',
+      'Streak, zawadi za kila siku, na mabadiliko ya Weekly Challenge sasa huhesabiwa kwa usahihi.',
+      'Save iliyoharibika haiwezi tena kufuta maendeleo mengine yaliyo salama.',
+    ],
+    en: [
+      'Daily and Weekly rewards are now granted only once, even when you replay.',
+      'Resumed games now restore the words and grid letters you already found.',
+      'Streak rewards and Weekly Challenge rotation now stay accurate over time.',
+      'A damaged save field can no longer erase other healthy progress.',
+    ],
+  },
+  {
+    version: '2.12.0',
+    date: '2026-08-18',
+    sw: [
+      'Mchezo wa Haraka sasa una kitufe wazi cha kusimamisha na kuendelea.',
+      'Fumbo hufichwa kabisa muda unaposimama ili mchezo ubaki wa haki.',
+      'Ukirudi kutoka app nyingine, muda hubaki umesimama hadi ubonyeze Endelea.',
+    ],
+    en: [
+      'Timed play now has a clear pause and resume control.',
+      'The puzzle is fully hidden while paused to keep the challenge fair.',
+      'Returning from another app stays paused until you choose Resume.',
+    ],
+  },
+  {
+    version: '2.11.0',
+    date: '2026-08-18',
+    sw: [
+      'Muda wa matokeo sasa huhesabu muda halisi wa kucheza pekee, si muda ambao app ilikuwa imefungwa.',
+      'Kusoma maelezo ya neno au kuweka app nyuma hakuharibu tena rekodi yako bora.',
+      'Mafumbo yanayoendelea huhifadhi muda sahihi wa mchezo pamoja na maendeleo yako.',
+      'Kidokezo cha Matamshi sasa hucheza sauti halisi ya neno.',
+    ],
+    en: [
+      'Result times now measure active play only, not time spent away from the app.',
+      'Reading word details or backgrounding the app no longer hurts your personal best.',
+      'Resumable puzzles now preserve accurate play time alongside your progress.',
+      'Pronunciation hints now play the recorded word audio.',
+    ],
+  },
+  {
+    version: '2.10.0',
+    date: '2026-08-18',
+    sw: [
+      'Vidokezo 3 sasa vinaonekana wazi, hubaki kwenye neno moja, na huzima vinapokwisha.',
+      'Vitufe na ujumbe wote wa vidokezo sasa hubadilika kikamilifu kati ya Kiswahili na English.',
+      'Uundaji wa grid umeboreshwa ili kila kiwango kipate idadi kamili ya maneno yanayotoshea.',
+    ],
+    en: [
+      'The three-hint budget is now visible, stays focused on one word, and disables cleanly when empty.',
+      'Every hint control and message now switches fully between Kiswahili and English.',
+      'Grid generation now preserves each difficulty’s intended count using words that fit the board.',
+    ],
+  },
+  {
+    version: '2.9.0',
+    date: '2026-08-18',
+    sw: [
+      'Muda bora sasa huhifadhiwa kwa kila mada ili kila mchezo uwe na lengo la kuboresha rekodi.',
+      'Matokeo ya ushindi yanaweza kushirikiwa kwa Kiswahili au English bila kufichua majibu.',
+      'Kadi ya kushiriki sasa ina nyota, muda, streak, na kiungo halisi cha Google Play.',
+    ],
+    en: [
+      'Personal-best solve times are now saved by topic to give every replay a clear target.',
+      'Victory results can be shared in Kiswahili or English without revealing answers.',
+      'The share card now includes stars, time, streak, and the real Google Play link.',
+    ],
+  },
+  {
+    version: '2.8.0',
+    date: '2026-08-18',
+    sw: [
+      'Safari ya Leo sasa huonyesha zawadi ya Lengo la Leo mpaka uidai.',
+      'Maneno yanayohitaji marudio yanawekwa mbele na kuonekana kwenye Home.',
+      'Streak iliyopitwa na muda sasa hujirekebisha mara moja kwa takwimu sahihi.',
+    ],
+    en: [
+      'Today’s Safari now keeps a completed Daily Goal visible until its reward is claimed.',
+      'Words due for review are prioritized and surfaced directly on Home.',
+      'Expired streaks now reset immediately so progress and rewards stay accurate.',
+    ],
+  },
+  {
+    version: '2.7.0',
+    date: '2026-08-18',
+    sw: [
+      'Neno la Leo sasa huzunguka kwenye maneno yote 45 bila kuruka maneno ya mwisho.',
+      'Bonyeza sauti kwenye Neno la Leo kusikia matamshi yaliyorekodiwa hata bila intaneti.',
+      'Weekly Challenge sasa hutumia wiki za ISO kwa mabadiliko sahihi ya mwaka.',
+    ],
+    en: [
+      'Word of the Day now rotates through all 45 entries without skipping the final words.',
+      'Tap the Word of the Day audio button for recorded pronunciation, even offline.',
+      'Weekly Challenges now use ISO weeks for correct year-boundary rotation.',
+    ],
+  },
+  {
+    version: '2.6.0',
+    date: '2026-08-09',
+    sw: [
+      'Marudio sasa ni sprint fupi yenye maendeleo na mwisho unaoeleweka.',
+      'Maneno hurudi tu yanapofika wakati wake, na kumaliza sprint kunaleta sarafu.',
+      'Kila neno lililohifadhiwa sasa linaonyesha nguvu ya kumbukumbu yako.',
+    ],
+    en: [
+      'Saved-word practice is now a focused review sprint with clear progress and completion.',
+      'Words only return when due, and completing a sprint can earn a daily coin reward.',
+      'Every saved word now shows your current memory strength.',
+    ],
+  },
+  {
+    version: '2.5.0',
+    date: '2026-08-09',
+    sw: [
+      'Maneno yaliyohifadhiwa sasa hurudi kwa wakati unaofaa kulingana na majibu yako.',
+      'Tumia Tena, Gumu, au Nimelijua ili kupanga marudio yanayofuata.',
+      'Sasa unaweza kuhifadhi neno moja kwa moja kwenye kadi ya Quick Learn.',
+    ],
+    en: [
+      'Saved words now return at useful intervals based on your recall.',
+      'Use Again, Hard, or Got It to schedule the next review.',
+      'Words can now be saved directly from the Quick Learn card.',
+    ],
+  },
+  {
+    version: '2.4.0',
+    date: '2026-08-09',
+    sw: [
+      'Classic, Daily, Weekly, na Timed sasa zinaonyesha kadi ndogo ya Quick Learn bila kusimamisha fumbo.',
+      'Matamshi ya moja kwa moja yanaweza kuwashwa kwenye Mipangilio.',
+      'Time Challenge sasa husimama app inapokuwa nyuma au unapofungua maelezo ya neno.',
+    ],
+    en: [
+      'Classic, Daily, Weekly, and Timed modes now use a compact Quick Learn card without interrupting the puzzle.',
+      'Optional automatic pronunciation can be enabled in Settings.',
+      'Time Challenge now pauses when the app is backgrounded or word details are open.',
+    ],
+  },
+  {
+    version: '2.3.0',
+    date: '2026-08-09',
+    sw: [
+      'Mtetemo mpya wa mguso unaongeza ishara ndogo unapopata neno, zawadi, au kumaliza fumbo.',
+      'Unaweza kuwasha au kuzima mtetemo kwenye Mipangilio.',
+      'Capacitor na zana za majaribio zimesasishwa kwa uthabiti na usalama zaidi.',
+    ],
+    en: [
+      'New touch feedback adds a subtle response when you find words, earn rewards, or finish a puzzle.',
+      'Touch feedback can be turned on or off in Settings.',
+      'Capacitor and testing tools have been updated for better stability and security.',
+    ],
+  },
+  {
+    version: '2.2.1',
+    date: '2026-07-22',
+    sw: [
+      'Sasisho hili linaweka Neno Safari tayari kwa Android 16 (API 36).',
+      'Uzoefu wa mchezo na mafunzo unaendelea kama ulivyo.',
+    ],
+    en: [
+      'This update prepares Neno Safari for Android 16 (API 36).',
+      'The game and learning experience remain the same.',
+    ],
+  },
+  {
+    version: '2.2.0',
+    date: '2026-07-22',
+    sw: [
+      'Daily na Weekly replay sasa ni mazoezi: maneno na matamshi yanabaki, lakini zawadi haziwezi kurudiwa.',
+      'Weekly Challenge inayohifadhiwa huisha wiki mpya inapoanza.',
+      'Mantiki ya rewards na practice imeongezewa ukaguzi wa regression.',
+    ],
+    en: [
+      'Daily and Weekly replays are now practice runs: words and audio remain, but rewards cannot be collected twice.',
+      'A saved Weekly Challenge now expires when a new week begins.',
+      'Reward and practice logic now has regression coverage.',
+    ],
+  },
+  {
+    version: '2.1.0',
+    date: '2026-07-22',
+    sw: [
+      'Mada mpya ya Muda na Ratiba ina maneno 24 ya kupanga siku yako kwa Kiswahili.',
+      'Fumbo jipya la kila siku la Ratiba ya Leo na beji ya Mlinzi wa Muda vimeongezwa.',
+      'Sauti ya matamshi sasa inahakikiwa kwa kila neno linalochezeka, ikiwemo Daily Puzzle.',
+    ],
+    en: [
+      'A new 24-word Time & Routines topic helps players talk about their day in Swahili.',
+      'The new Today\'s Routine Daily Puzzle and Time Keeper mastery badge have been added.',
+      'Pronunciation audio is now verified for every playable word, including Daily Puzzles.',
+    ],
+  },
+  {
+    version: '2.0.0',
+    date: '2026-07-22',
+    sw: [
+      'Mada mpya ya Vitendo na Vitenzi ina maneno 24 ya kutumia kwenye sentensi za kila siku.',
+      'Fumbo jipya la kila siku la Vitendo vya Kila Siku linaongeza mazoezi ya kuzungumza.',
+      'Kila neno jipya lina maana, sentensi ya mfano, beji ya mastery, na sauti ya matamshi.',
+    ],
+    en: [
+      'A new 24-word Verbs & Actions topic helps players use Swahili in everyday sentences.',
+      'The new Everyday Actions Daily Puzzle adds a speaking-focused return-play loop.',
+      'Every new word includes a meaning, example sentence, mastery badge, and pronunciation audio.',
+    ],
+  },
+  {
+    version: '1.9.0',
+    date: '2026-07-22',
+    sw: [
+      'Maneno 36 mapya yameongeza kina kwenye miji, familia, biashara, mazingira, utamaduni, na historia.',
+      'Mafumbo mawili mapya ya kila siku: Mji Wetu na Anga na Asili.',
+      'Kila neno jipya lina maana, sentensi ya mfano, na sauti ya matamshi.',
+    ],
+    en: [
+      '36 new words deepen cities, family, business, environment, culture, and history.',
+      'Two new Daily Puzzle rotations: Our Town and Sky & Nature.',
+      'Every new word includes a meaning, example sentence, and pronunciation audio.',
+    ],
+  },
+  {
+    version: '1.8.0',
+    date: '2026-07-21',
+    sw: [
+      'Maneno 24 mapya yameongezwa kwenye chakula, wanyama, salamu, na usafiri.',
+      'Fumbo jipya la kila siku la Chakula Sokoni linaongeza mazoezi ya maneno mapya.',
+      'Kila neno jipya lina maana, sentensi ya mfano, na sauti ya matamshi.',
+    ],
+    en: [
+      '24 new words have been added across food, animals, conversation, and transport.',
+      'A new Food at the Market Daily Puzzle gives the new vocabulary a return-play home.',
+      'Every new word includes a meaning, example sentence, and pronunciation audio.',
+    ],
+  },
+  {
+    version: '1.7.0',
+    date: '2026-07-21',
+    sw: [
+      'Maneno 24 mapya yameongezwa kwenye Maneno ya Kila Siku na Safari na Hifadhi.',
+      'Jifunze maneno ya nyumbani, usalama wa safari, malazi, na mandhari.',
+      'Kila neno jipya lina maana, sentensi ya mfano, na sauti ya matamshi.',
+    ],
+    en: [
+      '24 new words have been added to Everyday Words and Safari & Parks.',
+      'Learn useful home, travel safety, accommodation, and scenery vocabulary.',
+      'Every new word includes a meaning, example sentence, and pronunciation audio.',
+    ],
+  },
+  {
+    version: '1.6.0',
+    date: '2026-07-21',
+    sw: [
+      'Fumbo linaloendelea sasa linahifadhiwa kwenye kifaa ukiwa unatoka kwenye mchezo.',
+      'Safari ya Leo inakuonyesha Endelea pale ulipoishia.',
+      'Classic, Learn, Daily, na Weekly Challenge zinaweza kuendelea bila intaneti.',
+    ],
+    en: [
+      'An unfinished puzzle now saves on your device when you leave the game.',
+      'Today’s Safari shows Resume when there is a puzzle waiting.',
+      'Classic, Learn, Daily, and Weekly Challenge can resume offline.',
+    ],
+  },
+  {
+    version: '1.5.0',
+    date: '2026-07-21',
+    sw: [
+      'Maendeleo ya mada sasa hupima maneno tofauti uliyojifunza, si fumbo moja tu.',
+      'Pata sarafu ukifika maneno 5, 10, 15, na 20 kwenye mada.',
+      'Category na Progress sasa zinaonyesha hatua halisi za mastery.',
+    ],
+    en: [
+      'Category progress now measures distinct words learned, not one completed puzzle.',
+      'Earn coins when you reach 5, 10, 15, and 20 words in a category.',
+      'Category and Progress screens now show real mastery milestones.',
+    ],
+  },
+  {
+    version: '1.4.0',
+    date: '2026-07-21',
+    sw: [
+      'Pata combo ya pointi kwa kutafuta maneno mfululizo bila kukosea.',
+      'Jibu Jaribio Fupi lote vizuri upate sarafu 12 za kumbukumbu kamili.',
+      'Combo na zawadi za quiz zinafanya kila fumbo liwe na changamoto zaidi.',
+    ],
+    en: [
+      'Build a score combo by finding words quickly without a miss.',
+      'Answer every Mini Quiz question correctly to earn 12 perfect-recall coins.',
+      'Combos and quiz rewards make every puzzle more rewarding to master.',
+    ],
+  },
+  {
+    version: '1.3.2',
+    date: '2026-07-21',
+    sw: [
+      'Kadi za Maneno Yangu sasa zina swali la kujipima baada ya kufichua maana.',
+      'Ukichagua Fanya Mazoezi Tena, neno linaenda kwenye Mazoezi ya Haraka.',
+      'Mada za Fumbo la Leo sasa zina majina kamili kwa Kiswahili na English.',
+    ],
+    en: [
+      'My Words cards now ask for a confidence check after you reveal a meaning.',
+      'Choose Practice Again to send a word into Smart Practice.',
+      'Daily Puzzle themes now have complete Kiswahili and English titles.',
+    ],
+  },
+  {
+    version: '1.3.1',
+    date: '2026-07-21',
+    sw: [
+      'Kubadilisha lugha sasa husasisha Safari ya Leo, zawadi, changamoto, na mapendekezo papo hapo.',
+      'Menu ya English sasa huonyesha majina ya mada kwa Kiingereza.',
+      'Ujumbe wa ushindi na Fumbo la Leo sasa hufuata lugha uliyochagua.',
+    ],
+    en: [
+      'Switching language now refreshes Today’s Safari, rewards, challenges, and recommendations immediately.',
+      'English menus now show category names in English.',
+      'Victory messages and Daily Puzzle feedback now follow your chosen language.',
+    ],
+  },
+  {
+    version: '1.3.0',
+    date: '2026-07-21',
+    sw: [
+      'Safari ya Leo inaonyesha hatua moja muhimu ya kucheza au kurudia.',
+      'Home sasa huweka Daily Puzzle, zawadi, changamoto, na marudio kwenye mpangilio mmoja wa wazi.',
+      'Wachezaji wanaweza kurudi kwenye mchezo kwa haraka bila kutafuta menu sahihi.',
+    ],
+    en: [
+      'Today’s Safari now shows one meaningful next play or review step.',
+      'Home brings Daily Puzzle, rewards, challenges, and review into one clear flow.',
+      'Players can return to the right activity without searching through menus.',
+    ],
+  },
+  {
+    version: '1.2.0',
+    date: '2026-06-09',
+    sw: [
+      'Changamoto ya Wiki imeongezwa kwenye Home.',
+      'Zawadi za siku 7, comeback gift, na player level zimeongezwa.',
+      'Progress sasa inaangalia mastery ya maneno ya kila mada.',
+      'Mada mpya: Maneno ya Kila Siku na Safari na Hifadhi.',
+      'Share card na hard-word practice zimeongezwa baada ya fumbo.',
+    ],
+    en: [
+      'Weekly Challenge was added to Home.',
+      '7-day rewards, comeback gift, and player levels were added.',
+      'Progress now tracks word mastery by category.',
+      'New categories: Everyday Words and Safari & Parks.',
+      'Share card and hard-word practice were added after puzzles.',
+    ],
+  },
+  {
+    version: '1.1.0',
+    date: '2026-06-09',
+    sw: [
+      'Kila mada sasa ina maneno 20 ya kujifunza.',
+      'Daily Puzzle imeongezewa maneno ya Tanzania kufikia 30.',
+      'Neno la Leo limeongezeka hadi entries 45.',
+      'Sauti za matamshi zimekamilishwa kwa maneno yote ya mada.',
+    ],
+    en: [
+      'Every category now has 20 words to learn.',
+      'Daily Puzzle expanded to 30 Tanzania-themed seed words.',
+      'Word of the Day expanded to 45 entries.',
+      'Pronunciation audio is complete for every category word.',
+    ],
+  },
   {
     version: '1.0.10',
     date: '2026-05-28',
@@ -2172,6 +2945,26 @@ const RELEASE_NOTES = [
     ],
   },
 ];
+const DAILY_REWARDS = [10, 15, 20, 25, 30, 35, 60];
+const PLAYER_LEVELS = [
+  { nameSw: 'Mgeni', nameEn: 'Newcomer', xp: 0 },
+  { nameSw: 'Msafiri', nameEn: 'Traveler', xp: 120 },
+  { nameSw: 'Mwanafunzi', nameEn: 'Learner', xp: 320 },
+  { nameSw: 'Mtafiti', nameEn: 'Explorer', xp: 650 },
+  { nameSw: 'Bingwa', nameEn: 'Champion', xp: 1100 },
+];
+const MASTERY_MILESTONES = [
+  { words: 5, coins: 10 },
+  { words: 10, coins: 20 },
+  { words: 15, coins: 30 },
+  { words: 20, coins: 50 },
+];
+const WEEKLY_CHALLENGES = [
+  { id: 'zanzibar-week', sw: 'Wiki ya Zanzibar', en: 'Zanzibar Week', copySw: 'Pata maneno ya pwani, visiwa, na viungo.', copyEn: 'Find coastal, island, and spice words.', categories: ['miji', 'mazingira', 'utamaduni'], words: ['ZANZIBAR', 'BAHARI', 'PWANI', 'KISIWA', 'KARAFUU', 'TAARAB', 'KANGA', 'PANGANI'] },
+  { id: 'market-day', sw: 'Siku ya Soko', en: 'Market Day', copySw: 'Fanya mazoezi ya maneno ya sokoni.', copyEn: 'Practice useful market words.', categories: ['biashara', 'chakula'], words: ['SOKO', 'BEI', 'PESA', 'MTEJA', 'NUNUA', 'CHENJI', 'MBOGA', 'KARANGA'] },
+  { id: 'safari-animals', sw: 'Wanyama wa Safari', en: 'Safari Animals', copySw: 'Tafuta wanyama wa mbugani.', copyEn: 'Find wildlife words from the parks.', categories: ['wanyama', 'safari-hifadhi'], words: ['SIMBA', 'TEMBO', 'TWIGA', 'NYUMBU', 'KIFARU', 'MBUGA', 'HIFADHI', 'KUNDI'] },
+  { id: 'food-friday', sw: 'Ijumaa ya Chakula', en: 'Food Friday', copySw: 'Jifunze vyakula vya kila siku.', copyEn: 'Learn everyday food words.', categories: ['chakula', 'kila-siku'], words: ['UGALI', 'PILAU', 'WALI', 'CHAI', 'MKATE', 'MAJI', 'MEZA', 'KITI'] },
+];
 let developerUnlockTaps = 0;
 let developerUnlockTimer = null;
 let activeScreenId = 'home-screen';
@@ -2186,6 +2979,8 @@ function saveProgress() {
 
 function loadProgress() {
   storage.loadProgress(state);
+  state.savedWords = (state.savedWords || []).map(word => reviewScheduler.normalizeSavedWord(word));
+  state.dailyStats.streak = activeDailyStreak(state.dailyStats);
 }
 
 // ============================================================
@@ -2218,20 +3013,29 @@ function showScreen(id, options = {}) {
   if (!target) return;
   rememberScreenNavigation(id, options);
   const previous = getActiveScreenId();
+  if (previous === 'game-screen' && id !== 'game-screen') {
+    pauseGameClock();
+    if (id !== 'victory-screen') saveActiveSession();
+  }
   if (previous === 'game-screen' && id !== 'game-screen' && state.timerInterval) {
     clearInterval(state.timerInterval);
     state.timerInterval = null;
   }
+  if (id !== 'game-screen') hideQuickLearn();
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   target.classList.add('active');
   activeScreenId = id;
   if (id === 'category-screen') renderCategories();
   if (id === 'home-screen') updateHomeStats();
-  if (id === 'saved-screen') renderSavedWords();
+  if (id === 'saved-screen') {
+    if (previous !== 'saved-screen') beginReviewSession();
+    renderSavedWords();
+  }
   if (id === 'progress-screen') renderProgressDashboard();
   if (id === 'rewards-screen') renderRewards();
   if (id === 'settings-screen') renderSettings();
   if (id === 'upgrades-screen') renderReleaseNotes();
+  if (id === 'game-screen') resumeGameClock();
   applyAppLanguage();
   accessibility.applyAccessibilityLabels(state.appLanguage);
   writeNavigationState(id, options);
@@ -2241,6 +3045,11 @@ function goBackInApp() {
   const modal = document.getElementById('word-modal');
   if (modal?.classList.contains('open')) {
     closeModal();
+    return true;
+  }
+  const pauseOverlay = document.getElementById('game-pause-overlay');
+  if (pauseOverlay && !pauseOverlay.hidden) {
+    resumeTimedGame();
     return true;
   }
 
@@ -2276,6 +3085,12 @@ function initNavigation() {
       window.history?.pushState?.({ screen: activeScreenId, stack: screenStack.slice(-24) }, '', window.location.href);
       return;
     }
+    const pauseOverlay = document.getElementById('game-pause-overlay');
+    if (pauseOverlay && !pauseOverlay.hidden) {
+      resumeTimedGame();
+      window.history?.pushState?.({ screen: activeScreenId, stack: screenStack.slice(-24) }, '', window.location.href);
+      return;
+    }
     const nextScreen = event.state?.screen || screenStack.pop() || 'home-screen';
     screenStack = Array.isArray(event.state?.stack) ? event.state.stack : screenStack;
     showScreen(nextScreen, { fromHistory: true });
@@ -2286,11 +3101,14 @@ function initNavigation() {
     capacitorApp.addListener('backButton', () => {
       goBackInApp();
     });
+    capacitorApp.addListener('pause', pauseActiveGame);
+    capacitorApp.addListener('resume', resumeActiveGame);
   }
 }
 
 function updateHomeStats() {
   ensureDailyGoal();
+  maybeGrantComebackGift();
   document.getElementById('stat-score').textContent = state.totalScore;
   document.getElementById('stat-puzzles').textContent = state.puzzlesDone;
   document.getElementById('stat-words').textContent = state.wordsFound;
@@ -2299,8 +3117,469 @@ function updateHomeStats() {
   document.getElementById('stat-badges').textContent = state.badges?.length || 0;
   renderDailyBadge();
   renderDailyGoal();
+  renderWeeklyChallenge();
+  renderDailyRewards();
+  renderTodayMission();
+  renderPlayerLevel();
   renderQuickTip();
   renderSmartPractice();
+}
+
+function getTodayMission() {
+  ensureDailyGoal();
+  ensureDailyRewards();
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  const activeSession = getResumableSession();
+  const challenge = currentWeeklyChallenge();
+  const streak = state.dailyStats?.streak || 0;
+  const goalProgress = dailyGoalProgress();
+  const reviewDueCount = reviewScheduler.dueCount(state.savedWords || []);
+  const rewardIndex = dailyRewardIndex(streak, DAILY_REWARDS.length);
+  const rewardClaimed = isDailyRewardClaimedToday();
+
+  if (activeSession) {
+    return {
+      action: 'resume',
+      title: copy.missionResumeTitle,
+      description: copy.missionResumeCopy.replace('{found}', activeSession.foundWords.length).replace('{total}', activeSession.wordPlacements.length),
+      status: copy.missionResumeStatus,
+      button: copy.missionResume,
+      progress: Math.max(8, Math.round((activeSession.foundWords.length / activeSession.wordPlacements.length) * 100)),
+    };
+  }
+
+  if (!isTodayDailyComplete()) {
+    return {
+      action: 'daily',
+      title: copy.missionDailyTitle,
+      description: copy.missionDailyCopy.replace('{streak}', streak),
+      status: copy.missionDailyStatus,
+      button: copy.missionPlayDaily,
+      progress: 15,
+    };
+  }
+  if (!rewardClaimed) {
+    return {
+      action: 'daily-reward',
+      title: copy.missionRewardTitle,
+      description: copy.missionRewardCopy.replace('{coins}', DAILY_REWARDS[rewardIndex]),
+      status: copy.missionRewardStatus,
+      button: copy.missionClaim,
+      progress: 35,
+    };
+  }
+  if (goalProgress < 5) {
+    return {
+      action: 'practice',
+      title: copy.missionGoalTitle,
+      description: copy.missionGoalCopy.replace('{progress}', goalProgress).replace('{target}', 5),
+      status: copy.missionGoalStatus,
+      button: copy.missionPractice,
+      progress: 35 + Math.round((goalProgress / 5) * 25),
+    };
+  }
+  if (!state.dailyGoal.claimed) {
+    return {
+      action: 'daily-goal',
+      title: copy.missionGoalRewardTitle,
+      description: copy.missionGoalRewardCopy,
+      status: copy.missionGoalRewardStatus,
+      button: copy.missionClaim,
+      progress: 65,
+    };
+  }
+  if (reviewDueCount > 0) {
+    return {
+      action: 'review',
+      title: copy.missionReviewTitle,
+      description: reviewDueCount === 1
+        ? copy.missionReviewCopyOne
+        : copy.missionReviewCopy.replace('{count}', reviewDueCount),
+      status: copy.missionReviewStatus,
+      button: copy.missionReview,
+      progress: 80,
+    };
+  }
+  if (!state.weeklyChallenges?.[challenge.key]) {
+    return {
+      action: 'weekly',
+      title: state.appLanguage === 'en' ? challenge.en : challenge.sw,
+      description: state.appLanguage === 'en' ? challenge.copyEn : challenge.copySw,
+      status: copy.missionWeeklyStatus,
+      button: copy.missionWeekly,
+      progress: 70,
+    };
+  }
+  return {
+    action: 'practice',
+    title: copy.missionExploreTitle,
+    description: copy.missionExploreCopy,
+    status: copy.missionExploreStatus,
+    button: copy.missionPractice,
+    progress: 100,
+  };
+}
+
+function renderTodayMission() {
+  const card = document.getElementById('today-mission-card');
+  const kicker = document.getElementById('mission-kicker');
+  const title = document.getElementById('mission-title');
+  const description = document.getElementById('mission-copy');
+  const status = document.getElementById('mission-status');
+  const fill = document.getElementById('mission-fill');
+  const button = document.getElementById('mission-button');
+  if (!card || !kicker || !title || !description || !status || !fill || !button) return;
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  const mission = getTodayMission();
+  card.dataset.action = mission.action;
+  kicker.textContent = copy.missionKicker;
+  title.textContent = mission.title;
+  description.textContent = mission.description;
+  status.textContent = mission.status;
+  fill.style.width = `${mission.progress}%`;
+  button.textContent = mission.button;
+}
+
+function categoryDisplayName(category) {
+  if (!category) return '';
+  return state.appLanguage === 'en'
+    ? (category.nameEn || category.sub || category.name)
+    : (category.nameSw || category.name);
+}
+
+function categoryDisplaySubtitle(category) {
+  if (!category) return '';
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  const swahiliName = category.nameSw || category.name;
+  if (state.appLanguage === 'en') return category.subEn || category.sub || `${copy.categorySwahiliLabel}: ${swahiliName}`;
+  return category.subSw || category.sub || '';
+}
+
+function runTodayMission() {
+  const mission = getTodayMission();
+  if (mission.action === 'resume') {
+    resumeActiveSession();
+    return;
+  }
+  if (mission.action === 'daily') {
+    startDailyPuzzle();
+    return;
+  }
+  if (mission.action === 'daily-reward') {
+    claimDailyReward();
+    return;
+  }
+  if (mission.action === 'daily-goal') {
+    claimDailyGoal();
+    return;
+  }
+  if (mission.action === 'weekly') {
+    startWeeklyChallenge();
+    return;
+  }
+  if (mission.action === 'review') {
+    showScreen('saved-screen');
+    return;
+  }
+  startRecommendedPractice();
+}
+
+function isValidActiveSession(session) {
+  if (!session || !Array.isArray(session.grid) || !Array.isArray(session.wordPlacements)) return false;
+  const size = Number(session.gridSize);
+  if (!Number.isInteger(size) || size < 2 || size > 20 || session.grid.length !== size) return false;
+  if (!session.grid.every(row => Array.isArray(row) && row.length === size && row.every(cell => typeof cell === 'string' && cell.length > 0))) return false;
+  if (!session.category || typeof session.category !== 'object' || !Array.isArray(session.category.words)) return false;
+  return session.wordPlacements.length > 0 && session.wordPlacements.every(placement => (
+    typeof placement?.word === 'string'
+    && placement.word.length > 0
+    && placement.wordObj
+    && typeof placement.wordObj === 'object'
+    && Array.isArray(placement.cells)
+    && placement.cells.length === placement.word.length
+    && placement.cells.every(cell => (
+      Array.isArray(cell)
+      && cell.length === 2
+      && cell.every(value => Number.isInteger(value) && value >= 0 && value < size)
+    ))
+  ));
+}
+
+function getResumableSession() {
+  const session = state.activeSession;
+  if (!isValidActiveSession(session)) {
+    if (session) {
+      state.activeSession = null;
+      saveProgress();
+    }
+    return null;
+  }
+  if (session.isDailyPuzzle && session.currentDailyKey !== dailyKey()) {
+    state.activeSession = null;
+    saveProgress();
+    return null;
+  }
+  if (session.isWeeklyChallenge && session.currentWeeklyKey !== currentWeekKey()) {
+    state.activeSession = null;
+    saveProgress();
+    return null;
+  }
+  return session;
+}
+
+function saveActiveSession() {
+  if (state.currentMode === 'timed' || !state.currentCategory || !state.grid.length) {
+    state.activeSession = null;
+    saveProgress();
+    return;
+  }
+  state.activeSession = {
+    category: state.currentCategory,
+    currentMode: state.currentMode,
+    difficulty: state.difficulty,
+    gridSize: state.gridSize,
+    grid: state.grid,
+    wordPlacements: state.wordPlacements,
+    foundWords: state.foundWords,
+    score: state.score,
+    hintCount: state.hintCount,
+    hintTargetWord: state.hintTargetWord,
+    startTime: state.startTime,
+    elapsedActiveMs: currentElapsedMs(),
+    isDailyPuzzle: state.isDailyPuzzle,
+    currentDailyKey: state.currentDailyKey,
+    isDailyReplay: state.isDailyReplay,
+    isWeeklyChallenge: state.isWeeklyChallenge,
+    currentWeeklyKey: state.currentWeeklyKey,
+    isWeeklyReplay: state.isWeeklyReplay,
+  };
+  saveProgress();
+}
+
+function clearActiveSession() {
+  state.activeSession = null;
+}
+
+function resumeActiveSession() {
+  const session = getResumableSession();
+  if (!session) return;
+  state.currentCategory = session.category;
+  state.currentMode = session.currentMode;
+  state.difficulty = session.difficulty;
+  state.gridSize = session.gridSize;
+  state.grid = session.grid;
+  state.wordPlacements = session.wordPlacements;
+  const validWords = new Set(state.wordPlacements.map(placement => placement.word));
+  state.foundWords = [...new Set(Array.isArray(session.foundWords) ? session.foundWords : [])]
+    .filter(word => validWords.has(word));
+  state.score = Math.max(0, Number(session.score) || 0);
+  state.hintCount = Number.isFinite(Number(session.hintCount))
+    ? Math.min(3, Math.max(0, Math.floor(Number(session.hintCount))))
+    : 3;
+  state.hintTargetWord = session.hintTargetWord || '';
+  state.startTime = session.startTime;
+  state.elapsedActiveMs = Math.max(0, Number(session.elapsedActiveMs) || 0);
+  state.activeClockStartedAt = null;
+  state.isDailyPuzzle = session.isDailyPuzzle;
+  state.currentDailyKey = session.currentDailyKey;
+  state.isDailyReplay = Boolean(session.isDailyReplay);
+  state.isWeeklyChallenge = session.isWeeklyChallenge;
+  state.currentWeeklyKey = session.currentWeeklyKey;
+  state.isWeeklyReplay = Boolean(session.isWeeklyReplay);
+  state.selecting = false;
+  state.gameEnded = false;
+  state.selectionPath = [];
+  state.findCombo = 0;
+  state.lastWordFoundAt = 0;
+  document.getElementById('game-cat-label').textContent = categoryDisplaySubtitle(state.currentCategory);
+  document.getElementById('game-title').textContent = categoryDisplayName(state.currentCategory);
+  document.getElementById('score-display').textContent = state.score;
+  renderFindCombo();
+  renderGrid();
+  renderWordList();
+  renderHintState();
+  applyTranslationPreference();
+  document.getElementById('timer-bar').style.display = 'none';
+  document.getElementById('timer-pill').style.display = 'none';
+  showScreen('game-screen');
+}
+
+function getXp() {
+  const mastered = Object.values(state.categoryWordsFound || {}).reduce((sum, words) => sum + (Array.isArray(words) ? words.length : 0), 0);
+  return (state.wordsFound || 0) * 6 + (state.puzzlesDone || 0) * 35 + (state.dailyStats?.streak || 0) * 20 + mastered * 8;
+}
+
+function getPlayerLevel() {
+  const xp = getXp();
+  let current = PLAYER_LEVELS[0];
+  let next = null;
+  for (let i = 0; i < PLAYER_LEVELS.length; i++) {
+    if (xp >= PLAYER_LEVELS[i].xp) current = PLAYER_LEVELS[i];
+    if (xp < PLAYER_LEVELS[i].xp) {
+      next = PLAYER_LEVELS[i];
+      break;
+    }
+  }
+  return { xp, current, next };
+}
+
+function renderPlayerLevel() {
+  const title = document.getElementById('level-title');
+  const xpEl = document.getElementById('level-xp');
+  const fill = document.getElementById('level-fill');
+  const copyEl = document.getElementById('level-copy');
+  if (!title || !xpEl || !fill || !copyEl) return;
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  const level = getPlayerLevel();
+  const label = state.appLanguage === 'en' ? level.current.nameEn : level.current.nameSw;
+  title.textContent = `${state.appLanguage === 'en' ? 'Level' : 'Kiwango'}: ${label}`;
+  xpEl.textContent = `${level.xp} XP`;
+  if (level.next) {
+    const prev = level.current.xp;
+    const pct = Math.max(4, Math.min(100, ((level.xp - prev) / (level.next.xp - prev)) * 100));
+    fill.style.width = `${pct}%`;
+    copyEl.textContent = copy.levelCopy
+      .replace('{next}', state.appLanguage === 'en' ? level.next.nameEn : level.next.nameSw)
+      .replace('{xp}', level.next.xp);
+  } else {
+    fill.style.width = '100%';
+    copyEl.textContent = copy.levelMaxCopy;
+  }
+}
+
+function currentWeekKey(date = new Date()) {
+  return isoWeekKey(date);
+}
+
+function currentWeeklyChallenge() {
+  const today = new Date();
+  const key = currentWeekKey(today);
+  const index = weeklyRotationIndex(today, WEEKLY_CHALLENGES.length);
+  return { ...WEEKLY_CHALLENGES[index], key };
+}
+
+function renderWeeklyChallenge() {
+  const title = document.getElementById('weekly-challenge-title');
+  const copyEl = document.getElementById('weekly-challenge-copy');
+  const status = document.getElementById('weekly-challenge-status');
+  const btn = document.getElementById('weekly-challenge-btn');
+  if (!title || !copyEl || !status || !btn) return;
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  const challenge = currentWeeklyChallenge();
+  const done = Boolean(state.weeklyChallenges?.[challenge.key]);
+  title.textContent = state.appLanguage === 'en' ? challenge.en : challenge.sw;
+  copyEl.textContent = state.appLanguage === 'en' ? challenge.copyEn : challenge.copySw;
+  status.textContent = done ? copy.weeklyChallengeDone : copy.weeklyChallengeOpen;
+  btn.textContent = done ? (copy.weeklyChallengePractice || copy.weeklyChallengeBtn) : copy.weeklyChallengeBtn;
+}
+
+function wordsBySw(words) {
+  const all = [...CATEGORIES.flatMap(category => category.words), ...DAILY_WORDS];
+  const map = new Map(all.map(word => [word.sw, word]));
+  return words.map(sw => map.get(sw)).filter(Boolean);
+}
+
+function startWeeklyChallenge() {
+  const challenge = currentWeeklyChallenge();
+  const replay = Boolean(state.weeklyChallenges?.[challenge.key]);
+  const words = wordsBySw(challenge.words);
+  const category = {
+    id: `weekly-${challenge.id}`,
+    name: challenge.sw,
+    nameSw: challenge.sw,
+    nameEn: challenge.en,
+    subSw: 'Changamoto ya Wiki',
+    subEn: 'Weekly Challenge',
+    icon: '🧭',
+    color: '#FBC02D',
+    words,
+  };
+  state.currentMode = 'classic';
+  state.difficulty = 'kati';
+  startGame(category, { weekly: true, weeklyKey: challenge.key, weeklyReplay: replay });
+  if (replay) {
+    showToast(state.appLanguage === 'en'
+      ? 'Practice run: this week\'s reward was already collected.'
+      : 'Mazoezi: zawadi ya wiki hii tayari ilidaiwa.');
+  }
+}
+
+function ensureDailyRewards() {
+  const cycle = currentWeekKey();
+  if (!state.dailyRewards || state.dailyRewards.cycle !== cycle) {
+    state.dailyRewards = { cycle, claimed: [], claimedDates: [] };
+    return;
+  }
+  if (!Array.isArray(state.dailyRewards.claimed)) state.dailyRewards.claimed = [];
+  if (!Array.isArray(state.dailyRewards.claimedDates)) {
+    state.dailyRewards.claimedDates = [];
+    const index = dailyRewardIndex(state.dailyStats?.streak, DAILY_REWARDS.length);
+    if (isTodayDailyComplete() && state.dailyRewards.claimed.includes(index)) {
+      state.dailyRewards.claimedDates.push(dailyKey());
+    }
+  }
+}
+
+function isDailyRewardClaimedToday() {
+  ensureDailyRewards();
+  return state.dailyRewards.claimedDates.includes(dailyKey());
+}
+
+function renderDailyRewards() {
+  ensureDailyRewards();
+  const daysEl = document.getElementById('daily-reward-days');
+  const statusEl = document.getElementById('daily-reward-status');
+  const streakEl = document.getElementById('daily-reward-streak');
+  const claimBtn = document.getElementById('daily-reward-claim');
+  if (!daysEl || !statusEl || !streakEl || !claimBtn) return;
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  const streak = Math.max(1, Number(state.dailyStats?.streak) || 1);
+  const todayIndex = dailyRewardIndex(streak, DAILY_REWARDS.length);
+  const claimed = state.dailyRewards.claimed || [];
+  const claimedToday = isDailyRewardClaimedToday();
+  daysEl.innerHTML = DAILY_REWARDS.map((coins, index) => `
+    <div class="reward-day ${claimed.includes(index) ? 'claimed' : ''} ${index === todayIndex ? 'today' : ''}">
+      <span>${state.appLanguage === 'en' ? 'Day' : 'Siku'} ${index + 1}</span>
+      <strong>+${coins}</strong>
+    </div>
+  `).join('');
+  const canClaim = isTodayDailyComplete() && !claimedToday;
+  streakEl.textContent = `${state.dailyStats?.streak || 0} ${copy.streakStat}`;
+  statusEl.textContent = claimedToday ? copy.dailyRewardClaimed : (canClaim ? `+${DAILY_REWARDS[todayIndex]}` : copy.dailyRewardLocked);
+  claimBtn.textContent = copy.dailyRewardClaim;
+  claimBtn.disabled = !canClaim;
+}
+
+function claimDailyReward() {
+  ensureDailyRewards();
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  const streak = Math.max(1, Number(state.dailyStats?.streak) || 1);
+  const index = dailyRewardIndex(streak, DAILY_REWARDS.length);
+  if (!isTodayDailyComplete() || isDailyRewardClaimedToday()) return;
+  const coins = DAILY_REWARDS[index];
+  state.coins = (state.coins || 0) + coins;
+  if (!state.dailyRewards.claimed.includes(index)) state.dailyRewards.claimed.push(index);
+  state.dailyRewards.claimedDates = [...state.dailyRewards.claimedDates, dailyKey()].slice(-60);
+  if (index === 6) awardBadge('daily-7');
+  saveProgress();
+  updateHomeStats();
+  renderRewards();
+  void window.NenoSafariHaptics?.trigger(state.settings, 'reward');
+  showToast(copy.dailyRewardToast.replace('{coins}', coins).replace('{day}', index + 1));
+}
+
+function maybeGrantComebackGift() {
+  if (!state.dailyStats?.lastDate) return;
+  const today = dailyKey();
+  const previous = previousDailyKey(today);
+  const gifts = state.comebackGifts || [];
+  if (state.dailyStats.lastDate !== today && state.dailyStats.lastDate !== previous && !gifts.includes(today)) {
+    state.coins = (state.coins || 0) + 20;
+    state.comebackGifts = [...gifts, today].slice(-20);
+    saveProgress();
+    const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+    setTimeout(() => showToast(copy.comebackGiftToast), 500);
+  }
 }
 
 function ensureDailyGoal() {
@@ -2345,6 +3624,7 @@ function claimDailyGoal() {
   saveProgress();
   updateHomeStats();
   renderRewards();
+  void window.NenoSafariHaptics?.trigger(state.settings, 'reward');
   showToast(copy.dailyGoalReward);
 }
 
@@ -2374,12 +3654,16 @@ function renderSmartPractice() {
   const stats = recommendation?.stats || getCategoryStats(category.id);
   const signals = recommendation?.signals || {};
   const savedCount = state.savedWords?.length || 0;
+  const reviewDueCount = reviewScheduler.dueCount(state.savedWords || []);
+  const hardWords = hardWordEntries(5);
 
-  card.dataset.categoryId = category.id;
-  title.textContent = copy.smartPracticeTitle;
-  copyEl.textContent = state.puzzlesDone > 0 || (signals.mistakes || 0) || (signals.hints || 0)
+  card.dataset.categoryId = hardWords.length ? 'hard-words' : category.id;
+  title.textContent = hardWords.length ? copy.hardWordsTitle : copy.smartPracticeTitle;
+  copyEl.textContent = hardWords.length
+    ? copy.hardWordsCopy.replace('{count}', hardWords.length)
+    : state.puzzlesDone > 0 || (signals.mistakes || 0) || (signals.hints || 0)
     ? `${copy.smartPracticeCopy
-        .replace('{category}', category.name)
+        .replace('{category}', categoryDisplayName(category))
         .replace('{progress}', stats.best || 0)
         .replace('{mistakes}', signals.mistakes || 0)
         .replace('{hints}', signals.hints || 0)} ${savedCount
@@ -2387,14 +3671,31 @@ function renderSmartPractice() {
           : copy.smartPracticeNoSaved}`
     : copy.smartPracticeDefault;
   startBtn.textContent = copy.smartPracticeStart;
-  reviewBtn.textContent = copy.smartPracticeReview;
-  reviewBtn.disabled = savedCount === 0;
-  card.setAttribute('aria-label', `${copy.smartPracticeTitle}: ${category.name}`);
+  reviewBtn.textContent = reviewDueCount
+    ? `${copy.smartPracticeReview} (${reviewDueCount})`
+    : copy.smartPracticeReview;
+  reviewBtn.disabled = reviewDueCount === 0;
+  const dueBadge = document.getElementById('saved-due-count');
+  const savedMenu = document.getElementById('saved-words-menu');
+  if (dueBadge) {
+    dueBadge.textContent = reviewDueCount > 99 ? '99+' : String(reviewDueCount);
+    dueBadge.hidden = reviewDueCount === 0;
+  }
+  if (savedMenu) {
+    savedMenu.setAttribute('aria-label', reviewDueCount
+      ? copy.savedDueLabel.replace('{count}', reviewDueCount)
+      : copy.savedWordsBtn);
+  }
+  card.setAttribute('aria-label', `${copy.smartPracticeTitle}: ${categoryDisplayName(category)}`);
 }
 
 function startRecommendedPractice() {
   const card = document.getElementById('smart-practice-card');
   const categoryId = card?.dataset.categoryId || getAdaptiveRecommendation()?.category?.id;
+  if (categoryId === 'hard-words') {
+    startHardWordPractice();
+    return;
+  }
   const category = CATEGORIES.find(cat => cat.id === categoryId) || CATEGORIES[0];
   state.currentMode = 'learn';
   if ((getCategoryStats(category.id).best || 0) < 45) {
@@ -2405,8 +3706,65 @@ function startRecommendedPractice() {
   startGame(category);
 }
 
+function startHardWordPractice() {
+  const words = hardWordEntries(8).map(entry => ({
+    sw: entry.key,
+    display: entry.sw,
+    en: entry.en,
+    ex: entry.ex || '',
+  }));
+  if (!words.length) {
+    const category = getAdaptiveRecommendation()?.category || CATEGORIES[0];
+    startGame(category);
+    return;
+  }
+  state.currentMode = 'learn';
+  state.difficulty = words.length <= 6 ? 'rahisi' : 'kati';
+  startGame({
+    id: 'hard-words',
+    name: UI_TEXT[state.appLanguage]?.hardWordsTitle || 'Hard Words',
+    subSw: 'Marudio',
+    subEn: 'Review',
+    icon: '🎯',
+    color: '#FBC02D',
+    words,
+  });
+}
+
 function categoryForWord(wordObj) {
   return CATEGORIES.find(category => category.words.some(word => word.sw === wordObj.sw))?.id || state.currentCategory?.id || '';
+}
+
+function trackCategoryWord(wordObj) {
+  const categoryId = categoryForWord(wordObj);
+  if (!categoryId || categoryId.startsWith('weekly-') || categoryId.startsWith('daily-')) return;
+  if (!state.categoryWordsFound) state.categoryWordsFound = {};
+  const words = new Set(state.categoryWordsFound[categoryId] || []);
+  words.add(wordObj.sw);
+  state.categoryWordsFound[categoryId] = [...words];
+}
+
+function trackHardWord(wordObj, reason = 'practice') {
+  if (!wordObj?.sw) return;
+  if (!state.hardWords) state.hardWords = {};
+  const current = state.hardWords[wordObj.sw] || {
+    sw: displayWord(wordObj),
+    key: wordObj.sw,
+    en: wordObj.en,
+    ex: wordObj.ex || '',
+    category: categoryForWord(wordObj),
+    count: 0,
+  };
+  current.count = (current.count || 0) + 1;
+  current.reason = reason;
+  current.lastSeen = new Date().toISOString();
+  state.hardWords[wordObj.sw] = current;
+}
+
+function hardWordEntries(limit = 5) {
+  return Object.values(state.hardWords || {})
+    .sort((a, b) => (b.count || 0) - (a.count || 0))
+    .slice(0, limit);
 }
 
 function recordLearningSignal(type, categoryId = state.currentCategory?.id) {
@@ -2424,7 +3782,7 @@ function getAdaptiveRecommendation() {
     const stats = getCategoryStats(category.id);
     const signals = state.learningSignals?.[category.id] || {};
     const weakness = (signals.mistakes || 0) * 2 + (signals.hints || 0);
-    const progressGap = Math.max(0, 100 - (stats.best || 0)) / 20;
+    const progressGap = Math.max(0, 100 - getCategoryMastery(category).percent) / 20;
     return { category, stats, signals, score: weakness + progressGap };
   }).sort((a, b) => b.score - a.score);
   return scored[0];
@@ -2436,6 +3794,38 @@ function getCategoryStats(catId) {
     return { best: raw, completed: raw >= 100 ? 1 : 0, words: 0, stars: 0 };
   }
   return raw || { best: 0, completed: 0, words: 0, stars: 0 };
+}
+
+function getCategoryMastery(category) {
+  const learned = new Set(state.categoryWordsFound?.[category.id] || []).size;
+  const total = category.words.length;
+  return {
+    learned: Math.min(learned, total),
+    total,
+    percent: total ? Math.round((Math.min(learned, total) / total) * 100) : 0,
+  };
+}
+
+function getNextMasteryMilestone(category) {
+  const mastery = getCategoryMastery(category);
+  return MASTERY_MILESTONES.find(milestone => milestone.words <= mastery.total && milestone.words > mastery.learned) || null;
+}
+
+function awardMasteryMilestones(categoryId) {
+  const category = CATEGORIES.find(item => item.id === categoryId);
+  if (!category) return 0;
+  const mastery = getCategoryMastery(category);
+  if (!state.masteryRewards) state.masteryRewards = {};
+  let coins = 0;
+  MASTERY_MILESTONES.forEach(milestone => {
+    const key = `${category.id}:${milestone.words}`;
+    if (milestone.words <= mastery.total && mastery.learned >= milestone.words && !state.masteryRewards[key]) {
+      state.masteryRewards[key] = true;
+      coins += milestone.coins;
+    }
+  });
+  if (coins) state.coins = (state.coins || 0) + coins;
+  return coins;
 }
 
 function isTodayDailyComplete() {
@@ -2480,11 +3870,18 @@ function applySettings() {
 }
 
 function renderSettings() {
-  const settings = state.settings || { sound: true, motion: true, contrast: false };
+  const settings = state.settings || { sound: true, autoPronounce: false, haptics: true, motion: true, contrast: false };
   const sound = document.getElementById('sound-toggle');
+  const autoPronounce = document.getElementById('auto-pronounce-toggle');
+  const haptics = document.getElementById('haptics-toggle');
   const motion = document.getElementById('motion-toggle');
   const contrast = document.getElementById('contrast-toggle');
   if (sound) sound.classList.toggle('on', Boolean(settings.sound));
+  if (autoPronounce) {
+    autoPronounce.classList.toggle('on', Boolean(settings.autoPronounce));
+    autoPronounce.disabled = settings.sound === false;
+  }
+  if (haptics) haptics.classList.toggle('on', settings.haptics !== false);
   if (motion) motion.classList.toggle('on', settings.motion === false);
   if (contrast) contrast.classList.toggle('on', Boolean(settings.contrast));
   const cheatCard = document.getElementById('cheat-card');
@@ -2553,8 +3950,10 @@ async function toggleOfflinePack(id) {
 }
 
 function toggleSetting(key) {
-  if (!state.settings) state.settings = { sound: true, motion: true, contrast: false };
+  if (!state.settings) state.settings = { sound: true, autoPronounce: false, haptics: true, motion: true, contrast: false };
   if (key === 'sound') state.settings.sound = !state.settings.sound;
+  if (key === 'autoPronounce') state.settings.autoPronounce = !state.settings.autoPronounce;
+  if (key === 'haptics') state.settings.haptics = state.settings.haptics === false;
   if (key === 'motion') state.settings.motion = state.settings.motion === false;
   if (key === 'contrast') state.settings.contrast = !state.settings.contrast;
   applySettings();
@@ -2641,13 +4040,13 @@ function renderProgressDashboard() {
   const categories = document.getElementById('progress-categories');
   if (!summary || !categories) return;
   const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
-  const completedCats = CATEGORIES.filter(cat => getCategoryStats(cat.id).best >= 100).length;
+  const completedCats = CATEGORIES.filter(cat => getCategoryMastery(cat).percent >= 100).length;
   const savedCount = state.savedWords?.length || 0;
   const recommendation = getAdaptiveRecommendation();
   const recommended = recommendation.category;
   const recStats = recommendation.stats;
   const recSignals = recommendation.signals || {};
-  const chartCats = [...CATEGORIES].sort((a, b) => getCategoryStats(b.id).best - getCategoryStats(a.id).best).slice(0, 6);
+  const chartCats = [...CATEGORIES].sort((a, b) => getCategoryMastery(b).percent - getCategoryMastery(a).percent).slice(0, 6);
   const signalCats = [...CATEGORIES]
     .map(cat => ({ cat, signals: state.learningSignals?.[cat.id] || {} }))
     .sort((a, b) => ((b.signals.mistakes || 0) + (b.signals.hints || 0)) - ((a.signals.mistakes || 0) + (a.signals.hints || 0)))
@@ -2665,7 +4064,7 @@ function renderProgressDashboard() {
   categories.innerHTML = `
     <div class="recommendation-card">
       <h3>${copy.recommendationTitle}</h3>
-      <p>${copy.recommendationCopy.replace('{category}', recommended.name).replace('{progress}', recStats.best || 0)}</p>
+      <p>${copy.recommendationCopy.replace('{category}', categoryDisplayName(recommended)).replace('{progress}', getCategoryMastery(recommended).percent)}</p>
       <p>${state.appLanguage === 'en'
         ? `Recent practice signals: ${recSignals.mistakes || 0} quiz misses and ${recSignals.hints || 0} hints.`
         : `Alama za mazoezi: makosa ${recSignals.mistakes || 0} na vidokezo ${recSignals.hints || 0}.`}</p>
@@ -2674,13 +4073,13 @@ function renderProgressDashboard() {
       <div class="chart-tile">
         <strong>${state.appLanguage === 'en' ? 'Strongest Categories' : 'Mada Zenye Nguvu'}</strong>
         <div class="chart-meter">
-          ${chartCats.map(cat => `<div class="chart-bar" title="${cat.name}" style="height:${Math.max(8, getCategoryStats(cat.id).best || 4)}%"></div>`).join('')}
+          ${chartCats.map(cat => `<div class="chart-bar" title="${categoryDisplayName(cat)}" style="height:${Math.max(8, getCategoryMastery(cat).percent || 4)}%"></div>`).join('')}
         </div>
       </div>
       <div class="chart-tile">
         <strong>${state.appLanguage === 'en' ? 'Practice Signals' : 'Alama za Mazoezi'}</strong>
         <div class="chart-meter">
-          ${signalCats.map(({ cat, signals }) => `<div class="chart-bar" title="${cat.name}" style="height:${Math.min(100, Math.max(8, ((signals.mistakes || 0) * 20) + ((signals.hints || 0) * 10)))}%"></div>`).join('')}
+          ${signalCats.map(({ cat, signals }) => `<div class="chart-bar" title="${categoryDisplayName(cat)}" style="height:${Math.min(100, Math.max(8, ((signals.mistakes || 0) * 20) + ((signals.hints || 0) * 10)))}%"></div>`).join('')}
         </div>
       </div>
     </div>
@@ -2689,14 +4088,17 @@ function renderProgressDashboard() {
   `;
   CATEGORIES.forEach(cat => {
     const stats = getCategoryStats(cat.id);
+    const mastery = getCategoryMastery(cat);
+    const nextMilestone = getNextMasteryMilestone(cat);
     const signals = state.learningSignals?.[cat.id] || {};
     const needsPractice = (signals.mistakes || 0) + (signals.hints || 0) > 0;
     const card = document.createElement('div');
     card.className = `progress-card ${needsPractice ? 'needs-practice' : ''}`;
     card.innerHTML = `
-      <h3>${cat.icon} ${cat.name}</h3>
-      <div class="prog-bar"><div class="prog-fill" style="width:${stats.best || 0}%"></div></div>
-      <div class="meta"><span>${stats.best || 0}%</span><span>${copy.wordsStat}: ${stats.words || 0}</span><span>? ${stats.stars || 0}</span><span>${stats.completed || 0}x</span></div>
+      <h3>${cat.icon} ${categoryDisplayName(cat)}</h3>
+      <div class="prog-bar"><div class="prog-fill" style="width:${mastery.percent}%"></div></div>
+      <div class="meta"><span>${copy.masteryLabel.replace('{learned}', mastery.learned).replace('{total}', mastery.total)}</span><span>${copy.bestPuzzleLabel}: ${stats.best || 0}%</span><span>★ ${stats.stars || 0}</span>${stats.bestTime ? `<span>${copy.bestTimeLabel}: ${formatDuration(stats.bestTime)}</span>` : ''}</div>
+      <div class="meta">${nextMilestone ? copy.masteryNext.replace('{words}', nextMilestone.words).replace('{coins}', nextMilestone.coins) : copy.masteryComplete}</div>
       ${needsPractice ? `<span class="signal-pill">${state.appLanguage === 'en' ? 'Practice' : 'Mazoezi'}: ${signals.mistakes || 0}/${signals.hints || 0}</span>` : ''}
     `;
     categories.appendChild(card);
@@ -2820,20 +4222,92 @@ function awardBadge(id) {
   return true;
 }
 
-function applyRewards({ completed, stars, found }) {
+function isRewardEligibleRun() {
+  return !(state.isDailyPuzzle && state.isDailyReplay)
+    && !(state.isWeeklyChallenge && state.isWeeklyReplay);
+}
+
+function applyRewards({ completed, stars, found, rewardEligible = true }) {
   const unlocked = [];
-  const coins = completed ? 20 + (stars * 10) : Math.max(3, found * 2);
+  const coins = rewardEligible
+    ? (completed ? 20 + (stars * 10) : (found > 0 ? Math.max(3, found * 2) : 0))
+    : 0;
   state.coins = (state.coins || 0) + coins;
 
-  if (state.wordsFound >= 10 && awardBadge('words-10')) unlocked.push('10 Words');
-  if (state.wordsFound >= 50 && awardBadge('words-50')) unlocked.push('50 Words');
-  if (state.puzzlesDone >= 1 && awardBadge('first-puzzle')) unlocked.push('First Puzzle');
-  if ((state.dailyStats?.streak || 0) >= 3 && awardBadge('daily-3')) unlocked.push('3 Day Streak');
-  if ((state.dailyStats?.streak || 0) >= 7 && awardBadge('daily-7')) unlocked.push('7 Day Streak');
-  if ((state.savedWords?.length || 0) >= 5 && awardBadge('saved-5')) unlocked.push('Collector');
-  if (stars >= 3 && awardBadge(`three-star-${state.currentCategory.id}`)) unlocked.push('3 Star Category');
+  if (rewardEligible) {
+    if (state.wordsFound >= 10 && awardBadge('words-10')) unlocked.push('10 Words');
+    if (state.wordsFound >= 50 && awardBadge('words-50')) unlocked.push('50 Words');
+    if (state.puzzlesDone >= 1 && awardBadge('first-puzzle')) unlocked.push('First Puzzle');
+    if ((state.dailyStats?.streak || 0) >= 3 && awardBadge('daily-3')) unlocked.push('3 Day Streak');
+    if ((state.dailyStats?.streak || 0) >= 7 && awardBadge('daily-7')) unlocked.push('7 Day Streak');
+    if ((state.savedWords?.length || 0) >= 5 && awardBadge('saved-5')) unlocked.push('Collector');
+    if (stars >= 3 && awardBadge(`three-star-${state.currentCategory.id}`)) unlocked.push('3 Star Category');
+    if (completed && state.isWeeklyChallenge && state.currentWeeklyKey) {
+      state.weeklyChallenges[state.currentWeeklyKey] = true;
+      if (awardBadge('weekly-challenge')) unlocked.push('Weekly Challenge');
+    }
+    if (completed) {
+      const mastery = awardCategoryMasteryBadges();
+      unlocked.push(...mastery);
+    }
+  }
 
   return { coins, badges: unlocked };
+}
+
+function awardCategoryMasteryBadges() {
+  const unlocked = [];
+  const masteryMap = {
+    chakula: 'Food Explorer',
+    wanyama: 'Safari Guide',
+    biashara: 'Market Master',
+    salamu: 'Swahili Starter',
+    'kila-siku': 'Everyday Speaker',
+    'safari-hifadhi': 'Park Pathfinder',
+  };
+  CATEGORIES.forEach(category => {
+    const found = state.categoryWordsFound?.[category.id] || [];
+    if (found.length >= category.words.length && awardBadge(`mastery-${category.id}`)) {
+      unlocked.push(masteryMap[category.id] || category.name);
+    }
+  });
+  return unlocked;
+}
+
+function beginReviewSession() {
+  const due = reviewScheduler.dueCount(state.savedWords || []);
+  state.savedStudyKey = '';
+  state.savedStudyRevealed = false;
+  state.reviewSession = {
+    active: due > 0,
+    completed: false,
+    startingDue: due,
+    reviewed: 0,
+    correct: 0,
+    reward: 0,
+  };
+}
+
+function reviewStrength(word, copy) {
+  const level = Math.max(0, Number(word?.reviewLevel) || 0);
+  if (level >= 5) return { label: copy.memoryMastered, percent: 100 };
+  if (level >= 3) return { label: copy.memoryStrong, percent: 68 };
+  if (level >= 1) return { label: copy.memoryBuilding, percent: 36 };
+  return { label: copy.memoryFresh, percent: 10 };
+}
+
+function completeReviewSprint() {
+  const session = state.reviewSession;
+  if (!session?.active || reviewScheduler.dueCount(state.savedWords || []) > 0) return false;
+  session.active = false;
+  session.completed = true;
+  if (state.reviewRewardDate !== dailyKey()) {
+    session.reward = Math.min(20, Math.max(3, session.startingDue * 3));
+    state.coins = (state.coins || 0) + session.reward;
+    state.reviewRewardDate = dailyKey();
+  }
+  void window.NenoSafariHaptics?.trigger(state.settings, 'reward');
+  return true;
 }
 
 function renderSavedWords() {
@@ -2877,15 +4351,21 @@ function renderSavedWords() {
   [...filtered].reverse().forEach(word => {
     const card = document.createElement('div');
     card.className = 'saved-word-card';
+    const strength = reviewStrength(word, copy);
+    const isDue = reviewScheduler.isDue(word);
     card.innerHTML = `
       <strong>${word.sw}</strong>
       <div class="meaning">${word.en}</div>
       <div class="example">${word.ex || ''}</div>
+      <div class="memory-strength">
+        <span>${strength.label}</span>
+        <span class="memory-track" aria-hidden="true"><span class="memory-fill" style="width:${strength.percent}%"></span></span>
+      </div>
       <div class="saved-meta">
-        <span>${copy.reviewedLabel}: ${word.reviewed || 0} - ${(word.reviewed || 0) > 0 ? copy.savedPracticed : copy.savedNeedsPractice}</span>
+        <span>${copy.reviewedLabel}: ${word.reviewed || 0} - ${reviewScheduler.dueLabel(word, state.appLanguage)}</span>
         <span class="saved-meta-actions">
           <button class="saved-pron-btn" onclick="speakSavedWord('${word.key || word.sw}')">${copy.savedPronounce}</button>
-          <button class="saved-review-btn" onclick="markWordReviewed('${word.key || word.sw}')">${copy.reviewWord}</button>
+          <button class="saved-review-btn" onclick="openSavedWordReview('${word.key || word.sw}')" ${isDue ? '' : 'disabled'}>${copy.reviewWord}</button>
         </span>
       </div>
     `;
@@ -2902,15 +4382,11 @@ function savedWordByKey(key) {
 }
 
 function chooseSavedStudyWord() {
-  const words = [...(state.savedWords || [])];
+  const words = (state.savedWords || []).filter(word => reviewScheduler.isDue(word));
   if (!words.length) return null;
   const current = savedWordByKey(state.savedStudyKey);
-  if (current) return current;
-  words.sort((a, b) => {
-    const reviewDiff = (a.reviewed || 0) - (b.reviewed || 0);
-    if (reviewDiff !== 0) return reviewDiff;
-    return String(a.lastReviewed || '').localeCompare(String(b.lastReviewed || ''));
-  });
+  if (current && reviewScheduler.isDue(current)) return current;
+  words.sort((a, b) => reviewScheduler.compareReviewPriority(a, b));
   state.savedStudyKey = savedWordKey(words[0]);
   return words[0];
 }
@@ -2921,40 +4397,121 @@ function renderSavedStudyDeck() {
   const card = document.createElement('div');
   card.className = 'saved-study-card';
   if (!word) {
-    card.textContent = copy.savedStudyEmpty;
+    const session = state.reviewSession || {};
+    const nextWord = [...(state.savedWords || [])]
+      .sort((a, b) => reviewScheduler.compareReviewPriority(a, b))[0];
+    if (session.completed) {
+      const rewardText = session.reward
+        ? copy.reviewCompleteReward.replace('{coins}', session.reward)
+        : copy.reviewRewardClaimed;
+      card.classList.add('review-complete');
+      card.innerHTML = `
+        <strong>${copy.reviewCompleteTitle}</strong>
+        <div class="study-word">${copy.reviewCompleteCopy
+          .replace('{count}', session.reviewed || 0)
+          .replace('{correct}', session.correct || 0)}</div>
+        <span class="review-reward">${rewardText}</span>
+      `;
+    } else {
+      const nextText = nextWord
+        ? copy.reviewNextDue.replace('{time}', reviewScheduler.dueLabel(nextWord, state.appLanguage).toLowerCase())
+        : '';
+      card.classList.add('review-complete');
+      card.innerHTML = `
+        <strong>${copy.reviewCaughtUpTitle}</strong>
+        <div class="study-word">${copy.reviewCaughtUpCopy}</div>
+        ${nextText ? `<span>${nextText}</span>` : ''}
+      `;
+    }
     return card;
   }
   const key = savedWordKey(word);
+  const dueCount = reviewScheduler.dueCount(state.savedWords || []);
+  const sessionTotal = Math.max(dueCount, state.reviewSession?.startingDue || dueCount);
+  const sessionDone = Math.min(sessionTotal, state.reviewSession?.reviewed || 0);
+  const sessionCurrent = Math.min(sessionTotal, sessionDone + 1);
+  const progressPercent = sessionTotal ? Math.round((sessionDone / sessionTotal) * 100) : 0;
   const answer = state.savedStudyRevealed ? word.en : '...';
+  const nextWordAction = dueCount > 1
+    ? `<button class="saved-review-btn" onclick="nextSavedStudyWord()">${copy.nextStudyWord}</button>`
+    : '';
+  const actionMarkup = state.savedStudyRevealed
+    ? `
+      <div class="saved-actions review-rating-actions">
+        <button class="secondary" onclick="rateSavedStudy('${key}', 'again')">${copy.reviewPracticeAgain}</button>
+        <button class="secondary" onclick="rateSavedStudy('${key}', 'hard')">${copy.reviewHard}</button>
+        <button onclick="rateSavedStudy('${key}', 'got')">${copy.reviewKnown}</button>
+      </div>
+      ${nextWordAction}
+    `
+    : `
+      <div class="saved-actions">
+        <button onclick="revealSavedStudyMeaning()">${copy.revealMeaning}</button>
+        <button class="secondary" onclick="speakSavedWord('${key}')">${copy.savedPronounce}</button>
+      </div>
+    `;
   card.innerHTML = `
     <strong>${copy.reviewDeckTitle}</strong>
-    <span>${copy.reviewDeckCopy}</span>
+    <span class="study-due">${copy.reviewDueCount.replace('{count}', dueCount)}</span>
+    <span>${copy.reviewProgress.replace('{done}', sessionCurrent).replace('{total}', sessionTotal)}</span>
+    <span class="review-progress-track" aria-hidden="true"><span class="review-progress-fill" style="width:${progressPercent}%"></span></span>
+    <span>${state.savedStudyRevealed ? copy.savedStudyPrompt : copy.reviewDeckCopy}</span>
     <div class="study-word">${word.sw}</div>
     <div class="study-answer">${answer}</div>
-    <div class="saved-actions">
-      <button onclick="revealSavedStudyMeaning()">${copy.revealMeaning}</button>
-      <button class="secondary" onclick="speakSavedWord('${key}')">${copy.savedPronounce}</button>
-      <button onclick="nextSavedStudyWord()">${copy.nextStudyWord}</button>
-    </div>
-    <button class="saved-review-btn" onclick="markWordReviewed('${key}')">${copy.reviewWord}</button>
+    ${actionMarkup}
   `;
   return card;
 }
 
-function markWordReviewed(key) {
+function openSavedWordReview(key) {
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  const word = savedWordByKey(key);
+  if (!word || !reviewScheduler.isDue(word)) {
+    showToast(copy.reviewNotDue);
+    return;
+  }
+  if (!state.reviewSession?.active) beginReviewSession();
+  state.savedStudyKey = key;
+  state.savedStudyRevealed = false;
+  renderSavedWords();
+  document.querySelector('.saved-study-card')?.scrollIntoView?.({ behavior: 'smooth', block: 'start' });
+}
+
+function rateSavedStudy(key, rating) {
   const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
   const word = savedWordByKey(key);
   if (!word) return;
-  word.reviewed = (word.reviewed || 0) + 1;
-  word.lastReviewed = new Date().toISOString();
+  const normalizedRating = rating === true ? 'got' : rating === false ? 'again' : rating;
+  Object.assign(word, reviewScheduler.scheduleReview(word, normalizedRating));
+  if (state.reviewSession?.active) {
+    state.reviewSession.reviewed = (state.reviewSession.reviewed || 0) + 1;
+    if (normalizedRating === 'got') state.reviewSession.correct = (state.reviewSession.correct || 0) + 1;
+  }
+  if (normalizedRating === 'got') {
+    if (state.hardWords) delete state.hardWords[key];
+  } else {
+    trackHardWord({
+      sw: word.key || String(word.sw || '').replace(/\s+/g, '').toUpperCase(),
+      display: word.sw,
+      en: word.en,
+      ex: word.ex || '',
+    }, 'saved-review');
+  }
+  state.savedStudyKey = '';
   state.savedStudyRevealed = false;
   ensureDailyGoal();
   state.dailyGoal.reviews = (state.dailyGoal.reviews || 0) + 1;
   if ((state.savedWords?.length || 0) >= 5) awardBadge('saved-5');
+  const completedSprint = completeReviewSprint();
   saveProgress();
   renderSavedWords();
-  renderDailyGoal();
-  showToast(copy.wordReviewed);
+  updateHomeStats();
+  const toastCopy = normalizedRating === 'got'
+    ? copy.reviewKnownToast
+    : normalizedRating === 'hard'
+      ? copy.reviewHardToast
+      : copy.reviewPracticeToast;
+  showToast(completedSprint ? copy.reviewCompleteTitle : toastCopy);
 }
 
 function revealSavedStudyMeaning() {
@@ -2963,7 +4520,9 @@ function revealSavedStudyMeaning() {
 }
 
 function nextSavedStudyWord() {
-  const words = [...(state.savedWords || [])];
+  const words = (state.savedWords || [])
+    .filter(word => reviewScheduler.isDue(word))
+    .sort((a, b) => reviewScheduler.compareReviewPriority(a, b));
   if (words.length <= 1) return;
   const currentIndex = words.findIndex(word => savedWordKey(word) === state.savedStudyKey);
   const next = words[(currentIndex + 1 + words.length) % words.length];
@@ -2993,6 +4552,7 @@ function clearSavedWords() {
   if (!confirm(copy.confirmClearSaved)) return;
   state.savedWords = [];
   state.savedFilter = 'all';
+  beginReviewSession();
   saveProgress();
   renderSavedWords();
   updateHomeStats();
@@ -3035,10 +4595,24 @@ function applyAppLanguage() {
   const pronounceBtn = document.getElementById('pronounce-btn');
   if (pronounceBtn) pronounceBtn.textContent = copy.pronounceWord;
   renderSavedWords();
+  renderDailyGoal();
+  renderWeeklyChallenge();
+  renderDailyRewards();
+  renderTodayMission();
+  renderPlayerLevel();
+  renderSmartPractice();
+  if (getActiveScreenId() === 'category-screen') renderCategories();
+  if (getActiveScreenId() === 'game-screen' && state.currentCategory) {
+    document.getElementById('game-cat-label').textContent = categoryDisplaySubtitle(state.currentCategory);
+    document.getElementById('game-title').textContent = categoryDisplayName(state.currentCategory);
+  }
   renderDailyBadge();
   renderProgressDashboard();
   renderRewards();
   renderSettings();
+  renderVictoryShare();
+  renderHintState();
+  renderTimerPauseState(state.timerPaused);
   applyTranslationPreference();
   updateWordCount();
   accessibility.applyAccessibilityLabels(state.appLanguage);
@@ -3098,22 +4672,24 @@ function renderCategories() {
   grid.innerHTML = '';
   CATEGORIES.forEach((cat, i) => {
     const stats = getCategoryStats(cat.id);
-    const prog = stats.best || 0;
+    const mastery = getCategoryMastery(cat);
+    const nextMilestone = getNextMasteryMilestone(cat);
+    const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
     const div = document.createElement('div');
     div.className = `cat-card cat-${i}`;
     div.innerHTML = `
       <span class="cat-icon">${cat.icon}</span>
-      <div class="cat-name">${cat.name}</div>
-      <div class="cat-sub">${cat.sub}</div>
+      <div class="cat-name">${categoryDisplayName(cat)}</div>
+      <div class="cat-sub">${categoryDisplaySubtitle(cat)}</div>
       <div class="cat-progress">
-        <div class="prog-bar"><div class="prog-fill" style="width:${prog}%"></div></div>
-        <span class="prog-label">${prog}% · ${stats.completed || 0}x</span>
+        <div class="prog-bar"><div class="prog-fill" style="width:${mastery.percent}%"></div></div>
+        <span class="prog-label">${copy.masteryLabel.replace('{learned}', mastery.learned).replace('{total}', mastery.total)}${stats.bestTime ? ` · ${copy.bestTimeLabel}: ${formatDuration(stats.bestTime)}` : ''}${nextMilestone ? ` · +${nextMilestone.coins}` : ''}</span>
       </div>
     `;
   div.style.setProperty('--cat-color', cat.color);
   div.setAttribute('role', 'button');
   div.setAttribute('tabindex', '0');
-  div.setAttribute('aria-label', `${cat.name} ${cat.sub}`);
+  div.setAttribute('aria-label', `${categoryDisplayName(cat)} ${categoryDisplaySubtitle(cat)}`);
   div.onclick = () => startGame(cat);
   div.onkeydown = (event) => {
     if (event.key === 'Enter' || event.key === ' ') startGame(cat);
@@ -3126,23 +4702,39 @@ function renderCategories() {
 // GAME START
 // ============================================================
 function startGame(category, options = {}) {
+  hideQuickLearn();
+  clearTimeout(state.completionTimer);
+  state.completionTimer = null;
+  state.gameEnded = false;
   const rng = options.seed ? seededRandom(options.seed) : Math.random;
   state.currentCategory = category;
   state.isDailyPuzzle = Boolean(options.daily);
   state.currentDailyKey = options.dailyKey || '';
+  state.isDailyReplay = Boolean(options.dailyReplay);
+  state.isWeeklyChallenge = Boolean(options.weekly);
+  state.currentWeeklyKey = options.weeklyKey || '';
+  state.isWeeklyReplay = Boolean(options.weeklyReplay);
   state.foundWords = [];
   state.score = 0;
   state.hintCount = 3;
+  state.hintTargetWord = '';
   state.startTime = Date.now();
+  state.elapsedActiveMs = 0;
+  state.activeClockStartedAt = state.startTime;
   state.selectionPath = [];
   state.selecting = false;
+  state.findCombo = 0;
+  state.maxFindCombo = 0;
+  state.lastWordFoundAt = 0;
+  renderFindCombo();
 
   updateGridSize();
 
   // Pick words based on difficulty
   const wordCounts = { rahisi: 6, kati: 8, ngumu: 10, bingwa: 12 };
-  const count = Math.min(wordCounts[state.difficulty] || 8, category.words.length);
-  const shuffled = shuffleWithRng(category.words, rng);
+  const eligibleWords = wordsThatFit(category.words, state.gridSize);
+  const count = Math.min(wordCounts[state.difficulty] || 8, eligibleWords.length);
+  const shuffled = shuffleWithRng(eligibleWords, rng);
   const selectedWords = shuffled.slice(0, count);
 
   // Generate puzzle
@@ -3151,17 +4743,20 @@ function startGame(category, options = {}) {
   state.wordPlacements = placements;
 
   // Render
-  document.getElementById('game-cat-label').textContent = category.sub;
-  document.getElementById('game-title').textContent = category.name;
+  document.getElementById('game-cat-label').textContent = categoryDisplaySubtitle(category);
+  document.getElementById('game-title').textContent = categoryDisplayName(category);
   document.getElementById('score-display').textContent = 0;
 
   renderGrid();
   renderWordList();
+  renderHintState();
   applyTranslationPreference();
+  saveActiveSession();
 
   // Timer mode
   const timerBar = document.getElementById('timer-bar');
   const timerPill = document.getElementById('timer-pill');
+  document.getElementById('game-pause-overlay').hidden = true;
   if (state.currentMode === 'timed') {
     const times = { rahisi: 120, kati: 90, ngumu: 60, bingwa: 45 };
     state.timerSeconds = times[state.difficulty] || 60;
@@ -3169,6 +4764,7 @@ function startGame(category, options = {}) {
     timerBar.style.display = 'block';
     timerPill.style.display = 'flex';
     document.getElementById('timer-display').textContent = state.timerRemaining;
+    renderTimerPauseState(false);
     startTimer();
   } else {
     timerBar.style.display = 'none';
@@ -3181,9 +4777,12 @@ function startGame(category, options = {}) {
 
 function startTimer() {
   if (state.timerInterval) clearInterval(state.timerInterval);
+  state.timerPaused = false;
+  renderTimerPauseState(false);
   state.timerInterval = setInterval(() => {
     state.timerRemaining--;
     document.getElementById('timer-display').textContent = state.timerRemaining;
+    renderTimerPauseState(false);
     const pct = (state.timerRemaining / state.timerSeconds) * 100;
     document.getElementById('timer-fill').style.width = pct + '%';
     if (state.timerRemaining <= 0) {
@@ -3191,6 +4790,97 @@ function startTimer() {
       endGame(false);
     }
   }, 1000);
+}
+
+function currentElapsedMs(now = Date.now()) {
+  const accumulated = Math.max(0, Number(state.elapsedActiveMs) || 0);
+  if (!state.activeClockStartedAt) return accumulated;
+  return accumulated + Math.max(0, now - state.activeClockStartedAt);
+}
+
+function elapsedGameSeconds(now = Date.now()) {
+  return Math.floor(currentElapsedMs(now) / 1000);
+}
+
+function pauseGameClock(now = Date.now()) {
+  if (!state.activeClockStartedAt) return false;
+  state.elapsedActiveMs = currentElapsedMs(now);
+  state.activeClockStartedAt = null;
+  return true;
+}
+
+function resumeGameClock(now = Date.now()) {
+  const modalOpen = document.getElementById('word-modal')?.classList.contains('open');
+  if (!state.currentCategory || getActiveScreenId() !== 'game-screen' || document.hidden || modalOpen || state.activeClockStartedAt) return false;
+  state.activeClockStartedAt = now;
+  return true;
+}
+
+function pauseActiveGame() {
+  cancelSelection();
+  pauseGameClock();
+  pauseTimedGame();
+  if (getActiveScreenId() === 'game-screen' && state.currentMode !== 'timed') saveActiveSession();
+}
+
+function resumeActiveGame() {
+  if (state.currentMode === 'timed' && state.timerPaused) {
+    renderTimerPauseState(true);
+    return false;
+  }
+  return resumeGameClock();
+}
+
+function renderTimerPauseState(paused) {
+  const pill = document.getElementById('timer-pill');
+  const status = document.getElementById('timer-state');
+  const toggle = document.getElementById('timer-toggle');
+  const pauseTime = document.getElementById('pause-time');
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  pill?.classList.toggle('paused', paused);
+  if (status) status.textContent = paused ? 'Ⅱ' : '';
+  if (toggle) toggle.textContent = paused ? '▶' : 'Ⅱ';
+  if (pauseTime) pauseTime.textContent = `${state.timerRemaining}s`;
+  if (pill) pill.setAttribute('aria-label', paused
+    ? `${state.timerRemaining} - ${copy.timerPausedLabel}`
+    : `${state.timerRemaining} - ${copy.timerPauseLabel}`);
+}
+
+function pauseTimedGame(options = {}) {
+  const overlay = document.getElementById('game-pause-overlay');
+  if (state.currentMode !== 'timed' || getActiveScreenId() !== 'game-screen') return false;
+  if (state.timerPaused) {
+    if (options.showOverlay !== false && overlay) overlay.hidden = false;
+    return false;
+  }
+  if (!state.timerInterval) return false;
+  pauseGameClock();
+  clearInterval(state.timerInterval);
+  state.timerInterval = null;
+  state.timerPaused = true;
+  renderTimerPauseState(true);
+  if (options.showOverlay !== false && overlay) {
+    overlay.hidden = false;
+    if (!document.hidden) setTimeout(() => document.getElementById('pause-resume')?.focus(), 0);
+  }
+  return true;
+}
+
+function resumeTimedGame() {
+  if (state.currentMode !== 'timed' || getActiveScreenId() !== 'game-screen' || !state.timerPaused || state.timerRemaining <= 0) return false;
+  const overlay = document.getElementById('game-pause-overlay');
+  if (overlay) overlay.hidden = true;
+  startTimer();
+  resumeGameClock();
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  showToast(copy.timerResumed);
+  return true;
+}
+
+function toggleTimedPause() {
+  if (state.currentMode !== 'timed') return;
+  if (state.timerPaused) resumeTimedGame();
+  else pauseTimedGame({ showOverlay: true });
 }
 
 // ============================================================
@@ -3215,13 +4905,28 @@ function renderGrid() {
     }
   }
 
-  // Touch events
-  gridEl.addEventListener('touchstart', onTouchStart, { passive: false });
-  gridEl.addEventListener('touchmove', onTouchMove, { passive: false });
-  gridEl.addEventListener('touchend', onTouchEnd, { passive: false });
-  gridEl.addEventListener('mousedown', onMouseDown);
-  gridEl.addEventListener('mousemove', onMouseMove);
-  gridEl.addEventListener('mouseup', onMouseUp);
+  if (!gridEl.dataset.inputBound) {
+    gridEl.dataset.inputBound = '1';
+    gridEl.addEventListener('touchstart', onTouchStart, { passive: false });
+    gridEl.addEventListener('touchmove', onTouchMove, { passive: false });
+    gridEl.addEventListener('touchend', onTouchEnd, { passive: false });
+    gridEl.addEventListener('touchcancel', onTouchCancel, { passive: false });
+    gridEl.addEventListener('mousedown', onMouseDown);
+    gridEl.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  }
+  renderFoundGridState();
+}
+
+function renderFoundGridState() {
+  const found = new Set(state.foundWords || []);
+  state.wordPlacements.forEach(placement => {
+    if (!found.has(placement.word)) return;
+    placement.cells.forEach(([r, c]) => getCell(r, c)?.classList.add('found'));
+  });
+  const latest = state.foundWords?.[state.foundWords.length - 1];
+  const latestPlacement = state.wordPlacements.find(placement => placement.word === latest);
+  if (latestPlacement) getCell(...latestPlacement.cells[0])?.classList.add('last-found');
 }
 
 function getCell(r, c) {
@@ -3289,6 +4994,12 @@ function endSelection() {
   state.selectionPath = [];
 }
 
+function cancelSelection() {
+  state.selecting = false;
+  document.querySelectorAll('#word-grid .cell.selecting').forEach(cell => cell.classList.remove('selecting'));
+  state.selectionPath = [];
+}
+
 function checkWord(path) {
   const selectedWord = path.map(([r, c]) => state.grid[r][c]).join('');
   const selectedWordRev = selectedWord.split('').reverse().join('');
@@ -3306,11 +5017,47 @@ function checkWord(path) {
     }
   }
   // No match — subtle shake
+  resetFindCombo();
   shakeSelection(path);
 }
 
+function updateFindCombo() {
+  const now = Date.now();
+  const keepsCombo = state.lastWordFoundAt && now - state.lastWordFoundAt <= 18000;
+  state.findCombo = keepsCombo ? (state.findCombo || 0) + 1 : 1;
+  state.maxFindCombo = Math.max(state.maxFindCombo || 0, state.findCombo);
+  state.lastWordFoundAt = now;
+  renderFindCombo();
+  return state.findCombo;
+}
+
+function resetFindCombo() {
+  if (!(state.findCombo || 0)) return;
+  state.findCombo = 0;
+  state.lastWordFoundAt = 0;
+  renderFindCombo();
+}
+
+function comboMultiplier(combo) {
+  if (combo >= 5) return 2;
+  if (combo >= 3) return 1.5;
+  if (combo >= 2) return 1.2;
+  return 1;
+}
+
+function renderFindCombo() {
+  const pill = document.getElementById('combo-pill');
+  const display = document.getElementById('combo-display');
+  if (!pill || !display) return;
+  const combo = state.findCombo || 0;
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  pill.classList.toggle('active', combo >= 2);
+  pill.setAttribute('aria-label', copy.comboLabel.replace('{count}', combo));
+  display.textContent = combo >= 2 ? `x${comboMultiplier(combo)}` : '';
+}
+
 function shakeSelection(path) {
-  if ('vibrate' in navigator) navigator.vibrate(18);
+  void window.NenoSafariHaptics?.trigger(state.settings, 'miss');
   path.forEach(([r, c]) => {
     const cell = getCell(r, c);
     if (cell) {
@@ -3325,10 +5072,15 @@ function shakeSelection(path) {
 // WORD FOUND
 // ============================================================
 function wordFound(placement) {
+  if (state.gameEnded || !placement?.word || state.foundWords.includes(placement.word)) return false;
   state.foundWords.push(placement.word);
-  if ('vibrate' in navigator) navigator.vibrate([12, 24, 12]);
+  if (state.hintTargetWord === placement.word) state.hintTargetWord = '';
+  void window.NenoSafariHaptics?.trigger(state.settings, 'success');
   ensureDailyGoal();
   state.dailyGoal.words = (state.dailyGoal.words || 0) + 1;
+  trackCategoryWord(placement.wordObj);
+  const masteryCoins = awardMasteryMilestones(categoryForWord(placement.wordObj));
+  if (masteryCoins) saveProgress();
   renderDailyGoal();
 
   // Highlight cells
@@ -3341,15 +5093,23 @@ function wordFound(placement) {
   });
 
   // Score
+  const combo = updateFindCombo();
   const basePoints = placement.word.length * 10;
   const speedBonus = state.currentMode === 'timed' ? Math.floor(state.timerRemaining * 0.5) : 0;
-  const points = basePoints + speedBonus;
+  const points = Math.round((basePoints + speedBonus) * comboMultiplier(combo));
   state.score += points;
   state.wordsFound++;
   document.getElementById('score-display').textContent = state.score;
+  saveActiveSession();
 
   // Points popup
   showPointsPopup(points, placement.cells[0]);
+  if (masteryCoins) {
+    const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+    showToast(copy.masteryRewardToast
+      .replace('{coins}', masteryCoins)
+      .replace('{category}', categoryDisplayName(CATEGORIES.find(category => category.id === categoryForWord(placement.wordObj)) || state.currentCategory)));
+  }
 
   // Update word list
   document.querySelectorAll('.word-chip').forEach(chip => {
@@ -3357,17 +5117,22 @@ function wordFound(placement) {
   });
   updateWordCount();
 
-  // Show word info modal (learn mode or always)
-  if (state.currentMode === 'learn' || state.currentMode === 'classic') {
+  // Learn mode is immersive; other modes keep the puzzle moving.
+  if (state.currentMode === 'learn') {
     showWordModal(placement.wordObj);
   } else {
-    showToast(ENCOURAGEMENTS[Math.floor(Math.random() * ENCOURAGEMENTS.length)]);
+    showQuickLearn(placement.wordObj);
   }
+  if (state.settings?.autoPronounce && state.settings?.sound !== false) speakWordObject(placement.wordObj);
 
   // Check completion
   if (state.foundWords.length === state.wordPlacements.length) {
-    setTimeout(() => endGame(true), state.currentMode === 'learn' ? 2000 : 800);
+    clearTimeout(state.completionTimer);
+    if (state.currentMode !== 'learn') {
+      state.completionTimer = setTimeout(() => endGame(true), 1800);
+    }
   }
+  return true;
 }
 
 function showPointsPopup(points, [r, c]) {
@@ -3386,12 +5151,48 @@ function showPointsPopup(points, [r, c]) {
 // ============================================================
 // MODAL
 // ============================================================
+function showQuickLearn(wordObj) {
+  const card = document.getElementById('quick-learn');
+  if (!card || !wordObj) return;
+  state.currentWordObj = wordObj;
+  const toast = document.getElementById('toast');
+  clearTimeout(toast?._timeout);
+  toast?.classList.remove('show');
+  document.getElementById('quick-learn-word').textContent = displayWord(wordObj);
+  document.getElementById('quick-learn-meaning').textContent = wordObj.en;
+  document.getElementById('quick-learn-example').textContent = wordObj.ex || '';
+  updateQuickLearnSaveButton();
+  card.classList.add('show');
+  document.body.classList.add('quick-learning');
+  clearTimeout(state.quickLearnTimer);
+  state.quickLearnTimer = setTimeout(hideQuickLearn, 4600);
+}
+
+function hideQuickLearn() {
+  clearTimeout(state.quickLearnTimer);
+  state.quickLearnTimer = null;
+  document.getElementById('quick-learn')?.classList.remove('show');
+  document.body.classList.remove('quick-learning');
+}
+
+function openQuickLearnDetails() {
+  if (!state.currentWordObj) return;
+  clearTimeout(state.completionTimer);
+  state.completionTimer = null;
+  const wordObj = state.currentWordObj;
+  hideQuickLearn();
+  showWordModal(wordObj);
+}
+
 function showWordModal(wordObj) {
   const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  hideQuickLearn();
+  pauseGameClock();
+  pauseTimedGame({ showOverlay: false });
   state.currentWordObj = wordObj;
   document.getElementById('modal-word').textContent = displayWord(wordObj);
   document.getElementById('modal-meaning').textContent = wordObj.en;
-  document.getElementById('modal-pron').textContent = 'Matamshi: ' + (wordObj.pron || getPronunciation(wordObj.sw));
+  document.getElementById('modal-pron').textContent = `${copy.pronunciationLabel}: ${wordObj.pron || getPronunciation(wordObj.sw)}`;
   document.getElementById('modal-example').textContent = wordObj.ex || '';
   const saveBtn = document.getElementById('modal-save');
   const isSaved = state.savedWords.some(w => (w.key || w.sw) === wordObj.sw);
@@ -3412,20 +5213,35 @@ function saveCurrentWord() {
   if (!state.currentWordObj) return;
   const exists = state.savedWords.some(w => (w.key || w.sw) === state.currentWordObj.sw);
   if (!exists) {
-    state.savedWords.push({
+    state.savedWords.push(reviewScheduler.normalizeSavedWord({
       sw: displayWord(state.currentWordObj),
       key: state.currentWordObj.sw,
       en: state.currentWordObj.en,
       ex: state.currentWordObj.ex || '',
       category: state.currentCategory?.name || '',
-    });
+    }));
     saveProgress();
     showToast(state.appLanguage === 'en' ? 'Word saved for revision.' : 'Neno limehifadhiwa kwa marudio.');
     const saveBtn = document.getElementById('modal-save');
     const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
-    saveBtn.textContent = copy.savedWord;
-    saveBtn.disabled = true;
+    if (saveBtn) {
+      saveBtn.textContent = copy.savedWord;
+      saveBtn.disabled = true;
+    }
+    updateQuickLearnSaveButton();
+    renderSmartPractice();
   }
+}
+
+function updateQuickLearnSaveButton() {
+  const button = document.getElementById('quick-learn-save');
+  if (!button || !state.currentWordObj) return;
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  const saved = state.savedWords.some(word => savedWordKey(word) === state.currentWordObj.sw);
+  button.textContent = saved ? '✓' : '🔖';
+  button.disabled = saved;
+  button.classList.toggle('saved', saved);
+  button.setAttribute('aria-label', saved ? copy.quickLearnSavedLabel : copy.quickLearnSaveLabel);
 }
 
 function speakCurrentWord() {
@@ -3472,19 +5288,39 @@ function closeModal() {
   // Check if game is done
   if (state.foundWords.length === state.wordPlacements.length) {
     endGame(true);
+    return;
   }
+  if (!resumeTimedGame()) resumeGameClock();
 }
 
 // ============================================================
 // HINTS
 // ============================================================
+function renderHintState() {
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  const remaining = Math.max(0, Number(state.hintCount) || 0);
+  const counter = document.getElementById('hint-counter');
+  if (counter) counter.textContent = copy.hintsRemaining.replace('{count}', remaining).replace('{total}', 3);
+  document.querySelectorAll('.hint-action').forEach(button => {
+    button.disabled = remaining <= 0;
+  });
+}
+
 function useHint(type) {
-  if (state.hintCount <= 0) { showToast('Vidokezo vimekwisha! 😅'); return; }
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  if (state.hintCount <= 0) {
+    showToast(copy.hintsEmpty);
+    renderHintState();
+    return;
+  }
   const unfound = state.wordPlacements.filter(p => !state.foundWords.includes(p.word));
   if (unfound.length === 0) return;
 
-  const target = unfound[Math.floor(Math.random() * unfound.length)];
+  const target = unfound.find(placement => placement.word === state.hintTargetWord)
+    || unfound[Math.floor(Math.random() * unfound.length)];
+  state.hintTargetWord = target.word;
   recordLearningSignal('hints');
+  trackHardWord(target.wordObj, `hint:${type}`);
 
   if (type === 'letter') {
     const [fr, fc] = target.cells[0];
@@ -3494,7 +5330,7 @@ function useHint(type) {
       cell.style.color = '#E65100';
       cell.style.fontWeight = '900';
       setTimeout(() => { if (!cell.classList.contains('found')) { cell.style.background = ''; cell.style.color = ''; } }, 3000);
-      showToast(`💡 Herufi ya kwanza: "${target.word[0]}"`);
+      showToast(`💡 ${copy.hintFirstLetter.replace('{letter}', target.word[0])}`);
     }
   } else if (type === 'highlight') {
     target.cells.forEach(([r, c], i) => {
@@ -3504,14 +5340,17 @@ function useHint(type) {
         setTimeout(() => { if (!cell.classList.contains('found')) cell.style.background = ''; }, 2500);
       }
     });
-    showToast(`🔦 Neno linaloangaziwa: ${target.wordObj.en}`);
+    showToast(`🔦 ${copy.hintHighlighted.replace('{meaning}', target.wordObj.en)}`);
   } else if (type === 'meaning') {
-    showToast(`🇬🇧 Maana: ${target.wordObj.en}`);
+    showToast(`🇬🇧 ${copy.hintMeaningToast.replace('{meaning}', target.wordObj.en)}`);
   } else if (type === 'pron') {
-    showToast(`🔊 Matamshi: ${target.wordObj.pron || getPronunciation(target.wordObj.sw)}`);
+    showToast(`🔊 ${copy.hintPronunciationToast.replace('{pronunciation}', target.wordObj.pron || getPronunciation(target.wordObj.sw))}`);
+    speakWordObject(target.wordObj);
   }
 
   state.hintCount--;
+  renderHintState();
+  saveActiveSession();
 }
 
 // ============================================================
@@ -3522,7 +5361,7 @@ function renderWordList() {
   list.innerHTML = '';
   state.wordPlacements.forEach(placement => {
     const chip = document.createElement('div');
-    chip.className = 'word-chip';
+    chip.className = state.foundWords.includes(placement.word) ? 'word-chip found' : 'word-chip';
     chip.dataset.word = placement.word;
     chip.innerHTML = `
       <span class="check">✓</span>
@@ -3533,7 +5372,8 @@ function renderWordList() {
     `;
     chip.onclick = () => {
       if (!chip.classList.contains('found')) {
-        showToast(`💡 Kiswahili: ${displayWord(placement.wordObj)} = ${placement.wordObj.en}`);
+        const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+        showToast(`💡 ${copy.wordListTip.replace('{word}', displayWord(placement.wordObj)).replace('{meaning}', placement.wordObj.en)}`);
       } else {
         showWordModal(placement.wordObj);
       }
@@ -3566,6 +5406,7 @@ function onTouchMove(e) {
   if (cell) extendSelection(parseInt(cell.dataset.r), parseInt(cell.dataset.c));
 }
 function onTouchEnd(e) { e.preventDefault(); endSelection(); }
+function onTouchCancel(e) { e.preventDefault(); cancelSelection(); }
 
 function onMouseDown(e) {
   const cell = e.target.closest('.cell');
@@ -3582,53 +5423,93 @@ function onMouseUp() { endSelection(); }
 // END GAME / VICTORY
 // ============================================================
 function endGame(completed) {
+  if (state.gameEnded) return;
+  state.gameEnded = true;
+  pauseGameClock();
+  document.getElementById('game-pause-overlay').hidden = true;
   if (state.timerInterval) clearInterval(state.timerInterval);
-  const elapsed = Math.floor((Date.now() - state.startTime) / 1000);
+  state.timerInterval = null;
+  state.timerPaused = false;
+  clearTimeout(state.completionTimer);
+  state.completionTimer = null;
+  hideQuickLearn();
+  const elapsed = elapsedGameSeconds();
   const found = state.foundWords.length;
   const total = state.wordPlacements.length;
+  const didComplete = total > 0 && found >= total;
+  const rewardEligible = isRewardEligibleRun();
 
   // Calculate stars
-  let stars = 1;
-  if (found >= total) stars = 3;
-  else if (found >= total * 0.6) stars = 2;
+  let stars = found > 0 ? 1 : 0;
+  if (total > 0 && found >= total) stars = 3;
+  else if (total > 0 && found >= total * 0.6) stars = 2;
 
   // Bonus points
-  if (found >= total) {
+  if (didComplete && rewardEligible) {
     const timeBonus = Math.max(0, 300 - elapsed) * 2;
     state.score += timeBonus;
     state.puzzlesDone++;
     ensureDailyGoal();
     state.dailyGoal.puzzles = (state.dailyGoal.puzzles || 0) + 1;
   }
-  state.totalScore += state.score;
+  if (rewardEligible) state.totalScore += state.score;
 
   // Update category progress
   if (!state.catProgress) state.catProgress = {};
-  const prog = Math.round((found / total) * 100);
+  const prog = total > 0 ? Math.round((found / total) * 100) : 0;
   const catStats = getCategoryStats(state.currentCategory.id);
-  state.catProgress[state.currentCategory.id] = {
-    best: Math.max(prog, catStats.best || 0),
-    completed: (catStats.completed || 0) + (completed ? 1 : 0),
-    words: (catStats.words || 0) + found,
-    stars: Math.max(stars, catStats.stars || 0),
-  };
+  const timeRecord = bestTimeResult(catStats.bestTime, elapsed, didComplete);
+  if (rewardEligible) {
+    state.catProgress[state.currentCategory.id] = {
+      best: Math.max(prog, catStats.best || 0),
+      completed: (catStats.completed || 0) + (didComplete ? 1 : 0),
+      words: (catStats.words || 0) + found,
+      stars: Math.max(stars, catStats.stars || 0),
+      bestTime: timeRecord.bestTime,
+    };
+  } else if (timeRecord.isNewRecord) {
+    state.catProgress[state.currentCategory.id] = { ...catStats, bestTime: timeRecord.bestTime };
+  }
 
-  if (completed && state.isDailyPuzzle && state.currentDailyKey) {
+  if (didComplete && state.isDailyPuzzle && state.currentDailyKey) {
     updateDailyStreak(state.currentDailyKey);
   }
 
-  const rewards = applyRewards({ completed, stars, found });
+  if (didComplete && rewardEligible && state.isWeeklyChallenge && state.currentWeeklyKey) {
+    if (!state.weeklyChallenges) state.weeklyChallenges = {};
+    state.weeklyChallenges[state.currentWeeklyKey] = true;
+  }
 
+  state.lastVictory = {
+    found,
+    total,
+    stars,
+    elapsed,
+    streak: state.dailyStats?.streak || 0,
+    kind: state.isDailyPuzzle ? 'daily' : state.isWeeklyChallenge ? 'weekly' : 'category',
+    categoryId: state.currentCategory?.id || '',
+    category: categoryDisplayName(state.currentCategory),
+    isNewRecord: timeRecord.isNewRecord,
+    bestTime: timeRecord.bestTime,
+    url: PLAY_STORE_URL,
+  };
+
+  const rewards = applyRewards({ completed: didComplete, stars, found, rewardEligible });
+
+  clearActiveSession();
   saveProgress();
 
   // Victory messages
-  const msgs = ['Hongera!', 'Umefanikiwa!', 'Vizuri Sana!', 'Wewe ni Bingwa!'];
-  const submsg = completed ? 'Umekamilisha fumbo hili!' : `Umefikia maneno ${found} kati ya ${total}.`;
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  const msgs = copy.victoryTitles;
+  const submsg = didComplete
+    ? copy.victoryCompleteCopy
+    : copy.victoryPartialCopy.replace('{found}', found).replace('{total}', total);
   document.getElementById('v-title').textContent = msgs[Math.floor(Math.random() * msgs.length)];
   document.getElementById('v-msg').textContent = submsg;
   document.getElementById('v-score').textContent = state.score;
   document.getElementById('v-words').textContent = found;
-  document.getElementById('v-time').textContent = elapsed + 's';
+  document.getElementById('v-time').textContent = formatDuration(elapsed);
 
   // Stars
   const starsRow = document.getElementById('stars-row');
@@ -3643,18 +5524,28 @@ function endGame(completed) {
   // Vocabulary summary
   const vocabList = document.getElementById('vocab-list');
   vocabList.innerHTML = '';
+  const learned = state.wordPlacements.filter(p => state.foundWords.includes(p.word)).slice(0, 3);
+  if (learned.length) {
+    const lesson = document.createElement('div');
+    lesson.className = 'vocab-item';
+    lesson.innerHTML = `<strong>${state.appLanguage === 'en' ? 'Today you learned' : 'Leo umejifunza'}:</strong> ${learned.map(p => displayWord(p.wordObj)).join(', ')}`;
+    vocabList.appendChild(lesson);
+  }
   state.wordPlacements.forEach(p => {
     const div = document.createElement('div');
     div.className = 'vocab-item';
     const found = state.foundWords.includes(p.word);
-    div.innerHTML = `<strong>${p.word}</strong> — ${p.wordObj.en} ${found ? '✓' : ''}`;
+    div.innerHTML = `<strong>${displayWord(p.wordObj)}</strong> — ${p.wordObj.en} ${found ? '✓' : ''}`;
     vocabList.appendChild(div);
   });
 
+  renderVictoryShare();
+
   renderMiniQuiz();
   showScreen('victory-screen');
-  if (completed) launchSuccessBurst(stars);
-  if (completed) {
+  if (didComplete) void window.NenoSafariHaptics?.trigger(state.settings, 'complete');
+  if (didComplete) launchSuccessBurst(stars);
+  if (didComplete) {
     const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
     showToast(copy.rewardsToast
       .replace('{coins}', rewards.coins)
@@ -3681,6 +5572,7 @@ function renderMiniQuiz() {
   state.quizQuestions = shuffleWithRng(foundPlacements, Math.random).slice(0, Math.min(3, foundPlacements.length));
   state.quizIndex = 0;
   state.quizScore = 0;
+  state.quizRewarded = false;
   titleEl.textContent = copy.miniQuizTitle;
   renderQuizQuestion();
 }
@@ -3697,10 +5589,19 @@ function renderQuizQuestion() {
   const total = state.quizQuestions.length;
   if (state.quizIndex >= total) {
     titleEl.textContent = copy.miniQuizTitle;
-    progressEl.textContent = copy.quizDone
+    const perfect = total > 0 && state.quizScore === total;
+    progressEl.textContent = (perfect ? copy.quizPerfect : copy.quizDone)
       .replace('{score}', state.quizScore)
-      .replace('{total}', total);
-    questionEl.textContent = state.appLanguage === 'en' ? 'Nice revision. Keep practicing your saved words.' : 'Umefanya marudio vizuri. Endelea kujifunza.';
+      .replace('{total}', total)
+      .replace('{coins}', 12);
+    questionEl.textContent = perfect ? copy.quizPerfectCopy : copy.quizCompleteCopy;
+    if (perfect && !state.quizRewarded && isRewardEligibleRun()) {
+      state.quizRewarded = true;
+      state.coins = (state.coins || 0) + 12;
+      saveProgress();
+      updateHomeStats();
+      showToast(copy.quizPerfectToast.replace('{coins}', 12));
+    }
     optionsEl.innerHTML = '';
     return;
   }
@@ -3753,7 +5654,11 @@ function answerMiniQuiz(btn, correct, answer) {
   if (!correct) {
     btn.classList.add('wrong');
     const target = state.quizQuestions[state.quizIndex]?.wordObj;
-    if (target) recordLearningSignal('mistakes', categoryForWord(target));
+    if (target) {
+      recordLearningSignal('mistakes', categoryForWord(target));
+      trackHardWord(target, 'quiz');
+      saveProgress();
+    }
   }
   if (correct) state.quizScore++;
   showToast(correct ? copy.quizCorrect : copy.quizWrong.replace('{answer}', answer));
@@ -3761,6 +5666,56 @@ function answerMiniQuiz(btn, correct, answer) {
     state.quizIndex++;
     renderQuizQuestion();
   }, 900);
+}
+
+function localizedVictoryResult() {
+  if (!state.lastVictory) return null;
+  const category = CATEGORIES.find(item => item.id === state.lastVictory.categoryId)
+    || (state.currentCategory?.id === state.lastVictory.categoryId ? state.currentCategory : null);
+  return {
+    ...state.lastVictory,
+    category: category ? categoryDisplayName(category) : state.lastVictory.category,
+  };
+}
+
+function renderVictoryShare() {
+  const shareCopy = document.getElementById('share-copy');
+  const record = document.getElementById('v-record');
+  const result = localizedVictoryResult();
+  if (!result) {
+    if (record) record.hidden = true;
+    return;
+  }
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  if (shareCopy) shareCopy.textContent = buildVictoryShareText(result, state.appLanguage);
+  if (record) {
+    record.hidden = !state.lastVictory.isNewRecord;
+    record.textContent = state.lastVictory.isNewRecord
+      ? copy.newBestTime.replace('{time}', formatDuration(state.lastVictory.bestTime))
+      : '';
+  }
+}
+
+async function shareVictoryCard() {
+  const copy = UI_TEXT[state.appLanguage] || UI_TEXT.sw;
+  const result = localizedVictoryResult();
+  const text = result
+    ? buildVictoryShareText(result, state.appLanguage)
+    : copy.shareVictoryText.replace('{words}', state.foundWords.length);
+  try {
+    if (navigator.share) {
+      await navigator.share({ title: 'Neno Safari', text });
+      return;
+    } else if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      showToast(copy.shareCopied);
+      return;
+    } else {
+      showToast(copy.shareUnavailable);
+    }
+  } catch (error) {
+    if (error?.name !== 'AbortError') showToast(copy.shareUnavailable);
+  }
 }
 
 function updateDailyStreak(key) {
@@ -3794,11 +5749,27 @@ function launchSuccessBurst(stars = 3) {
 }
 
 function playAgain() {
+  if (state.isDailyPuzzle) {
+    startDailyPuzzle();
+    return;
+  }
+  if (state.isWeeklyChallenge) {
+    startWeeklyChallenge();
+    return;
+  }
   if (state.currentCategory) startGame(state.currentCategory);
 }
 
 function exitGame() {
   if (state.timerInterval) clearInterval(state.timerInterval);
+  state.timerInterval = null;
+  state.timerPaused = false;
+  document.getElementById('game-pause-overlay').hidden = true;
+  clearTimeout(state.completionTimer);
+  state.completionTimer = null;
+  hideQuickLearn();
+  pauseGameClock();
+  saveActiveSession();
   showScreen('category-screen');
 }
 
@@ -3809,17 +5780,31 @@ function startDailyPuzzle() {
   const today = new Date();
   const seed = dateSeed(today);
   const key = dailyKey(today);
+  const replay = isTodayDailyComplete();
   const dayIdx = seed % CATEGORIES.length;
   const dailySet = DAILY_PUZZLE_SETS[seed % DAILY_PUZZLE_SETS.length];
   const fallbackCategory = CATEGORIES[dayIdx];
   startGame({
     id: `daily-${dailySet.id}`,
     name: dailySet.name,
-    sub: fallbackCategory.sub,
+    nameSw: dailySet.name,
+    nameEn: dailySet.nameEn || dailySet.name,
+    subSw: UI_TEXT.sw.dailyPuzzle,
+    subEn: UI_TEXT.en.dailyPuzzle,
     icon: fallbackCategory.icon,
     color: fallbackCategory.color,
     words: dailySet.words,
-  }, { seed, daily: true, dailyKey: key });
+  }, { seed, daily: true, dailyKey: key, dailyReplay: replay });
+  if (replay) {
+    showToast(state.appLanguage === 'en'
+      ? 'Practice run: today\'s reward was already collected.'
+      : 'Mazoezi: zawadi ya leo tayari ilidaiwa.');
+    return;
+  }
+  if (state.appLanguage === 'en') {
+    showToast((UI_TEXT.en || UI_TEXT.sw).dailyPuzzleOpened);
+    return;
+  }
   showToast('☀️ Fumbo la Leo limefunguliwa!');
 }
 
@@ -3837,11 +5822,21 @@ function showToast(msg) {
 // ============================================================
 // WORD OF THE DAY
 // ============================================================
-function setWordOfDay() {
-  const idx = new Date().getDate() % WODS.length;
+function setWordOfDay(date = new Date()) {
+  const idx = wordOfDayIndex(date, WODS.length);
   const wod = WODS[idx];
+  state.currentWordOfDay = {
+    sw: wod.word.toUpperCase().replace(/[^A-Z]/g, ''),
+    display: wod.word,
+  };
   document.getElementById('wod-word').textContent = wod.word;
   document.getElementById('wod-meaning').textContent = wod.meaning;
+  return wod;
+}
+
+function speakWordOfDay() {
+  if (!state.currentWordOfDay || state.settings?.sound === false) return;
+  speakWordObject(state.currentWordOfDay);
 }
 
 // ============================================================
@@ -3880,6 +5875,10 @@ if ('serviceWorker' in navigator) {
 
 // Prevent context menu on long press
 document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) pauseActiveGame();
+  else resumeActiveGame();
+});
 </script>
 </body>
 </html>

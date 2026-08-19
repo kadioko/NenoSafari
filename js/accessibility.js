@@ -3,9 +3,12 @@
     'lang-sw': ['Badili menyu kwenda Kiswahili', 'Switch menu to Swahili'],
     'lang-en': ['Badili menyu kwenda Kiingereza', 'Switch menu to English'],
     'pronounce-btn': ['Sikia matamshi ya neno', 'Hear word pronunciation'],
+    'wod-audio': ['Sikia Neno la Leo', 'Hear the Word of the Day'],
     'modal-save': ['Hifadhi neno kwa marudio', 'Save word for review'],
     'translation-toggle': ['Ficha au onyesha tafsiri za Kiingereza', 'Hide or show English translations'],
     'sound-toggle': ['Washa au zima sauti', 'Turn pronunciation sound on or off'],
+    'auto-pronounce-toggle': ['Washa au zima matamshi ya moja kwa moja', 'Turn automatic pronunciation on or off'],
+    'haptics-toggle': ['Washa au zima mtetemo wa mguso', 'Turn touch feedback on or off'],
     'motion-toggle': ['Punguza au ruhusu mwendo', 'Reduce or allow motion'],
     'contrast-toggle': ['Washa au zima rangi zenye utofauti', 'Turn high contrast colors on or off'],
     'smart-practice-start': ['Anza mada inayopendekezwa', 'Start the recommended topic'],
@@ -30,6 +33,10 @@
     document.getElementById('toast')?.setAttribute('aria-live', 'polite');
     document.getElementById('word-modal')?.setAttribute('role', 'dialog');
     document.getElementById('word-modal')?.setAttribute('aria-modal', 'true');
+    document.getElementById('quick-learn-audio')?.setAttribute('aria-label', language === 'en' ? 'Hear pronunciation' : 'Sikia matamshi');
+    document.getElementById('quick-learn-save')?.setAttribute('aria-label', language === 'en' ? 'Save word for review' : 'Hifadhi neno kwa marudio');
+    document.getElementById('quick-learn-details')?.setAttribute('aria-label', language === 'en' ? 'Open word details' : 'Fungua maelezo ya neno');
+    document.getElementById('quick-learn-close')?.setAttribute('aria-label', language === 'en' ? 'Dismiss word card' : 'Funga kadi ya neno');
     document.getElementById('progress-summary')?.setAttribute('aria-label', language === 'en' ? 'Progress summary' : 'Muhtasari wa maendeleo');
     document.getElementById('coin-shop')?.setAttribute('aria-label', language === 'en' ? 'Coin shop cosmetics' : 'Duka la vipodozi vya sarafu');
     document.querySelectorAll('.back-btn').forEach(btn => {

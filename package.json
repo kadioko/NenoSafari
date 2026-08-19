@@ -1,21 +1,27 @@
 {
   "name": "neno-safari",
-  "version": "0.1.0",
+  "version": "2.13.0",
   "private": true,
   "description": "Mobile-friendly Tanzanian Swahili vocabulary word search game.",
   "type": "module",
   "scripts": {
-    "test": "node ./scripts/validate-content.mjs && node ./scripts/test-puzzle-engine.mjs && node ./scripts/test-storage.mjs && node ./scripts/test-offline-packs.mjs && node ./scripts/test-app-boot.mjs",
+    "test": "node ./scripts/validate-content.mjs && node ./scripts/test-puzzle-engine.mjs && node ./scripts/test-ui-utils.mjs && node ./scripts/test-storage.mjs && node ./scripts/test-review-scheduler.mjs && node ./scripts/test-haptics.mjs && node ./scripts/test-offline-packs.mjs && node ./scripts/test-app-boot.mjs",
     "test:app": "node ./scripts/test-app-boot.mjs",
     "test:content": "node ./scripts/validate-content.mjs",
     "test:packs": "node ./scripts/test-offline-packs.mjs",
     "test:puzzle": "node ./scripts/test-puzzle-engine.mjs",
+    "test:ui-utils": "node ./scripts/test-ui-utils.mjs",
     "test:storage": "node ./scripts/test-storage.mjs",
+    "test:review": "node ./scripts/test-review-scheduler.mjs",
+    "test:haptics": "node ./scripts/test-haptics.mjs",
     "test:browser": "node ./scripts/test-browser-flow.mjs",
+    "test:phone": "node ./scripts/test-phone-layout.mjs",
     "audio:check": "node ./scripts/check-audio.mjs",
     "audio:missing": "node ./scripts/list-missing-audio.mjs",
     "audio:elevenlabs": "node ./scripts/generate-elevenlabs-audio.mjs",
+    "audio:edge": "node ./scripts/generate-edge-tts-audio.mjs",
     "screenshots:store": "node ./scripts/capture-store-screenshots.mjs",
+    "ads:assets": "powershell -ExecutionPolicy Bypass -File ./scripts/generate-ad-campaign-assets.ps1",
     "mobile:build": "node ./scripts/build-mobile.mjs",
     "cap:sync": "npm run mobile:build && npx cap sync",
     "android:add": "npm run mobile:build && npx cap add android",
@@ -24,10 +30,14 @@
     "ios:open": "npm run cap:sync && npx cap open ios"
   },
   "dependencies": {
-    "@capacitor/android": "^8.3.1",
-    "@capacitor/app": "^8.1.0",
-    "@capacitor/cli": "^8.3.1",
-    "@capacitor/core": "^8.3.1",
-    "@capacitor/ios": "^8.3.1"
+    "@capacitor/android": "^8.5.0",
+    "@capacitor/app": "^8.1.1",
+    "@capacitor/core": "^8.5.0",
+    "@capacitor/haptics": "^8.0.2",
+    "@capacitor/ios": "^8.5.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.5.0",
+    "playwright": "^1.62.1"
   }
 }
